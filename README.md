@@ -5,3 +5,4 @@ Project_group 32 Repository Link: https://github.com/SEG2105-uottawa/seg2105f21-
 # Members
 
 Zijun Ye 300168065
+Zeyu Shao 300166803
