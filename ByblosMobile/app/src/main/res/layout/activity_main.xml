@@ -25,13 +25,15 @@
                 android:text="@string/mainText" />
 
             <Button
-                android:id="@+id/loginBtn"
+                android:id="@+id/loginBtnMain"
+                android:onClick="onLogin"
                 android:layout_width="200dp"
                 android:layout_height="50dp"
                 android:text="@string/loginBtn" />
 
             <Button
-                android:id="@+id/signupBtn"
+                android:id="@+id/signupBtnMain"
+                android:onClick="onSignup"
                 android:layout_width="200dp"
                 android:layout_height="50dp"
                 android:text="@string/signupBtn" />
