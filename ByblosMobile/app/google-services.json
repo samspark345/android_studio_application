@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "476861480442",
+    "project_id": "byblos-mobile",
+    "storage_bucket": "byblos-mobile.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:476861480442:android:467aecaa99bea612b57843",
+        "android_client_info": {
+          "package_name": "com.example.byblosmobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "476861480442-7flua15faja0q6oph6pu90sp59nvte4i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-iSaz_Mclax3ANGbaSoSN-QcceFiQ4xw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "476861480442-7flua15faja0q6oph6pu90sp59nvte4i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
