@@ -9,9 +9,6 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 
 public class SignupActivity extends AppCompatActivity {
-    private String userName;
-    private String password;
-
     private boolean customerRole;
     private EditText username;
     private EditText password;
