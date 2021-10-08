@@ -33,7 +33,7 @@
                 android:layout_height="29dp" />
 
             <EditText
-                android:id="@+id/loginName2"
+                android:id="@+id/signUpName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -46,14 +46,14 @@
                 tools:ignore="SpeakableTextPresentCheck" />
 
             <TextView
-                android:id="@+id/loginUsernameText2"
+                android:id="@+id/signUpUsernameText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/username" />
 
             <EditText
-                android:id="@+id/editTextTextEmailAddress"
+                android:id="@+id/emailAddress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -72,7 +72,7 @@
                 android:text="@string/email" />
 
             <EditText
-                android:id="@+id/loginPassword2"
+                android:id="@+id/signUpPassword"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -85,11 +85,15 @@
                 tools:ignore="SpeakableTextPresentCheck" />
 
             <TextView
-                android:id="@+id/loginPasswordText2"
+                android:id="@+id/signUpPasswordText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/password" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="15dp" />
 
             <TextView
                 android:id="@+id/roleText"

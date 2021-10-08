@@ -5,14 +5,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.RadioButton;
 
 public class SignupActivity extends AppCompatActivity {
+
+    private boolean customerRole;
+    private EditText username;
+    private EditText password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+
+        username = findViewById(R.id.signUpName);
+        password = findViewById(R.id.signUpPassword);
     }
 
     public void onLogin(View view){
@@ -29,10 +37,12 @@ public class SignupActivity extends AppCompatActivity {
             case R.id.customerRoleBtn:
                 if (checked)
                     // customer role selected
+                    customerRole = true;
                     break;
             case R.id.employeeRoleBtn:
                 if (checked)
                     // employee role selected
+                    customerRole = false;
                     break;
         }
     }
