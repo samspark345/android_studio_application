@@ -45,4 +45,13 @@ public class SignupActivity extends AppCompatActivity {
                     break;
         }
     }
+
+    public void onSignUpButtonClicked(View view){
+        if (customerRole){
+            User create = new User(username.getText().toString(), password.getText().toString(), "Customer");
+        }else{
+            User create = new User(username.getText().toString(), password.getText().toString(), "Employee");
+        }
+
+    }
 }

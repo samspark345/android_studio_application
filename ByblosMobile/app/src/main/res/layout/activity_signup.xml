@@ -114,6 +114,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center"
+                    android:onClick="onRoleButtonClicked"
                     android:text="@string/customer_role" />
 
                 <RadioButton
@@ -136,6 +137,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
+                android:onClick="onSignUpButtonClicked"
                 android:text="@string/signupBtn" />
 
             <Space
