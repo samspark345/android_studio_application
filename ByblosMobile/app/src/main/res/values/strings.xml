@@ -8,4 +8,13 @@
     <string name="password_hint">(Please enter a password)</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
+
+    <string name="email_hint">(Please enter an email)</string>
+    <string name="email">Email</string>
+    <string name="role">Please select a role:</string>
+    <string name="customer_role">Customer</string>
+    <string name="employee_role">Employee</string>
+
+
+
 </resources>

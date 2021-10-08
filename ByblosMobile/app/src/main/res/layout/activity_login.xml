@@ -85,6 +85,14 @@
                 android:layout_gravity="center"
                 android:text="@string/loginBtn" />
 
+            <Button
+                android:id="@+id/signUpFromLoginBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="@string/signupBtn" />
+
         </LinearLayout>
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
