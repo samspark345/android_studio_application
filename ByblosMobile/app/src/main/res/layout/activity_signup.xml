@@ -100,21 +100,27 @@
                 android:text="@string/role"
                 android:textSize="18dp" />
 
-            <RadioButton
-                android:id="@+id/customerRoleBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text="@string/customer_role" />
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <RadioButton
-                android:id="@+id/employeeRoleBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text="@string/employee_role" />
+                <RadioButton
+                    android:id="@+id/customerRoleBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="@string/customer_role" />
+
+                <RadioButton
+                    android:id="@+id/employeeRoleBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:onClick="onRoleButtonClicked"
+                    android:text="@string/employee_role" />
+            </RadioGroup>
 
             <Space
                 android:layout_width="match_parent"
