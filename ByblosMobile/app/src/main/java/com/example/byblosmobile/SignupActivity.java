@@ -60,13 +60,13 @@ public class SignupActivity extends AppCompatActivity {
         }
         String usernameString = username.getText().toString();
         String Role;
-//        User create;
+        // User create;
         if (customerRole){
             Role = "Customer";
-//            create = new User(username.getText().toString(), password.getText().toString(), "Customer");
+        // create = new User(username.getText().toString(), password.getText().toString(), "Customer");
         }else{
             Role = "Employee";
-//            create = new User(username.getText().toString(), password.getText().toString(), "Employee");
+        //create = new User(username.getText().toString(), password.getText().toString(), "Employee");
         }
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference newUserPassword = database.getReference("users/"+usernameString+"/password");
