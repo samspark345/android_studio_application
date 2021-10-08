@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ByblosMobile">
         <activity
+            android:name=".welcomePage"
+            android:exported="true" />
+        <activity
             android:name=".SignupActivity"
             android:exported="true" />
         <activity
