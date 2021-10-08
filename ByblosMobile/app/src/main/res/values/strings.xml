@@ -27,6 +27,7 @@
     <string name="userName">username</string>
     <string name="logout">Log</string>
     <string name="logoutWelcomePage">Logout</string>
+    <string name="maintext">BYBLOS</string>
 
 
 </resources>
