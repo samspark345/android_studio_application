@@ -17,7 +17,7 @@
 
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="128dp" />
+                android:layout_height="100dp" />
 
             <TextView
                 android:id="@+id/appNameTextView2"
@@ -118,7 +118,7 @@
 
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="43dp" />
+                android:layout_height="30dp" />
 
             <Button
                 android:id="@+id/signupBtn"
