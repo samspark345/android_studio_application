@@ -28,6 +28,10 @@
     <string name="logout">Log</string>
     <string name="logoutWelcomePage">Logout</string>
     <string name="maintext">BYBLOS</string>
+    <string name="greeting3">"You are Logged in as "</string>
+    <string name="roleGreeting">You are logged in as</string>
+    <string name="roleType">Role</string>
+    <string name="greetingw">"You logged in as "</string>
 
 
 </resources>
