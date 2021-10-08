@@ -17,7 +17,7 @@
 
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="171dp" />
+                android:layout_height="128dp" />
 
             <TextView
                 android:id="@+id/appNameTextView2"
@@ -30,7 +30,7 @@
 
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="26dp" />
+                android:layout_height="29dp" />
 
             <EditText
                 android:id="@+id/loginName2"
@@ -42,7 +42,7 @@
                 android:hint="@string/username_hint"
                 android:inputType="textPersonName"
                 android:minHeight="48dp"
-                android:textSize="16sp"
+                android:textSize="18dp"
                 tools:ignore="SpeakableTextPresentCheck" />
 
             <TextView
@@ -62,7 +62,7 @@
                 android:hint="@string/email_hint"
                 android:inputType="textEmailAddress"
                 android:minHeight="48dp"
-                android:textSize="16sp" />
+                android:textSize="18dp" />
 
             <TextView
                 android:id="@+id/loginEmailText"
@@ -81,7 +81,7 @@
                 android:hint="@string/password_hint"
                 android:inputType="textPersonName"
                 android:minHeight="48dp"
-                android:textSize="16sp"
+                android:textSize="18dp"
                 tools:ignore="SpeakableTextPresentCheck" />
 
             <TextView
@@ -91,10 +91,6 @@
                 android:gravity="center"
                 android:text="@string/password" />
 
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="21dp" />
-
             <TextView
                 android:id="@+id/roleText"
                 android:layout_width="match_parent"
@@ -102,7 +98,7 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="@string/role"
-                android:textSize="16sp" />
+                android:textSize="18dp" />
 
             <RadioButton
                 android:id="@+id/customerRoleBtn"
@@ -119,6 +115,10 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="@string/employee_role" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="43dp" />
 
             <Button
                 android:id="@+id/signupBtn"
@@ -138,6 +138,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
+                android:onClick="onLogin"
                 android:text="@string/loginBtn" />
         </LinearLayout>
     </RelativeLayout>

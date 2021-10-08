@@ -91,6 +91,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
+                android:onClick="onSignup"
                 android:text="@string/signupBtn" />
 
         </LinearLayout>
