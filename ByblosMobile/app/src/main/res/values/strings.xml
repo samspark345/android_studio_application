@@ -3,4 +3,9 @@
     <string name="loginBtn">Login</string>
     <string name="signupBtn">Signup</string>
     <string name="mainText">Byblos</string>
+
+    <string name="username_hint">(Please enter a username)</string>
+    <string name="password_hint">(Please enter a password)</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
 </resources>
