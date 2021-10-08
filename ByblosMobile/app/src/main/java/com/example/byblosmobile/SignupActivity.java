@@ -2,6 +2,11 @@ package com.example.byblosmobile;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.DatabaseError;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -47,11 +52,11 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     public void onSignUpButtonClicked(View view){
+        User create;
         if (customerRole){
-            User create = new User(username.getText().toString(), password.getText().toString(), "Customer");
+            create = new User(username.getText().toString(), password.getText().toString(), "Customer");
         }else{
-            User create = new User(username.getText().toString(), password.getText().toString(), "Employee");
+            create = new User(username.getText().toString(), password.getText().toString(), "Employee");
         }
-
     }
 }
