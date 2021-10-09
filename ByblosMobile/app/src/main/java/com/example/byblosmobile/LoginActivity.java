@@ -30,7 +30,7 @@ public class LoginActivity extends AppCompatActivity {
         username = findViewById(R.id.loginName);
         password = findViewById(R.id.loginPassword);
         //initialize role
-        
+
     }
 
     private Boolean validateUsername(){
