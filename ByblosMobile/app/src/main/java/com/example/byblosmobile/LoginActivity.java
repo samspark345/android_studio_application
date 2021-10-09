@@ -6,7 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -19,7 +21,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private EditText username;
     private EditText password;
-    private EditText role;
+    private String role;
 
 
     @Override
@@ -69,7 +71,7 @@ public class LoginActivity extends AppCompatActivity {
     private void checkAccount(){
         String enteredUsername = username.getText().toString().trim();
         String enteredPassword = password.getText().toString().trim();
-        String role = role.getText().toString();
+       // String role = role.getText().toString();
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference(role);
         Query checkUser = reference.orderByChild("username").equalTo(enteredUsername);
@@ -110,6 +112,30 @@ public class LoginActivity extends AppCompatActivity {
     public void onSignup(View view){
         Intent switchToSignup = new Intent(this, SignupActivity.class);
         startActivity(switchToSignup);
+    }
+
+    public void onRoleButtonClicked(View view) {
+        // Is the button now checked?
+        boolean checked = ((RadioButton) view).isChecked();
+
+        // Check which radio button was clicked
+        switch(view.getId()) {
+            case R.id.customerRoleBtn:
+                if (checked)
+                    // customer role selected
+                    role = ((Button)findViewById(R.id.customerRoleBtn)).getText().toString();
+                break;
+            case R.id.employeeRoleBtn:
+                if (checked)
+                    // employee role selected
+                    role = ((Button)findViewById(R.id.employeeRoleBtn)).getText().toString();
+                break;
+            case R.id.adminRoleBtn:
+                if (checked)
+                    // employee role selected
+                    role = ((Button)findViewById(R.id.adminRoleBtn)).getText().toString();
+                break;
+        }
     }
 
 
