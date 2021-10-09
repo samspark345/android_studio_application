@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ByblosMobile.NoActionBar">
         <activity
-            android:name=".welcomePage"
+            android:name=".WelcomePage"
             android:exported="true" />
         <activity
             android:name=".SignupActivity"

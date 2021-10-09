@@ -9,7 +9,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -22,6 +25,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText username;
     private EditText password;
     private String role;
+    private boolean checked = false;
 
 
     @Override
@@ -58,54 +62,51 @@ public class LoginActivity extends AppCompatActivity {
 
     //Intent switchToWelcome = new Intent(this,WelcomePage.class);
     // startActivity(switchToWelcome);
-    private void loginUser(View view){
+    public void loginUser(View view){
         //Validate Login Info
-        if(!validateUsername()|!validatePassword()){
+        if(!validateUsername()||!validatePassword()){
             return;
-        }else{
-            checkAccount();
         }
+        if(!checked){
+            password.setError("Check one of the buttons");
+            return;
+        }
+        checkAccount();
 
     }
 
     private void checkAccount(){
         String enteredUsername = username.getText().toString().trim();
         String enteredPassword = password.getText().toString().trim();
-       // String role = role.getText().toString();
+        // String role = role.getText().toString();
 
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference(role);
-        Query checkUser = reference.orderByChild("username").equalTo(enteredUsername);
-        //event listener
-        checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users");
+        ref.child(role).child(enteredUsername).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    String databasePassword = snapshot.child(enteredUsername).child("password").getValue(String.class);
-                    if (databasePassword.equals(enteredPassword)) {
-                        //sent name and role value to welcome page
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if(task.isSuccessful()){
+                    if(task.getResult().exists()){
+                        DataSnapshot dataSnapshot = task.getResult();
+                        String passwordData = String.valueOf(dataSnapshot.child("password").getValue());
 
-                        successfulLogin();
+                        if(enteredPassword.equals(passwordData)){
+                            successfulLogin();
+                        }else{
+                            password.setError("incorrect password");
+                        }
 
-                    } else {
-                        password.setError("Wrong password!");
+
+                    }else{
+                        username.setError("user account doesn't exist!");
                     }
-
-                } else {
-                    username.setError("user account doesn't exist!");
                 }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
 
     }
 
     public void successfulLogin(){
-        Intent switchToLogin = new Intent(this, WelcomePage.class);
-        startActivity(switchToLogin);
+        startActivity(new Intent(this, WelcomePage.class));
     }
 
 
@@ -116,24 +117,24 @@ public class LoginActivity extends AppCompatActivity {
 
     public void onRoleButtonClicked(View view) {
         // Is the button now checked?
-        boolean checked = ((RadioButton) view).isChecked();
+         checked = ((RadioButton) view).isChecked();
 
         // Check which radio button was clicked
         switch(view.getId()) {
             case R.id.customerRoleBtn:
                 if (checked)
                     // customer role selected
-                    role = ((Button)findViewById(R.id.customerRoleBtn)).getText().toString();
+                    role = "Customer";
                 break;
             case R.id.employeeRoleBtn:
                 if (checked)
                     // employee role selected
-                    role = ((Button)findViewById(R.id.employeeRoleBtn)).getText().toString();
+                    role = "Employee";
                 break;
             case R.id.adminRoleBtn:
                 if (checked)
                     // employee role selected
-                    role = ((Button)findViewById(R.id.adminRoleBtn)).getText().toString();
+                    role = "Admin";
                 break;
         }
     }
