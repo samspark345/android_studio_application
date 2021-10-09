@@ -134,7 +134,7 @@ public class LoginActivity extends AppCompatActivity {
             case R.id.adminRoleBtn:
                 if (checked)
                     // employee role selected
-                    role = "Admin";
+                    role = "Administrator";
                 break;
         }
     }
