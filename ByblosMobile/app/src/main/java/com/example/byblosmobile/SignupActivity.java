@@ -69,11 +69,9 @@ public class SignupActivity extends AppCompatActivity {
         //create = new User(username.getText().toString(), password.getText().toString(), "Employee");
         }
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference newUserPassword = database.getReference("users/"+usernameString+"/"+Role+"/password");
-        DatabaseReference newUserRole = database.getReference("users/"+usernameString+"/"+Role+"/password");
+        DatabaseReference newUserPassword = database.getReference("users/"+Role+"/"+usernameString+"/password");
 
         newUserPassword.setValue(password.getText().toString());
-        newUserRole.setValue(Role);
         Intent switchToLogin = new Intent(this, LoginActivity.class);
         startActivity(switchToLogin);
 
