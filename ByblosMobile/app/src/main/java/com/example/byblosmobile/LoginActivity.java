@@ -80,28 +80,52 @@ public class LoginActivity extends AppCompatActivity {
         String enteredPassword = password.getText().toString().trim();
         // String role = role.getText().toString();
 
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users");
-        ref.child(role).child(enteredUsername).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference(role);
+        reference.child(enteredUsername).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if(task.isSuccessful()){
-                    if(task.getResult().exists()){
-                        DataSnapshot dataSnapshot = task.getResult();
-                        String passwordData = String.valueOf(dataSnapshot.child("password").getValue());
-
-                        if(enteredPassword.equals(passwordData)){
+                if (task.isSuccessful()){
+                    if (task.getResult().exists()){
+                        DataSnapshot datagetter = task.getResult();
+                        String passwordDatabase = String.valueOf(datagetter.child("password").getValue());
+                        if (passwordDatabase.equals(enteredPassword)){
                             successfulLogin();
                         }else{
-                            password.setError("incorrect password");
+                            password.setError("Wrong password!");
                         }
-
-
                     }else{
-                        username.setError("user account doesn't exist!");
+                        username.setError("Wrong Username");
                     }
                 }
             }
         });
+//        Query checkUser = reference.orderByChild("username").equalTo(enteredUsername);
+        //event listener
+//        checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                if (snapshot.exists()) {
+//                    String databasePassword = snapshot.child(enteredUsername).child("password").getValue(String.class);
+//                    if (databasePassword.equals(enteredPassword)) {
+//                        //sent name and role value to welcome page
+//
+//                        successfulLogin();
+//
+//                    } else {
+//                        password.setError("Wrong password!");
+//                    }
+//
+//                } else {
+//                    username.setError("user account doesn't exist!");
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
 
     }
 
