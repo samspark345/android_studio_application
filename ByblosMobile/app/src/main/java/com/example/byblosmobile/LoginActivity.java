@@ -30,7 +30,7 @@ public class LoginActivity extends AppCompatActivity {
         username = findViewById(R.id.loginName);
         password = findViewById(R.id.loginPassword);
         //initialize role
-
+        
     }
 
     private Boolean validateUsername(){
@@ -71,44 +71,41 @@ public class LoginActivity extends AppCompatActivity {
         String enteredPassword = password.getText().toString().trim();
         String role = role.getText().toString();
 
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference(role);
+        Query checkUser = reference.orderByChild("username").equalTo(enteredUsername);
+        //event listener
+        checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    String databasePassword = snapshot.child(enteredUsername).child("password").getValue(String.class);
+                    if (databasePassword.equals(enteredPassword)) {
+                        //sent name and role value to welcome page
 
-        if(role=="user"){
-            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("user");
-            Query checkUser = reference.orderByChild("username").equalTo(enteredUsername);
-            //event listener
-            checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (snapshot.exists()) {
-                        String databasePassword = snapshot.child(enteredUsername).child("password").getValue(String.class);
-                        if (databasePassword.equals(enteredPassword)) {
-                            //sent name and role value to welcome page
-
-                        } else {
-                            password.setError("Wrong password!");
-                        }
+                        successfulLogin();
 
                     } else {
-                        username.setError("user account doesn't exist!");
+                        password.setError("Wrong password!");
                     }
-                }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
+                } else {
+                    username.setError("user account doesn't exist!");
                 }
             }
-        }
-        else if(role=="employee"){
-            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("employee");
-            //same above
-        }else{ // admin account
-            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("admin");
-            //just need check password
 
-        }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
     }
+
+    public void successfulLogin(){
+        Intent switchToLogin = new Intent(this, WelcomePage.class);
+        startActivity(switchToLogin);
+    }
+
 
     public void onSignup(View view){
         Intent switchToSignup = new Intent(this, SignupActivity.class);
