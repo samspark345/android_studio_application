@@ -34,10 +34,11 @@
     <string name="roleType">Role</string>
     <string name="greetingw">"You logged in as "</string>
     
-    <string name="addService">Add/Edit service</string>
-    <string name="deleteService">Delete service</string>
-    <string name="addBranch">Add/Edit Branch</string>
-    <string name="deleteBranches">Delete Branch</string>
+    <string name="add">Add</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
+<!--    <string name="addBranch">Add/Edit Branch</string>-->
+<!--    <string name="deleteBranches">Delete Branch</string>-->
 
 
 
