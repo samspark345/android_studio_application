@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class WelcomePage extends AppCompatActivity {
@@ -26,7 +27,12 @@ public class WelcomePage extends AppCompatActivity {
         roleNameText = findViewById(R.id.roleWelcome);
         roleNameText.setText(String.valueOf(roleName));
 
+        LinearLayout visibility = findViewById(R.id.adminVisibility);
+        if(String.valueOf(roleName).equals("Administrator")) {
+            visibility.setVisibility(View.VISIBLE);
+        }
     }
+
 
 
 }
