@@ -103,86 +103,9 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/adminVisibility"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="invisible">
-
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="51dp" />
-
-                <TextView
-                    android:id="@+id/ServiceSection"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Services:" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <Button
-                        android:id="@+id/AddService"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Button"
-                        tools:text="@string/add" />
-
-                    <Button
-                        android:id="@+id/DeleteService"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/delete" />
-
-                    <Button
-                        android:id="@+id/EditService"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/edit" />
-                </LinearLayout>
-
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="38dp" />
-
-                <TextView
-                    android:id="@+id/branchSection"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Branch:" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <Button
-                        android:id="@+id/addBranch"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/add" />
-
-                    <Button
-                        android:id="@+id/deleteBranch"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/delete" />
-
-                    <Button
-                        android:id="@+id/editBranch"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/edit" />
-                </LinearLayout>
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
                 <Space
                     android:layout_width="match_parent"
@@ -196,6 +119,7 @@
             </LinearLayout>
 
         </LinearLayout>
+
     </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
