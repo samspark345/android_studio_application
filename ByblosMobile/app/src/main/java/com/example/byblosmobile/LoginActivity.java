@@ -106,10 +106,10 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void successfulLogin(){
-       Intent swithToWelcome = new Intent(this, WelcomePage.class);
-       swithToWelcome.putExtra("roleName", role);
-       swithToWelcome.putExtra("username", username.getText().toString().trim());
-       startActivity(swithToWelcome);
+       Intent switchToWelcome = new Intent(this, WelcomePage.class);
+       switchToWelcome.putExtra("roleName", role);
+       switchToWelcome.putExtra("username", username.getText().toString().trim());
+       startActivity(switchToWelcome);
     }
 
 
