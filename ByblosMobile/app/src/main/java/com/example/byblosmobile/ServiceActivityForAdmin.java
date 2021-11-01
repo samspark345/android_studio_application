@@ -54,7 +54,6 @@ public class ServiceActivityForAdmin extends AppCompatActivity {
 
 
         addButton = findViewById(R.id.AddServiceInfo);
-        deleteEditButton = findViewById(R.id.DeleteEditService);
         backToAdminMain = findViewById(R.id.backToMain);
         databaseService = FirebaseDatabase.getInstance().getReference("services");
 
