@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/nameService"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="25dp"
+            android:ems="10"
+            android:hint="Service's name"
+            android:inputType="textPersonName" />
+
+
+        <EditText
+            android:id="@+id/infoService"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/nameService"
+            android:layout_centerHorizontal="true"
+            android:ems="10"
+            android:gravity="start|top"
+            android:hint="Enter info for service required"
+            android:inputType="textMultiLine" />
+
+        <EditText
+            android:id="@+id/rateEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/infoService"
+            android:layout_centerHorizontal="true"
+            android:ems="10"
+            android:gravity="start|top"
+            android:hint="Enter rate"
+            android:inputType="textMultiLine" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rateEdit"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/updateServiceButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Edit" />
+
+            <Button
+                android:id="@+id/deleteServiceButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Delete" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            android:layout_marginTop="100dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="please enter the name only to delete Service"
+                android:textSize="22sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
