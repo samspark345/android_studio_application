@@ -2,14 +2,17 @@ package com.example.byblosmobile;
 
 public class Service {
 
-
+    private String _id;
     private String name;
     private String rate;
     private String branch;
     private String requiredInfo;
 
     //constructor
-    public Service(String name,String rate,String branch,String requiredInfo){
+
+    public Service(){}
+    public Service(String id, String name,String rate,String requiredInfo, String branch){
+        this._id = id;
         this.name = name;
         this.rate = rate;
         this.branch = branch;
@@ -17,6 +20,12 @@ public class Service {
     }
 
     //setter and getter
+    public void setId(String id) {
+        _id = id;
+    }
+    public String getId() {
+        return _id;
+    }
 
     public void setName(String name){
         this.name = name;

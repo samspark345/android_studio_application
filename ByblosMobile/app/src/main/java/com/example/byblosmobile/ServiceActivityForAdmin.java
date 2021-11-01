@@ -1,108 +1,127 @@
 package com.example.byblosmobile;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
-import android.database.Cursor;
-import android.text.TextUtils;
-import android.view.LayoutInflater;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.os.Bundle;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.view.View;
-import android.widget.Toast;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-public class ServiceActivityForAdmin extends AppCompatActivity  {
+public class ServiceActivityForAdmin extends AppCompatActivity {
+
     EditText requiredInfo;
     EditText serviceName;
     EditText rate;
-    ListView listServices;
+
 
     Button addButton;
     Button deleteEditButton;
     Button backToAdminMain;
 
-    DatabaseHelper db;
-    ArrayList<String> services;
-    ArrayAdapter adapter;
+    ListView listViewService;
+    DatabaseReference databaseService;
 
+    List<Service> services;
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_service);
+        setContentView(R.layout.activity_main);
 
         serviceName = (EditText)findViewById(R.id.editServiceName);
         requiredInfo = (EditText)findViewById(R.id.editTextRequiredInfo);
         rate = (EditText)findViewById(R.id.editTextHourRate);
 
-
-        listServices = (ListView) findViewById(R.id.listServices);
+        listViewService = (ListView) findViewById(R.id.listServices);
         services = new ArrayList<>();
+
 
         addButton = findViewById(R.id.AddServiceInfo);
         deleteEditButton = findViewById(R.id.DeleteEditService);
         backToAdminMain = findViewById(R.id.backToMain);
-
-        db = new DatabaseHelper(this);
-
-        Service carRental = new Service("Car Rental", "10", null, "Including customer first name,last name,date of birth, address,email, license type(G1,G2,G),preferred car type,pick up date & time, return data & time");
-        Service truckRental = new Service("Truck Rental", "10", null, "Including customer first name,last name,date of birth, address,email, license type(G1,G2,G),pick up date & time, return data & time,max #km,area to use");
-        Service movingAssitance = new Service("Moving Assistance", "20", null, "Including customer first name,last name,date of birth, address,email,destination,start location, #Movers,#Boxes");
-
-        db.addService(carRental);
-        db.addService(truckRental);
-        db.addService(movingAssitance);
+        databaseService =FirebaseDatabase.getInstance().getReference("services");
 
 
+        //adding an onclicklistener to button
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                String name = serviceName.getText().toString().trim();
-                String info = requiredInfo.getText().toString().trim();
-                String r = rate.getText().toString().trim();
-
-                if(!(info.isEmpty()||r.isEmpty()||name.isEmpty())){
-                    Boolean insert = db.addService(new Service(name,r,null,info));
-                    if(insert){
-                        Toast.makeText(ServiceActivityForAdmin.this,"add to database",Toast.LENGTH_LONG).show();
-                        services.clear();
-                    }else {
-                        Toast.makeText(ServiceActivityForAdmin.this,"data already exists",Toast.LENGTH_LONG).show();
-                    }
-                } else {
-                    Toast.makeText(ServiceActivityForAdmin.this,"Please enter all data", Toast.LENGTH_LONG).show();
-                }
-
+            public void onClick(View view) {
+                addProduct();
             }
         });
 
+        //back to admin menu
         backToAdminMain.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 Intent i = new Intent(ServiceActivityForAdmin.this, AdminWelcomePage.class);
                 startActivity(i);
             }
         });
 
-        deleteEditButton.setOnClickListener(new View.OnClickListener() {
+
+        listViewService.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public void onClick(View v) {
-                showUpdateDeleteDialog(); // in oder to work in same databas
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Service service = services.get(i);
+                showUpdateDeleteDialog(service.getId(), service.getName());
+                return true;
             }
         });
-
     }
 
-    private void showUpdateDeleteDialog() {
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        databaseService.addValueEventListener(new ValueEventListener(){
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                //clearing the previous artist list
+                services.clear();
+
+                //iterate through all the nodes
+                for(DataSnapshot postSnapshot:dataSnapshot.getChildren()){
+                    //getting product
+                    Service service = postSnapshot.getValue(Service.class);
+
+                    //adding product to the list
+                    services.add(service);
+
+                    //creating adapter
+                    ServiceList servicesAdapater = new ServiceList(ServiceActivityForAdmin.this,services);
+                    //attaching adapter to the listview
+                    listViewService.setAdapter(servicesAdapater);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseerror) {
+
+            }
+        });
+    }
+
+
+    private void showUpdateDeleteDialog(final String serviceId, String serviceName) {
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
@@ -112,76 +131,102 @@ public class ServiceActivityForAdmin extends AppCompatActivity  {
         final EditText nameService = (EditText) dialogView.findViewById(R.id.nameService);
         final EditText infoService  = (EditText) dialogView.findViewById(R.id.infoService);
         final EditText rateService = (EditText) dialogView.findViewById(R.id.rateEdit);
+
         final Button updateServiceButton = (Button) dialogView.findViewById(R.id.updateServiceButton);
         final Button deleteServiceButton = (Button) dialogView.findViewById(R.id.deleteServiceButton);
 
-        //dialogBuilder.setTitle(ServiceName);
-        final AlertDialog tmpScreen = dialogBuilder.create();
-        tmpScreen.show();
+        dialogBuilder.setTitle(serviceName);
+        final AlertDialog b = dialogBuilder.create();
+        b.show();
 
         updateServiceButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                db.updateService(nameService.getText().toString(),infoService.getText().toString(),rateService.getText().toString());
-                Toast.makeText(ServiceActivityForAdmin.this, "sucess", Toast.LENGTH_LONG).show();
-                services.clear();
-                viewData();
-                tmpScreen.dismiss();
+                String name = nameService.getText().toString().trim();
+                String info = requiredInfo.getText().toString().trim();
+                String r = rate.getText().toString().trim();
+                if (!(info.isEmpty()||r.isEmpty()||name.isEmpty())) {
+                    updateService(serviceId,name,info,r);
+                    b.dismiss();
+                }
             }
         });
 
         deleteServiceButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                db.deleteService(nameService.getText().toString());
-                Toast.makeText(ServiceActivityForAdmin.this, "sucess", Toast.LENGTH_LONG).show();
-                services.clear();
-                viewData();
-                tmpScreen.dismiss();
+                deleteService(serviceId);
+                b.dismiss();
             }
         });
-
     }
 
 
-    private void viewData(){
-        Cursor cursor = db.viewData();
+    //update product on the database
+    private void updateService(String id,String name, String info,String rate) {
+        //getting the specific product reference
+        DatabaseReference dR = FirebaseDatabase.getInstance().getReference("services").child(id);
+        //updating product
+        Service service = new Service(id,name,rate,null,info);
+        dR.setValue(service);
+        Toast.makeText(getApplicationContext(), "Service Updated", Toast.LENGTH_LONG).show();
+    }
 
-        if (cursor.getCount() ==0){
-            Toast.makeText(this,"No data", Toast.LENGTH_SHORT).show();
-        }else{
-            while(cursor.moveToNext()){
-                services.add(cursor.getString(0)+" (required Infomation:"+cursor.getString(1)+")(rate: "+cursor.getString(2)+")(Branches: "+cursor.getString(3)+")");
-                //index 0 is the name of the service + Required info + rate of service + branch Name
-            }
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, services);
-            listServices.setAdapter(adapter);
+
+    private boolean deleteService(String id){
+        DatabaseReference dR = FirebaseDatabase.getInstance().getReference("services").child(id);
+        dR.removeValue();
+        Toast.makeText(getApplicationContext(),"Service Deleted", Toast.LENGTH_LONG).show();
+        return true;
+    }
+
+
+    //add a product to the database
+    private void addProduct() {
+
+        if(!correctInput()){  // Checking if the input for the fields are valid
+            return;
         }
+
+        //getting the value to save
+        String name = serviceName.getText().toString().trim();
+        String info = requiredInfo.getText().toString().trim();
+        String r = rate.getText().toString().trim();
+
+        //checking if the value is provided
+        if(!(info.isEmpty()||r.isEmpty()||name.isEmpty())){
+            //getting a unique id using push().getKey() method
+            //it will create a unique id and we will use it as the primary key for our product
+            String id = databaseService.push().getKey();
+
+            //creating a product Object
+            Service service = new Service (id,name,r,null,info);
+
+            //saving the Product
+            databaseService.child(id).setValue(service);
+
+            //setting edittext to blank again
+            requiredInfo.setText("");
+            serviceName.setText("");
+            rate.setText("");
+
+            Toast.makeText(this,"Service added",Toast.LENGTH_LONG).show();
+        }else{
+            Toast.makeText(this, "(PLEASE ENTER VAILD INFOMATION!)", Toast.LENGTH_LONG).show();
+        }
+
     }
 
-    /*public void removeService(View view){
-        DatabaseHelper dbHandler = new DatabaseHelper(this);
-        dbHandler.deleteService(serviceName.getText().toString());
+    private boolean correctInput(){
+        //validation check
+        if(serviceName.getText().toString().trim().matches("-?\\d+")){  // If the name is just a number than error
+            serviceName.setError("Name cannot just be a number");
+            return false;
+        }else if(!rate.getText().toString().trim().matches("^\\d*\\.\\d+|\\d+\\.\\d*|\\d*$")){  // If the price is not a positive number than error
+            rate.setError("Rate has to be a positive number");
+            return false;
+        }//else if(info validation){}
+
+        return true;
     }
-
-    public void newService(View view){
-        String name = serviceName.getText().toString();
-        String info = requiredInfo.getText().toString();
-        String r = rate.getText().toString();
-
-        Service service = new Service(name,r,null,info);
-        DatabaseHelper databaseH = new DatabaseHelper(this);
-        databaseH.addService(service);
-
-        serviceName.setText("");
-        requiredInfo.setText("");
-        rate.setText("");
-
-        Toast.makeText(this,"added service",Toast.LENGTH_SHORT).show();
-    }*/
-
-
-    //Validation implement
-
-
 }
