@@ -8,11 +8,11 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "services.db";
-    public static final String TABLE_SERVICES ="users";
-    public static final String COLUMN_NAME = "name";
+    public static final String TABLE_SERVICES ="services";
+    public static final String COLUMN_NAME = "serviceName";
     public static final String COLUMN_INFO = "requiredInfo";
     public static final String COLUMN_Rate = "rate";
-    public static final String COLUMN_Location = "service";
+    public static final String COLUMN_Location = "branch";
     public static final String COLUMN_ID = "_id";
 
     public DatabaseHelper(Context context) {
@@ -23,11 +23,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String CREATE_PRODUCTS_TABLE = "CREATE TABLE " +
                 TABLE_SERVICES + "("
-                + COLUMN_ID + " INTEGER PRIMARY KEY," + COLUMN_NAME + "TEXT " + COLUMN_INFO
-                + COLUMN_Rate +COLUMN_Location +"TEXT)";
+                + COLUMN_ID + " INTEGER PRIMARY KEY,"
+                + COLUMN_NAME + " TEXT,"
+                + COLUMN_INFO + " TEXT,"
+                + COLUMN_Rate + " INTEGER,"
+                + COLUMN_Location + " TEXT" + ")";
         db.execSQL(CREATE_PRODUCTS_TABLE);
-
-
     }
 
     @Override
@@ -41,13 +42,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put("name", service.getName());
-        values.put("requiredInfo", service.getRequiredInfo());
-        values.put("rate", service.getRate());
-        values.put("branch", service.getBranch());
+        values.put(COLUMN_NAME, service.getName());
+        values.put(COLUMN_INFO, service.getRequiredInfo());
+        values.put(COLUMN_Rate, service.getRate());
+        values.put(COLUMN_Location, service.getBranch());
 
-        long result = db.insert("services", null, values);
+        db.insert(TABLE_SERVICES, null, values);
+        db.close();
 
+        int result = 0;
         if (result == -1) {
             return false;
         } else {
