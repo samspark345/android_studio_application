@@ -4,12 +4,12 @@ public class Service {
 
 
     private String name;
-    private int rate;
+    private String rate;
     private String branch;
     private String requiredInfo;
 
     //constructor
-    public Service(String name,int rate,String branch,String requiredInfo){
+    public Service(String name,String rate,String branch,String requiredInfo){
         this.name = name;
         this.rate = rate;
         this.branch = branch;
@@ -22,7 +22,7 @@ public class Service {
         this.name = name;
     }
 
-    public void setRate(int rate){
+    public void setRate(String rate){
         this.rate = rate;
     }
 
@@ -36,7 +36,7 @@ public class Service {
         return name;
     }
 
-    public int getRate(){
+    public String getRate(){
         return rate;
     }
 

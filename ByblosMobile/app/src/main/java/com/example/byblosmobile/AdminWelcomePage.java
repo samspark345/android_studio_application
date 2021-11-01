@@ -31,44 +31,48 @@ public class AdminWelcomePage extends AppCompatActivity {
     Button deleteServiceButton;
     Button addServiceButton;
     Button editServiceButton;
-    //ListView servicesListView = findViewById(R.id.servicesListView);
-    //BranchDatabase branchDatabaseBase = new BranchDatabase(this);
 
-   /* public void addBranch(String branch){
-        branchDatabaseBase.addBranch(branch);
-    }
-    public boolean deleteBranch(String branch){
-        return branchDatabaseBase.deleteBranch(branch);
-    }*/
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_welcome_page);
-        addServiceButton = findViewById(R.id.AddService);
-        deleteServiceButton = findViewById(R.id.DeleteService);
-        editServiceButton = findViewById(R.id.editService);
-        deleteBranchButton = findViewById(R.id.deleteBranch);
-        deleteCustomerButton = findViewById(R.id.deleteCustomer);
+
+        addServiceButton = (Button) findViewById(R.id.AddService);
+        deleteServiceButton = (Button)findViewById(R.id.DeleteService);
+        editServiceButton = (Button)findViewById(R.id.editService);
+        deleteBranchButton = (Button)findViewById(R.id.deleteBranch);
+        deleteCustomerButton = (Button)findViewById(R.id.deleteCustomer);
 
 
-
-        addServiceButton.setOnClickListener(new View.OnClickListener(){
+        addServiceButton.setOnClickListener(new View.OnClickListener(){ // switch to another UI with Service class
             @Override
             public void onClick(View view){
                 openServiceActivity();
             }
         });
 
-        deleteServiceButton.setOnClickListener(new View.OnClickListener(){
+        deleteServiceButton.setOnClickListener(new View.OnClickListener(){ // switch to another UI with Service class
             @Override
             public void onClick(View view){
                 openServiceActivity();
             }
         });
 
+        editServiceButton.setOnClickListener(new View.OnClickListener(){ //switch to service editing class
+            @Override
+            public void onClick(View view){
+                openServiceEditing();
+            }
+        });
     }
 
     public void openServiceActivity(){
-        Intent intent = new Intent(this,ServiceActivityForAdmin.class);
+        Intent switchToServiceActivity = new Intent(AdminWelcomePage.this, ServiceActivityForAdmin.class);
+        startActivity(switchToServiceActivity );
+
+    }
+
+    public void openServiceEditing(){
+        Intent intent = new Intent(AdminWelcomePage.this,ServiceEditing.class);
         startActivity(intent);
 
     }

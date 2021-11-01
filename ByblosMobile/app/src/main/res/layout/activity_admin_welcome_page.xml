@@ -113,10 +113,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="26dp" />
 
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="21dp" />
-
                 <LinearLayout
                     android:id="@+id/serviceManagementLayout"
                     android:layout_width="match_parent"
@@ -135,7 +131,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@string/delete_service" />
+                        android:text="@string/delete_service"/>
                     <Button
                         android:id="@+id/editService"
                         android:layout_width="wrap_content"
