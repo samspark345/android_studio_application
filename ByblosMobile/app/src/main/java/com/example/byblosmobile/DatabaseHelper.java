@@ -7,24 +7,33 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "branches.db";
+    private static final String DATABASE_NAME = "services.db";
     public static final String TABLE_SERVICES ="users";
     public static final String COLUMN_NAME = "name";
     public static final String COLUMN_INFO = "requiredInfo";
     public static final String COLUMN_Rate = "rate";
-    public static final String COLUMN_Location = "branch";
+    public static final String COLUMN_Location = "service";
+    public static final String COLUMN_ID = "_id";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
-    public void onCreate(SQLiteDatabase sqLiteDatabase) {
+    public void onCreate(SQLiteDatabase db) {
+        String CREATE_PRODUCTS_TABLE = "CREATE TABLE " +
+                TABLE_SERVICES + "("
+                + COLUMN_ID + " INTEGER PRIMARY KEY," + COLUMN_NAME + "TEXT " + COLUMN_INFO
+                + COLUMN_Rate +COLUMN_Location +"TEXT)";
+        db.execSQL(CREATE_PRODUCTS_TABLE);
+
 
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+    public void onUpgrade(SQLiteDatabase db, int i, int i1) {
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_SERVICES);
+        onCreate(db);
 
     }
 

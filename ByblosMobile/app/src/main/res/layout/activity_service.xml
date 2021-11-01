@@ -129,13 +129,9 @@
         <ListView
             android:id="@+id/listServices"
             android:layout_width="match_parent"
-            android:layout_height="248dp"
+            android:layout_height="168dp"
             android:layout_below="@id/textView"></ListView>
 
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="22dp" />
 
         <Button
             android:id="@+id/DeleteEditService"
