@@ -96,7 +96,7 @@ public class ServiceActivityForAdmin extends AppCompatActivity  {
         deleteEditButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showUpdateDeleteDialog(); // inoder to work in same databas
+                showUpdateDeleteDialog(); // in oder to work in same databas
             }
         });
 
@@ -159,7 +159,7 @@ public class ServiceActivityForAdmin extends AppCompatActivity  {
         }
     }
 
-    public void removeService(View view){
+    /*public void removeService(View view){
         DatabaseHelper dbHandler = new DatabaseHelper(this);
         dbHandler.deleteService(serviceName.getText().toString());
     }
@@ -178,7 +178,7 @@ public class ServiceActivityForAdmin extends AppCompatActivity  {
         rate.setText("");
 
         Toast.makeText(this,"added service",Toast.LENGTH_SHORT).show();
-    }
+    }*/
 
 
     //Validation implement
