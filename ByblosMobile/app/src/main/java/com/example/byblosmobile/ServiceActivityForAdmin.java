@@ -43,11 +43,11 @@ public class ServiceActivityForAdmin extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_service);
 
-        serviceName = (EditText)findViewById(R.id.editServiceName);
-        requiredInfo = (EditText)findViewById(R.id.editTextRequiredInfo);
-        rate = (EditText)findViewById(R.id.editTextHourRate);
+        serviceName = (EditText) findViewById(R.id.editServiceName);
+        requiredInfo = (EditText) findViewById(R.id.editTextRequiredInfo);
+        rate = (EditText) findViewById(R.id.editTextHourRate);
 
         listViewService = (ListView) findViewById(R.id.listServices);
         services = new ArrayList<>();
@@ -56,11 +56,11 @@ public class ServiceActivityForAdmin extends AppCompatActivity {
         addButton = findViewById(R.id.AddServiceInfo);
         deleteEditButton = findViewById(R.id.DeleteEditService);
         backToAdminMain = findViewById(R.id.backToMain);
-        databaseService =FirebaseDatabase.getInstance().getReference("services");
-
+        databaseService = FirebaseDatabase.getInstance().getReference("services");
+    }
 
         //adding an onclicklistener to button
-        addButton.setOnClickListener(new View.OnClickListener() {
+       /* addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 addProduct();
@@ -85,10 +85,10 @@ public class ServiceActivityForAdmin extends AppCompatActivity {
                 return true;
             }
         });
-    }
+    }*/
 
 
-    @Override
+    /*@Override
     protected void onStart() {
         super.onStart();
         databaseService.addValueEventListener(new ValueEventListener(){
@@ -228,5 +228,5 @@ public class ServiceActivityForAdmin extends AppCompatActivity {
         }//else if(info validation){}
 
         return true;
-    }
+    }*/
 }
