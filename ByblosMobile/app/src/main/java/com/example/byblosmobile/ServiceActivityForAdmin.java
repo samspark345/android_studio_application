@@ -147,10 +147,13 @@ public class ServiceActivityForAdmin extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String name = nameService.getText().toString().trim();
-                String info = requiredInfo.getText().toString().trim();
-                String r = rate.getText().toString().trim();
-                if (!(info.isEmpty()||r.isEmpty()||name.isEmpty())) {
-                    updateService(name,info,r);
+                String info = infoService.getText().toString().trim();
+                String r = rateService.getText().toString().trim();
+
+
+
+                if (!(info.isEmpty())&& !(r.isEmpty()) && !(name.isEmpty())) {
+                    updateService(name,r,info);
                     b.dismiss();
                 }
             }
@@ -167,11 +170,11 @@ public class ServiceActivityForAdmin extends AppCompatActivity {
 
 
     //update product on the database
-    private void updateService(String name, String info,String rate) {
+    private void updateService(String name, String rate,String info) {
         //getting the specific product reference
         DatabaseReference dR = FirebaseDatabase.getInstance().getReference("services").child(name);
         //updating product
-        Service service = new Service(name,rate,null,info);
+        Service service = new Service(name,rate,info,"branch");
         dR.setValue(service);
         Toast.makeText(getApplicationContext(), "Service Updated", Toast.LENGTH_LONG).show();
     }
@@ -204,7 +207,7 @@ public class ServiceActivityForAdmin extends AppCompatActivity {
             String id = name;
 
             //creating a product Object
-            Service service = new Service (name,r,null,info);
+            Service service = new Service (name,r,info,"branch");
 
             //saving the Product
             databaseService.child(id).setValue(service);
