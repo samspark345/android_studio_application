@@ -216,7 +216,7 @@ public class ServiceActivityForAdmin extends AppCompatActivity {
 
             Toast.makeText(this,"Service added",Toast.LENGTH_LONG).show();
         }else{
-            Toast.makeText(this, "(PLEASE ENTER VAILD INFOMATION!)", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "(PLEASE ENTER VALID INFORMATION!)", Toast.LENGTH_LONG).show();
         }
 
     }
