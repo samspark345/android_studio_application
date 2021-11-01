@@ -113,31 +113,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="26dp" />
 
-                <TextView
-                    android:id="@+id/textView5"
+                <Space
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Customer" />
-
-                <LinearLayout
-                    android:id="@+id/deleteCustomerLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <Button
-                        android:id="@+id/deleteCustomer"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/delete" />
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/ServiceSection"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Services:" />
+                    android:layout_height="21dp" />
 
                 <LinearLayout
                     android:id="@+id/serviceManagementLayout"
@@ -150,27 +128,26 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@string/add"
-                        tools:text="@string/add" />
+                        android:text="@string/add_service" />
 
                     <Button
                         android:id="@+id/DeleteService"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@string/delete" />
+                        android:text="@string/delete_service" />
+                    <Button
+                        android:id="@+id/editService"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="EDIT Service" />
 
                 </LinearLayout>
 
                 <Space
                     android:layout_width="match_parent"
                     android:layout_height="21dp" />
-
-                <TextView
-                    android:id="@+id/branchSection"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Branch:" />
 
                 <LinearLayout
                     android:id="@+id/deleteBranchLayout"
@@ -183,13 +160,27 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@string/delete" />
+                        android:text="@string/delete_branch" />
 
                 </LinearLayout>
 
                 <Space
                     android:layout_width="match_parent"
                     android:layout_height="19dp" />
+
+                <LinearLayout
+                    android:id="@+id/deleteCustomerLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/deleteCustomer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Delete Customer" />
+                </LinearLayout>
 
                 <ImageView
                     android:id="@+id/imageView"

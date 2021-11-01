@@ -3,40 +3,46 @@ package com.example.byblosmobile;
 public class Service {
 
 
-    private String categories;
-    private int price;
-    private String location;
+    private String name;
+    private int rate;
+    private String branch;
+    private String requiredInfo;
 
     //constructor
-    public Service(String categories,int price,String location){
-        this.categories = categories;
-        this.price = price;
-        this.location = location;
+    public Service(String name,int rate,String branch,String requiredInfo){
+        this.name = name;
+        this.rate = rate;
+        this.branch = branch;
+        this.requiredInfo = requiredInfo;
     }
 
     //setter and getter
 
-    public void setCategories(String categories){
-        this.categories = categories;
+    public void setName(String name){
+        this.name = name;
     }
 
-    public void setPrice(int price){
-        this.price = price;
+    public void setRate(int rate){
+        this.rate = rate;
     }
 
-    public void setLocation(String location){
-        this.location = location;
+    public void setBranch(String branch){
+        this.branch = branch;
     }
 
-    public String getCategories(){
-        return categories;
-    }
-    public int getPrice(){
-        return price;
+    public void setRequiredInfo(String RequiredInfo){this.requiredInfo = requiredInfo; }
+
+    public String getName(){
+        return name;
     }
 
-    public String getLocation(){
-        return location;
+    public int getRate(){
+        return rate;
     }
+
+    public String getBranch(){
+        return branch;
+    }
+    public String getRequiredInfo(){return requiredInfo;}
 
 }

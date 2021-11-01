@@ -37,7 +37,12 @@
     <string name="add">Add</string>
     <string name="delete">Delete</string>
     <string name="edit">Edit</string>
-<!--    <string name="addBranch">Add/Edit Branch</string>-->
+    <string name="add_service">add Service</string>
+    <string name="delete_service">Delete SERVICE</string>
+    <string name="delete_branch">delete Branch</string>
+    <string name="back_to_mainpage">Back TO MainPage</string>
+    <string name="delete_serviceCreated">DELETE SERVICE</string>
+    <!--    <string name="addBranch">Add/Edit Branch</string>-->
 <!--    <string name="deleteBranches">Delete Branch</string>-->
 
 
