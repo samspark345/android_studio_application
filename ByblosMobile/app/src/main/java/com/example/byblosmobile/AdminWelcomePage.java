@@ -69,7 +69,6 @@ public class AdminWelcomePage extends AppCompatActivity {
     public void openServiceActivity(View view){
         Intent switchToServiceActivity = new Intent(this, ServiceActivityForAdmin.class);
         startActivity(switchToServiceActivity);
-
     }
 
 }
