@@ -34,6 +34,7 @@ public class ServiceActivityForAdmin extends AppCompatActivity  {
 
     DatabaseHelper db;
     ArrayList<String> services;
+    ArrayAdapter adapter;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,7 +73,7 @@ public class ServiceActivityForAdmin extends AppCompatActivity  {
                 if(!(info.isEmpty()||price.isEmpty()||name.isEmpty())){
                     Boolean insert = db.addService(new Service(name,price,null,info));
                     if(insert){
-                        Toast.makeText(ServiceActivityForAdmin.this,"added to database",Toast.LENGTH_LONG).show();
+                        Toast.makeText(ServiceActivityForAdmin.this,"add to database",Toast.LENGTH_LONG).show();
                         services.clear();
                     }else {
                         Toast.makeText(ServiceActivityForAdmin.this,"data already exists",Toast.LENGTH_LONG).show();
@@ -93,6 +94,7 @@ public class ServiceActivityForAdmin extends AppCompatActivity  {
             }
         });
 
+
         listServices.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -101,10 +103,90 @@ public class ServiceActivityForAdmin extends AppCompatActivity  {
                 return true;
             }
         });
+
     }
 
     private void showUpdateDeleteDialog() {
 
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.edit_service, null);
+        dialogBuilder.setView(dialogView);
+
+        final EditText nameService = (EditText) dialogView.findViewById(R.id.nameService);
+        final EditText infoService  = (EditText) dialogView.findViewById(R.id.infoService);
+        final EditText rateService = (EditText) dialogView.findViewById(R.id.rateEdit);
+        final Button updateServiceButton = (Button) dialogView.findViewById(R.id.updateServiceButton);
+        final Button deleteServiceButton = (Button) dialogView.findViewById(R.id.deleteServiceButton);
+
+        //dialogBuilder.setTitle(ServiceName);
+        final AlertDialog s = dialogBuilder.create();
+        s.show();
+
+        updateServiceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                db.updateService(nameService.getText().toString(),infoService.getText().toString(),rateService.getText().toString());
+                Toast.makeText(ServiceActivityForAdmin.this, "sucess", Toast.LENGTH_LONG).show();
+                services.clear();
+                viewData();
+                s.dismiss();
+            }
+        });
+
+        deleteServiceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                db.deleteService(nameService.getText().toString());
+                Toast.makeText(ServiceActivityForAdmin.this, "sucess", Toast.LENGTH_LONG).show();
+                services.clear();
+                viewData();
+                s.dismiss();
+            }
+        });
+
     }
+
+
+    private void viewData(){
+        Cursor cursor = db.viewData();
+
+        if (cursor.getCount() ==0){
+            Toast.makeText(this,"No data", Toast.LENGTH_SHORT).show();
+        }else{
+            while(cursor.moveToNext()){
+                services.add(cursor.getString(0)+" (required Infomation:"+cursor.getString(1)+")(rate: "+cursor.getString(2)+")(Branches: "+cursor.getString(3)+")");
+                //index 0 is the name of the service + Required info + rate of service + branch Name
+            }
+            adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, services);
+            listServices.setAdapter(adapter);
+        }
+    }
+
+    public void removeService(View view){
+        DatabaseHelper dbHandler = new DatabaseHelper(this);
+        dbHandler.deleteService(serviceName.getText().toString());
+    }
+
+    public void newService(View view){
+        String name = serviceName.getText().toString();
+        String info = requiredInfo.getText().toString();
+        String r = rate.getText().toString();
+
+        Service service = new Service(name,r,null,info);
+        DatabaseHelper databaseH = new DatabaseHelper(this);
+        databaseH.addService(service);
+
+        serviceName.setText("");
+        requiredInfo.setText("");
+        rate.setText("");
+
+        Toast.makeText(this,"added service",Toast.LENGTH_SHORT).show();
+    }
+
+
+    //Validation implement
+
 
 }

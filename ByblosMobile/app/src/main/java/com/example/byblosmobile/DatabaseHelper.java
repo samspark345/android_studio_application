@@ -11,6 +11,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String TABLE_SERVICES ="users";
     public static final String COLUMN_NAME = "name";
     public static final String COLUMN_INFO = "requiredInfo";
+    public static final String COLUMN_Rate = "rate";
     public static final String COLUMN_Location = "branch";
 
     public DatabaseHelper(Context context) {
@@ -43,6 +44,29 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         } else {
             return true;
         }
+    }
+
+    public void deleteService(String serviceName) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "DELETE FROM services WHERE name  = \"" + serviceName + "\"";
+        db.execSQL(query);
+    }
+
+    public void updateService(String name, String info, String rate){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "UPDATE services SET info = \"" + info + "\"" + " WHERE name = \"" + name + "\"";
+        String query1 = "UPDATE services SET rate = \"" + rate + "\"" + " WHERE name = \"" + name + "\"";
+        db.execSQL(query);
+        db.execSQL(query1);
+    }
+
+    //method to view Data
+    public Cursor viewData(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query= "Select * from services"  ;
+        Cursor cursor = db.rawQuery(query, null);
+
+        return cursor;
     }
 
 }

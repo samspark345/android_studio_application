@@ -60,7 +60,7 @@ public class AdminWelcomePage extends AppCompatActivity {
         editServiceButton.setOnClickListener(new View.OnClickListener(){ //switch to service editing class
             @Override
             public void onClick(View view){
-                openServiceEditing();
+                openServiceActivity();
             }
         });
     }
@@ -70,13 +70,5 @@ public class AdminWelcomePage extends AppCompatActivity {
         startActivity(switchToServiceActivity );
 
     }
-
-    public void openServiceEditing(){
-        Intent intent = new Intent(AdminWelcomePage.this,ServiceEditing.class);
-        startActivity(intent);
-
-    }
-
-
 
 }
