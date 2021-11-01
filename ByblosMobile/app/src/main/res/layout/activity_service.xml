@@ -147,6 +147,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
+            android:onClick="goBackToAdminWelcome"
             android:text="@string/back_to_mainpage" />
 
 

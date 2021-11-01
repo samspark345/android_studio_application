@@ -57,10 +57,10 @@ public class ServiceActivityForAdmin extends AppCompatActivity {
         deleteEditButton = findViewById(R.id.DeleteEditService);
         backToAdminMain = findViewById(R.id.backToMain);
         databaseService = FirebaseDatabase.getInstance().getReference("services");
-    }
+
 
         //adding an onclicklistener to button
-       /* addButton.setOnClickListener(new View.OnClickListener() {
+       addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 addProduct();
@@ -81,14 +81,18 @@ public class ServiceActivityForAdmin extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Service service = services.get(i);
-                showUpdateDeleteDialog(service.getId(), service.getName());
+                showUpdateDeleteDialog(service.getName());
                 return true;
             }
         });
-    }*/
+    }
+    public void goBackToAdminWelcome(View view){
+        Intent backToWelcome = new Intent(this, AdminWelcomePage.class);
+        startActivity(backToWelcome);
+    }
 
 
-    /*@Override
+    @Override
     protected void onStart() {
         super.onStart();
         databaseService.addValueEventListener(new ValueEventListener(){
@@ -121,7 +125,7 @@ public class ServiceActivityForAdmin extends AppCompatActivity {
     }
 
 
-    private void showUpdateDeleteDialog(final String serviceId, String serviceName) {
+    private void showUpdateDeleteDialog(String serviceName) {
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
@@ -146,7 +150,7 @@ public class ServiceActivityForAdmin extends AppCompatActivity {
                 String info = requiredInfo.getText().toString().trim();
                 String r = rate.getText().toString().trim();
                 if (!(info.isEmpty()||r.isEmpty()||name.isEmpty())) {
-                    updateService(serviceId,name,info,r);
+                    updateService(name,info,r);
                     b.dismiss();
                 }
             }
@@ -155,7 +159,7 @@ public class ServiceActivityForAdmin extends AppCompatActivity {
         deleteServiceButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                deleteService(serviceId);
+                deleteService(serviceName);
                 b.dismiss();
             }
         });
@@ -163,18 +167,18 @@ public class ServiceActivityForAdmin extends AppCompatActivity {
 
 
     //update product on the database
-    private void updateService(String id,String name, String info,String rate) {
+    private void updateService(String name, String info,String rate) {
         //getting the specific product reference
-        DatabaseReference dR = FirebaseDatabase.getInstance().getReference("services").child(id);
+        DatabaseReference dR = FirebaseDatabase.getInstance().getReference("services").child(name);
         //updating product
-        Service service = new Service(id,name,rate,null,info);
+        Service service = new Service(name,rate,null,info);
         dR.setValue(service);
         Toast.makeText(getApplicationContext(), "Service Updated", Toast.LENGTH_LONG).show();
     }
 
 
-    private boolean deleteService(String id){
-        DatabaseReference dR = FirebaseDatabase.getInstance().getReference("services").child(id);
+    private boolean deleteService(String name){
+        DatabaseReference dR = FirebaseDatabase.getInstance().getReference("services").child(name);
         dR.removeValue();
         Toast.makeText(getApplicationContext(),"Service Deleted", Toast.LENGTH_LONG).show();
         return true;
@@ -197,10 +201,10 @@ public class ServiceActivityForAdmin extends AppCompatActivity {
         if(!(info.isEmpty()||r.isEmpty()||name.isEmpty())){
             //getting a unique id using push().getKey() method
             //it will create a unique id and we will use it as the primary key for our product
-            String id = databaseService.push().getKey();
+            String id = name;
 
             //creating a product Object
-            Service service = new Service (id,name,r,null,info);
+            Service service = new Service (name,r,null,info);
 
             //saving the Product
             databaseService.child(id).setValue(service);
@@ -228,5 +232,5 @@ public class ServiceActivityForAdmin extends AppCompatActivity {
         }//else if(info validation){}
 
         return true;
-    }*/
+    }
 }
