@@ -29,7 +29,7 @@ public class ServiceActivityForAdmin extends AppCompatActivity  {
     ListView listServices;
 
     Button addButton;
-    Button deleteButton;
+    Button deleteEditButton;
     Button backToAdminMain;
 
     DatabaseHelper db;
@@ -49,7 +49,7 @@ public class ServiceActivityForAdmin extends AppCompatActivity  {
         services = new ArrayList<>();
 
         addButton = findViewById(R.id.AddServiceInfo);
-        deleteButton = findViewById(R.id.DeleteService);
+        deleteEditButton = findViewById(R.id.DeleteEditService);
         backToAdminMain = findViewById(R.id.backToMain);
 
         db = new DatabaseHelper(this);
@@ -68,10 +68,10 @@ public class ServiceActivityForAdmin extends AppCompatActivity  {
             public void onClick(View v) {
                 String name = serviceName.getText().toString().trim();
                 String info = requiredInfo.getText().toString().trim();
-                String price = rate.getText().toString().trim();
+                String r = rate.getText().toString().trim();
 
-                if(!(info.isEmpty()||price.isEmpty()||name.isEmpty())){
-                    Boolean insert = db.addService(new Service(name,price,null,info));
+                if(!(info.isEmpty()||r.isEmpty()||name.isEmpty())){
+                    Boolean insert = db.addService(new Service(name,r,null,info));
                     if(insert){
                         Toast.makeText(ServiceActivityForAdmin.this,"add to database",Toast.LENGTH_LONG).show();
                         services.clear();
@@ -85,7 +85,6 @@ public class ServiceActivityForAdmin extends AppCompatActivity  {
             }
         });
 
-
         backToAdminMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,13 +93,10 @@ public class ServiceActivityForAdmin extends AppCompatActivity  {
             }
         });
 
-
-        listServices.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        deleteEditButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-                showUpdateDeleteDialog();
-                return true;
+            public void onClick(View v) {
+                showUpdateDeleteDialog(); // inoder to work in same databas
             }
         });
 
@@ -120,18 +116,17 @@ public class ServiceActivityForAdmin extends AppCompatActivity  {
         final Button deleteServiceButton = (Button) dialogView.findViewById(R.id.deleteServiceButton);
 
         //dialogBuilder.setTitle(ServiceName);
-        final AlertDialog s = dialogBuilder.create();
-        s.show();
+        final AlertDialog tmpScreen = dialogBuilder.create();
+        tmpScreen.show();
 
         updateServiceButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 db.updateService(nameService.getText().toString(),infoService.getText().toString(),rateService.getText().toString());
                 Toast.makeText(ServiceActivityForAdmin.this, "sucess", Toast.LENGTH_LONG).show();
                 services.clear();
                 viewData();
-                s.dismiss();
+                tmpScreen.dismiss();
             }
         });
 
@@ -142,7 +137,7 @@ public class ServiceActivityForAdmin extends AppCompatActivity  {
                 Toast.makeText(ServiceActivityForAdmin.this, "sucess", Toast.LENGTH_LONG).show();
                 services.clear();
                 viewData();
-                s.dismiss();
+                tmpScreen.dismiss();
             }
         });
 

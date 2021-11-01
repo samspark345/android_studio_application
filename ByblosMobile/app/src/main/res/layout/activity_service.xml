@@ -134,19 +134,13 @@
             android:layout_width="match_parent"
             android:layout_height="22dp" />
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Attention: Long Click List To Editing Service!" />
-
         <Button
-            android:id="@+id/DeleteService"
+            android:id="@+id/DeleteEditService"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="@string/delete_serviceCreated" />
+            android:text="@string/deleteOrEditServiceButton" />
 
         <Button
             android:id="@+id/backToMain"
