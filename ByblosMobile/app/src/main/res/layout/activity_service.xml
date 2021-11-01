@@ -128,18 +128,10 @@
 
         <ListView
             android:id="@+id/listServices"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="161dp"
             android:layout_below="@id/textView"></ListView>
 
-
-        <Button
-            android:id="@+id/DeleteEditService"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="@string/deleteOrEditServiceButton" />
 
         <Button
             android:id="@+id/backToMain"

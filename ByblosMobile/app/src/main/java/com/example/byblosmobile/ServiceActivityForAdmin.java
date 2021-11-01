@@ -163,6 +163,7 @@ public class ServiceActivityForAdmin extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 deleteService(serviceName);
+
                 b.dismiss();
             }
         });
@@ -180,7 +181,7 @@ public class ServiceActivityForAdmin extends AppCompatActivity {
     }
 
 
-    private boolean deleteService(String name){
+    public boolean deleteService(String name){
         DatabaseReference dR = FirebaseDatabase.getInstance().getReference("services").child(name);
         dR.removeValue();
         Toast.makeText(getApplicationContext(),"Service Deleted", Toast.LENGTH_LONG).show();
