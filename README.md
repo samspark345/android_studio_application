@@ -2,6 +2,11 @@
 
 Project_group 32 Repository Link: https://github.com/SEG2105-uottawa/seg2105f21-project-project_gr32
 
+# Deliverable2 Explanation 
+Based on the marking Scheme,we assume the functionality  that must be implemented are: deteleService, addService, and editService for gets mark from deliverable2. 
+For deleteBranch and deleteCustomer account we will implemented sooner we get into next stage. In order to deteleBranch, we need Branch as class and implement relative functionality; it will be covered in next deliverable.
+![image](deliverable2MarkingScheme.png)
+
 # Members
 
 Zijun Ye 300168065
