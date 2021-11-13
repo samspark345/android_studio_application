@@ -30,9 +30,7 @@ public class ServiceActivityForAdmin extends AppCompatActivity {
     EditText serviceName;
     EditText rate;
 
-
     Button addButton;
-    Button deleteEditButton;
     Button backToAdminMain;
 
     ListView listViewService;
