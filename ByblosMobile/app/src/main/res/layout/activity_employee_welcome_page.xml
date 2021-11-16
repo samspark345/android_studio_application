@@ -119,7 +119,7 @@
                     android:layout_width="wrap_content"
                     android:layout_gravity="center"
                     android:layout_height="wrap_content"
-                    android:text="Check Current offered Service and time Slot" />
+                    android:text="Branch Info" />
 
                 <Button
                     android:id="@+id/availability"

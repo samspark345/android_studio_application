@@ -2,7 +2,6 @@ package com.example.byblosmobile;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -41,7 +40,7 @@ public class ServiceActivityForAdmin extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_service);
+        setContentView(R.layout.activity_admin_service);
 
         serviceName = (EditText) findViewById(R.id.editServiceName);
         requiredInfo = (EditText) findViewById(R.id.editTextRequiredInfo);
@@ -126,7 +125,7 @@ public class ServiceActivityForAdmin extends AppCompatActivity {
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
-        final View dialogView = inflater.inflate(R.layout.edit_service, null);
+        final View dialogView = inflater.inflate(R.layout.activity_admin_edit_service, null);
         dialogBuilder.setView(dialogView);
 
         final EditText nameService = (EditText) dialogView.findViewById(R.id.nameService);

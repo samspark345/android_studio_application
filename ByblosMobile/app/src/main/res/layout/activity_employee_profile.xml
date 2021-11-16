@@ -51,6 +51,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="required info"
+                android:minHeight="48dp"
                 android:textSize="18sp" />
         </LinearLayout>
 
@@ -75,6 +76,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:hint="required info"
+                android:minHeight="48dp"
                 android:textSize="18sp" />
         </LinearLayout>
 
@@ -98,6 +100,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="required info"
+                android:minHeight="48dp"
                 android:textSize="18sp" />
 
         </LinearLayout>
@@ -119,9 +122,8 @@
         <ImageView
             android:id="@+id/imageView3"
             android:layout_width="match_parent"
-            android:layout_height="294dp"
-            android:layout_marginTop="10dp"
-            app:srcCompat="@drawable/road_work" />
+            android:layout_height="280dp"
+            app:srcCompat="@drawable/road_work"/>
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/backToBranchMenuPage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="< Back to menu"
+            android:textSize="16sp"
+            android:textStyle="bold"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:id="@+id/timeSlot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Pick Time Slot"
+            android:textAlignment="center"
+            android:textColor="#151414"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="94dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Select Date"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="match_parent"
+                android:layout_height="63dp" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="94dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/selectStart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Select Open time"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/spinner2"
+                android:layout_width="match_parent"
+                android:layout_height="63dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="94dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/selectEnd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Select Close Time"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/spinner3"
+                android:layout_width="match_parent"
+                android:layout_height="63dp" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/comfirmButton"
+            android:layout_width="250dp"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:text="Comfirm" />
+        <Button
+            android:id="@+id/backToInfo1"
+            android:layout_width="250dp"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:text="Return To info page" />
+
+
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
