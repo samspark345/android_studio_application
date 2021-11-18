@@ -39,8 +39,12 @@
 
         <TextView
             android:id="@+id/textView5"
-            android:layout_width="match_parent"
-            android:layout_height="14dp"
-            android:text="TextView" />
+            android:layout_width="wrap_content"
+            android:layout_height="42dp"
+            android:layout_gravity="center"
+            android:text="⚠️Long click To Check"
+            android:textColor="#2E2727"
+            android:textSize="16sp"
+            android:textStyle="bold" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
