@@ -124,8 +124,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@string/add_service"
-                        android:onClick="openServiceActivity"/>
+                        android:onClick="openServiceActivity"
+                        android:text="@string/add_service" />
 
                     <Button
                         android:id="@+id/DeleteService"

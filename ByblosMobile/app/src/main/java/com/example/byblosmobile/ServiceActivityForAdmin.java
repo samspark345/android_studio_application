@@ -146,8 +146,6 @@ public class ServiceActivityForAdmin extends AppCompatActivity {
                 String info = infoService.getText().toString().trim();
                 String r = rateService.getText().toString().trim();
 
-
-
                 if (!(info.isEmpty())&& !(r.isEmpty()) && !(name.isEmpty())) {
                     updateService(name,r,info);
                     b.dismiss();

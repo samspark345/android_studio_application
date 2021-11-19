@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class WelcomePage extends AppCompatActivity {
@@ -46,9 +45,33 @@ public class WelcomePage extends AppCompatActivity {
         startActivity(switchToServiceActivity);
     }
 
+    public void openEmployeeProfile(View view){
+        Intent switchToEmployeeActivity = new Intent(this, EmployeeProfileEdit.class);
+        startActivity(switchToEmployeeActivity);
+    }
 
+    public void openBranchInfo(View view){
+        Intent switchToEmployeeActivity = new Intent(this,EmployeeInfo.class);
+        startActivity(switchToEmployeeActivity);
+    }
 
+    public void openBranchServiceAdd(View view){
+        Intent switchToEmployeeActivity = new Intent(this,EmployeeServiceAdd.class);
+        startActivity(switchToEmployeeActivity);
+    }
 
+    public void openBranchServiceDelete(View view){
+        Intent switchToEmployeeActivity = new Intent(this,EmployeeServiceDelete.class);
+        startActivity(switchToEmployeeActivity);
+    }
 
+    public void openBranchServiceAvailability(View view){
+        Intent switchToEmployeeActivity = new Intent(this,EmployeeServiceAvailability.class);
+        startActivity(switchToEmployeeActivity);
+    }
 
+    public void openBranchRequests(View view){
+        Intent switchToEmployeeActivity = new Intent(this,EmployeeDealRequest.class);
+        startActivity(switchToEmployeeActivity);
+    }
 }

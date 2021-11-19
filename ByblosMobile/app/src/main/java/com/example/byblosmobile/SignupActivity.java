@@ -59,21 +59,25 @@ public class SignupActivity extends AppCompatActivity {
             return;
         }
         String usernameString = username.getText().toString();
-        String Role;
+        String role;
+        String _password = password.getText().toString();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+
+
         // User create;
         if (customerRole){
-            Role = "Customer";
+            role = "Customer";
         // create = new User(username.getText().toString(), password.getText().toString(), "Customer");
+            DatabaseReference newUser = database.getReference("users/"+role+"/"+usernameString+"/password");
+            newUser.setValue(password.getText().toString());
         }else{
-            Role = "Employee";
-        //create = new User(username.getText().toString(), password.getText().toString(), "Employee");
+            role = "Employee";
+            Employee employee = new Employee(usernameString,_password,role);
+            DatabaseReference newUser = database.getReference("users").child("Employee").child("usernameString");
+            newUser.setValue(employee);
         }
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference newUserPassword = database.getReference("users/"+Role+"/"+usernameString+"/password");
 
-        newUserPassword.setValue(password.getText().toString());
         Intent switchToLogin = new Intent(this, LoginActivity.class);
         startActivity(switchToLogin);
-
     }
 }
