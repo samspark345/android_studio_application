@@ -14,7 +14,7 @@
             android:id="@+id/backToBranchMenuPage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="<Back To Menu" />
+            android:text="Back To Menu" />
 
         <Space
             android:layout_width="match_parent"

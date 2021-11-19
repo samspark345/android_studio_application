@@ -63,7 +63,6 @@ public class SignupActivity extends AppCompatActivity {
         String _password = password.getText().toString();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-
         // User create;
         if (customerRole){
             role = "Customer";
