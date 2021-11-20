@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".WelcomePage">
+    tools:context=".EmployeeWelcomePage">
 
 
     <LinearLayout
@@ -148,6 +148,7 @@
                 android:orientation="horizontal">
 
                 <Button
+
                     android:id="@+id/addServiceBranch"
                     android:layout_width="150dp"
                     android:layout_height="50dp"
@@ -165,6 +166,22 @@
             </LinearLayout>
         </LinearLayout>
 
+                    android:id="@+id/completeProfile"
+                    android:layout_width="317dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Complete Branch Profile"
+                   />
+
+                <Button
+                    android:id="@+id/currentOffer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Branch Info"
+                    android:onClick="openBranchInfo"/>
+
+
         <Space
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -173,6 +190,38 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+                <Button
+                    android:id="@+id/dealServiceRequest"
+                    android:layout_width="315dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="deal Service Requests"
+                    />
+
+                <LinearLayout
+                    android:layout_width="350dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/addServiceBranch"
+                        android:layout_width="150dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:text="add Service"
+                        android:onClick="openBranchServiceAdd"/>
+
+                    <Button
+                        android:id="@+id/deleteServiceBranch"
+                        android:layout_width="150dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:text="Delete Service"
+                        android:onClick="openBranchServiceDelete"/>
+                </LinearLayout>
+            </LinearLayout>
+
 
             <Space
                 android:layout_width="match_parent"
