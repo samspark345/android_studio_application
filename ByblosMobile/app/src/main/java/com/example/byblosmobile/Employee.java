@@ -25,10 +25,17 @@ public class Employee extends User{
         branchServices = new ArrayList<Service>();
     }
 
+    //not sure whether need method or not
+    /*public Employee(String userName,String password, String role, String address, String phoneNumber,ArrayList<TimeSlot> availability){
+        super(userName,password,role);
+        branchServices = new ArrayList<Service>();
+
+
+
+    }*/
+
 
     //getter & setter
-
-
     public String getUserType() {
         return "employee";
     }

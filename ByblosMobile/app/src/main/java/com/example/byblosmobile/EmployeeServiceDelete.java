@@ -43,7 +43,6 @@ public class EmployeeServiceDelete extends AppCompatActivity {
 
         db = FirebaseDatabase.getInstance();
         curr = FirebaseAuth.getInstance();
-        databaseService = db.getReference("service");
 
         branchServicesList = new ArrayList<>();
 
@@ -62,6 +61,54 @@ public class EmployeeServiceDelete extends AppCompatActivity {
     }
 
     private void showDeleteDialog(String service) {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.layout_employee_delete_service, null);
+        dialogBuilder.setView(dialogView);
+
+        final Button buttonAdd = (Button) dialogView.findViewById(R.id.add);
+        final Button buttonCancel = (Button) dialogView.findViewById(R.id.cancel);
+
+        dialogBuilder.setTitle(service);
+        final AlertDialog dialog = dialogBuilder.create();
+        dialog.show();
+
+        buttonCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        buttonAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(branchServicesList != null) {
+                    if (!branchServicesList.contains(service)) { //check whether the service is exist
+                        Toast.makeText(getApplicationContext(), "ERROR! Service doesn't Exist", Toast.LENGTH_LONG).show();
+                    } else {
+                       deleteService(service);
+                    }
+                }else{ //if branch haven't got any service
+                    Toast.makeText(getApplicationContext(), "ERROR! Branch doesn't offer any service yet!", Toast.LENGTH_LONG).show();
+                }
+                dialog.dismiss();
+            }
+        });
+
+    }
+
+    private void deleteService(String service) {
+        branchServicesList.remove(service);
+
+        FirebaseUser user = curr.getCurrentUser();
+        String branchName = user.getUid();//get branch name
+
+        DatabaseReference dR = FirebaseDatabase.getInstance().getReference("users/" + "Employee/" + branchName + "/branchServices");
+        dR.setValue(branchServicesList); //replace list value to the branchService attribute
+
+        Toast.makeText(getApplicationContext(), "Service has been deleted Successfully", Toast.LENGTH_SHORT).show();
+
     }
 
     private void getCurrBranchServices() { //check database

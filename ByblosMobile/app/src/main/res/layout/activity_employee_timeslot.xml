@@ -14,7 +14,8 @@
             android:layout_height="wrap_content"
             android:text=" Back to menu"
             android:textSize="16sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:onClick="goBackToEmployeeWelcome"/>
 
         <Space
             android:layout_width="match_parent"
@@ -45,7 +46,7 @@
                 android:textStyle="bold" />
 
             <Spinner
-                android:id="@+id/spinner"
+                android:id="@+id/day"
                 android:layout_width="match_parent"
                 android:layout_height="63dp" />
         </LinearLayout>
@@ -65,7 +66,7 @@
                 android:textStyle="bold" />
 
             <Spinner
-                android:id="@+id/spinner2"
+                android:id="@+id/startHour"
                 android:layout_width="match_parent"
                 android:layout_height="63dp" />
         </LinearLayout>
@@ -84,7 +85,7 @@
                 android:textStyle="bold" />
 
             <Spinner
-                android:id="@+id/spinner3"
+                android:id="@+id/endHour"
                 android:layout_width="match_parent"
                 android:layout_height="63dp" />
         </LinearLayout>
@@ -92,15 +93,17 @@
         <Button
             android:id="@+id/comfirmButton"
             android:layout_width="250dp"
-            android:layout_gravity="center"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:onClick="onClickConfirmTime"
             android:text="Comfirm" />
         <Button
             android:id="@+id/backToInfo1"
             android:layout_width="250dp"
             android:layout_gravity="center"
             android:layout_height="wrap_content"
-            android:text="Return To info page" />
+            android:text="Return To info page"
+            android:onClick="openBranchInfo"/>
 
 
 
