@@ -67,13 +67,18 @@ public class SignupActivity extends AppCompatActivity {
         if (customerRole){
             role = "Customer";
             // create = new User(username.getText().toString(), password.getText().toString(), "Customer");
+            DatabaseReference newUser = database.getReference("users/"+role+"/"+usernameString+"/password");
+            newUser.setValue(password.getText().toString());
         }else{
             role = "Employee";
-            // Employee employee = new Employee(usernameString,_password,role);
-            // DatabaseReference newUser = database.getReference("users").child("Employee");
+            Employee employee = new Employee(usernameString, _password, role, "null", "null");
+            DatabaseReference newUser = database.getReference("users/"+role+"/"+usernameString);
+            newUser.setValue(employee);
+            DatabaseReference passwordData = database.getReference("users/"+role+"/"+usernameString+"/password");
+            passwordData.setValue(password.getText().toString());
+
         }
-        DatabaseReference newUser = database.getReference("users/"+role+"/"+usernameString+"/password");
-        newUser.setValue(password.getText().toString());
+
 
         Intent switchToLogin = new Intent(this, LoginActivity.class);
         startActivity(switchToLogin);
