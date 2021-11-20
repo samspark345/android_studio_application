@@ -12,6 +12,7 @@
             android:id="@+id/backToBranchMenuPage"
             android:layout_width="170dp"
             android:layout_height="wrap_content"
+            android:onClick="goBackToEmployeeWelcome"
             android:text="BACK TO Menu" />
 
         <Space
@@ -28,28 +29,24 @@
             android:textSize="24sp"
             android:textStyle="bold" />
 
-        <LinearLayout
+        <ListView
+            android:id="@+id/serviceList"
             android:layout_width="match_parent"
-            android:layout_height="430dp"
-            android:orientation="vertical">
-
-            <ListView
-                android:layout_width="match_parent"
-                android:layout_height="412dp" />
-        </LinearLayout>
+            android:layout_height="412dp" />
 
         <Button
             android:id="@+id/backToInfo1"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:onClick="goBackToEmployeeInfo"
             android:text="Return To info page" />
 
-        <Button
-            android:id="@+id/deleteService1"
-            android:layout_width="300dp"
+        <TextView
+            android:id="@+id/textView22"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Delete Service" />
+            android:text="Long Click Service To add" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

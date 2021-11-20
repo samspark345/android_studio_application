@@ -48,6 +48,7 @@ public class EmployeeProfileEdit extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(EmployeeProfileEdit.this, EmployeeWelcomePage.class);
+                startActivity(i);
             }
         });
 
@@ -83,25 +84,26 @@ public class EmployeeProfileEdit extends AppCompatActivity {
         }else if (!addressContent.matches("[a-zA-Z0-9 ]+") || !numberContent.matches("[0-9]+")) {
             Toast.makeText(getApplicationContext(), "Phone number can only be 0 to 9, and Address can not include any symbols!", Toast.LENGTH_LONG).show();
 
-        }else{
+        }else {
             //passed validation
-            String currId = currUser.getUid(); //return should be the name of the employee
-            DatabaseReference currEmployee = databaseReference.child(currId);
+            if (currUser != null) {
+                String currId = currUser.getUid(); //return should be the name of the employee
+                DatabaseReference currEmployee = databaseReference.child(currId);
 
-            //edit branch name
-            currEmployee.child("branchName").setValue(nameContent);
-            //edit branch address
-            currEmployee.child("branchAddress").setValue(addressContent);
-            //edit branch phone number
-            currEmployee.child("branchPhoneNumber").setValue(numberContent);
+                //edit branch name
+                currEmployee.child("branchName").setValue(nameContent);
+                //edit branch address
+                currEmployee.child("branchAddress").setValue(addressContent);
+                //edit branch phone number
+                currEmployee.child("branchPhoneNumber").setValue(numberContent);
 
-            Toast.makeText(getApplicationContext(), "Success!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Success!", Toast.LENGTH_LONG).show();
 
-            Intent intent = new Intent(EmployeeProfileEdit.this, EmployeeInfo.class);
-            startActivity(intent);
+                Intent intent = new Intent(EmployeeProfileEdit.this, EmployeeInfo.class);
+                startActivity(intent);
+            }else{}
+
         }
-
-
     }
 
 

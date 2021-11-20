@@ -72,7 +72,7 @@ public class SignupActivity extends AppCompatActivity {
         }else{
             role = "Employee";
             Employee employee = new Employee(usernameString,_password,role);
-            DatabaseReference newUser = database.getReference("users").child("Employee").child("usernameString");
+            DatabaseReference newUser = database.getReference("users").child("Employee");
             newUser.setValue(employee);
         }
 

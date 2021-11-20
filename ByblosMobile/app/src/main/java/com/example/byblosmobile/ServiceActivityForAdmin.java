@@ -35,7 +35,8 @@ public class ServiceActivityForAdmin extends AppCompatActivity {
     ListView listViewService;
     DatabaseReference databaseService;
 
-    List<Service> services;
+    List<Service> services;//includes all services
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
