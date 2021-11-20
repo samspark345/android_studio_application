@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".WelcomePage">
+    tools:context=".EmployeeWelcomePage">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -112,16 +112,16 @@
                     android:layout_width="317dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:onClick="openEmployeeProfile"
-                    android:text="Complete Branch Profile" />
+                    android:text="Complete Branch Profile"
+                   />
 
                 <Button
                     android:id="@+id/currentOffer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:onClick="openBranchInfo"
-                    android:text="Branch Info" />
+                    android:text="Branch Info"
+                    android:onClick="openBranchInfo"/>
 
                 <Button
                     android:id="@+id/availability"
@@ -136,8 +136,8 @@
                     android:layout_width="315dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:onClick="openBranchRequests"
-                    android:text="deal Service Requests" />
+                    android:text="deal Service Requests"
+                    />
 
                 <LinearLayout
                     android:layout_width="350dp"
@@ -150,16 +150,16 @@
                         android:layout_width="150dp"
                         android:layout_height="50dp"
                         android:layout_weight="1"
-                        android:onClick="openBranchServiceAdd"
-                        android:text="add Service" />
+                        android:text="add Service"
+                        android:onClick="openBranchServiceAdd"/>
 
                     <Button
                         android:id="@+id/deleteServiceBranch"
                         android:layout_width="150dp"
                         android:layout_height="50dp"
                         android:layout_weight="1"
-                        android:onClick="openBranchServiceDelete"
-                        android:text="Delete Service" />
+                        android:text="Delete Service"
+                        android:onClick="openBranchServiceDelete"/>
                 </LinearLayout>
             </LinearLayout>
 

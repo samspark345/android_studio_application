@@ -1,5 +1,6 @@
 package com.example.byblosmobile;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -7,7 +8,7 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-class EmployeeWelcomePage extends AppCompatActivity {
+class EmployeeWelcomePage extends Activity {
     Button branchProfileButton;
     Button branchInfoButton;
     Button branchAvailabilityButton;

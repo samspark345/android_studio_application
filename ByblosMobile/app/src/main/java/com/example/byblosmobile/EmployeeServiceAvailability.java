@@ -48,7 +48,7 @@ public class EmployeeServiceAvailability extends AppCompatActivity {
         db = FirebaseDatabase.getInstance();
         curr = FirebaseAuth.getInstance();
         user = curr.getCurrentUser();
-        branchName = user.getUid();//get branch name
+       // branchName = user.getUid();//get branch name
 
         spinnerday = findViewById(R.id.day);
         adapterday = ArrayAdapter.createFromResource(this, R.array.day, android.R.layout.simple_spinner_item);
