@@ -14,6 +14,7 @@
             android:id="@+id/backToBranchMenuPage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="goBackToEmployeeWelcome"
             android:text="Back To Menu" />
 
         <Space
@@ -36,6 +37,7 @@
             android:orientation="vertical">
 
             <ListView
+                android:id="@+id/listOfBranchService"
                 android:layout_width="match_parent"
                 android:layout_height="373dp">
 
@@ -47,7 +49,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:onClick="goBackToEmployeeInfo"
             android:text="Return TO Info page" />
+
+        <TextView
+            android:id="@+id/textView23"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Long press to remove service from Branch" />
 
 
     </LinearLayout>

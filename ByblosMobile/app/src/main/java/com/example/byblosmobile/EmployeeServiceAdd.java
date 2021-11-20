@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class EmployeeServiceAdd<Private> extends AppCompatActivity {
+public class EmployeeServiceAdd extends AppCompatActivity {
 
     ListView serviceList;
 
@@ -102,7 +102,7 @@ public class EmployeeServiceAdd<Private> extends AppCompatActivity {
         FirebaseUser user = curr.getCurrentUser();
         if(user!=null){
             String branchName = user.getUid();
-            DatabaseReference userData = db.getReference("users/" + "Employee"+ branchName);
+            DatabaseReference userData = db.getReference("users/" + "Employee/"+ branchName);
             userData.addValueEventListener(new ValueEventListener() {
 
                 @Override

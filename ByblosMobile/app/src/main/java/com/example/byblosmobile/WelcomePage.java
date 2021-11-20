@@ -40,11 +40,6 @@ public class WelcomePage extends AppCompatActivity {
 
     }
 
-    public void openServiceActivity(View view){
-        Intent switchToServiceActivity = new Intent(this, ServiceActivityForAdmin.class);
-        startActivity(switchToServiceActivity);
-    }
-
     public void openEmployeeProfile(View view){
         Intent switchToEmployeeActivity = new Intent(this, EmployeeProfileEdit.class);
         startActivity(switchToEmployeeActivity);
@@ -74,4 +69,7 @@ public class WelcomePage extends AppCompatActivity {
         Intent switchToEmployeeActivity = new Intent(this,EmployeeDealRequest.class);
         startActivity(switchToEmployeeActivity);
     }
+
+
+
 }
