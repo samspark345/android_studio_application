@@ -6,182 +6,188 @@
     android:layout_height="match_parent"
     tools:context=".WelcomePage">
 
-    <RelativeLayout
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#84B4C3"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginRight="10dp"
+            android:backgroundTint="#FFFFFF"
+            android:text="@string/logoutWelcomePage"
+            android:textColor="#1E1C1C" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="66dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/greeting1"
+                android:layout_width="186dp"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="Hello, "
+                android:textColor="#FDFCFC"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/username"
+                android:layout_width="175dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:text="@string/userName"
+                android:textColor="#FAF7F7"
+                android:textSize="24sp"
+                android:textStyle="bold|italic" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/greeting2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="@string/greeting"
+                android:textColor="#F8F8F8"
+                android:textSize="34sp"
+                android:textStyle="bold"
+                android:layout_marginLeft="20dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/greeting3"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="right"
+                android:text="@string/greeting3"
+                android:textColor="#FDFDFD"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/roleWelcome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:text="@string/roleType"
+                android:textColor="#FDFBFB"
+                android:textSize="24sp" />
+
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="70dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#84B4C3"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/completeProfile"
+                android:layout_width="317dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:onClick="openEmployeeProfile"
+                android:text="Complete Branch Profile" />
+
+            <Button
+                android:id="@+id/currentOffer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:layout_marginRight="10dp"
-                android:backgroundTint="#FFFFFF"
-                android:text="@string/logoutWelcomePage"
-                android:textColor="#1E1C1C" />
+                android:layout_gravity="center"
+                android:onClick="openBranchInfo"
+                android:text="Branch Info" />
 
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="66dp"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/greeting1"
-                    android:layout_width="186dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:text="Hello, "
-                    android:textColor="#FDFCFC"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/username"
-                    android:layout_width="175dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="left"
-                    android:text="@string/userName"
-                    android:textColor="#FAF7F7"
-                    android:textSize="24sp"
-                    android:textStyle="bold|italic" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
+            <Button
+                android:id="@+id/availability"
+                android:layout_width="315dp"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_gravity="center"
+                android:onClick="openBranchServiceAvailability"
+                android:text="Select available time slot" />
 
-                <TextView
-                    android:id="@+id/greeting2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:text="@string/greeting"
-                    android:textColor="#F8F8F8"
-                    android:textSize="34sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
+            <Button
+                android:id="@+id/dealServiceRequest"
+                android:layout_width="315dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:onClick="openBranchRequests"
+                android:text="deal Service Requests" />
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="350dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/greeting3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="right"
-                    android:text="@string/greeting3"
-                    android:textColor="#FDFDFD"
-                    android:textSize="24sp" />
+                <Button
+                    android:id="@+id/addServiceBranch"
+                    android:layout_width="150dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:onClick="openBranchServiceAdd"
+                    android:text="add Service" />
 
-                <TextView
-                    android:id="@+id/roleWelcome"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:text="@string/roleType"
-                    android:textColor="#FDFBFB"
-                    android:textSize="24sp" />
-
+                <Button
+                    android:id="@+id/deleteServiceBranch"
+                    android:layout_width="150dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:onClick="openBranchServiceDelete"
+                    android:text="Delete Service" />
             </LinearLayout>
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="19dp" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <Button
-                    android:id="@+id/completeProfile"
-                    android:layout_width="317dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:onClick="openEmployeeProfile"
-                    android:text="Complete Branch Profile" />
-
-                <Button
-                    android:id="@+id/currentOffer"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:onClick="openBranchInfo"
-                    android:text="Branch Info" />
-
-                <Button
-                    android:id="@+id/availability"
-                    android:layout_width="315dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:onClick="openBranchServiceAvailability"
-                    android:text="Select available time slot" />
-
-                <Button
-                    android:id="@+id/dealServiceRequest"
-                    android:layout_width="315dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:onClick="openBranchRequests"
-                    android:text="deal Service Requests" />
-
-                <LinearLayout
-                    android:layout_width="350dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:orientation="horizontal">
-
-                    <Button
-                        android:id="@+id/addServiceBranch"
-                        android:layout_width="150dp"
-                        android:layout_height="50dp"
-                        android:layout_weight="1"
-                        android:onClick="openBranchServiceAdd"
-                        android:text="add Service" />
-
-                    <Button
-                        android:id="@+id/deleteServiceBranch"
-                        android:layout_width="150dp"
-                        android:layout_height="50dp"
-                        android:layout_weight="1"
-                        android:onClick="openBranchServiceDelete"
-                        android:text="Delete Service" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="19dp" />
-
-                <ImageView
-                    android:id="@+id/imageView"
-                    android:layout_width="330dp"
-                    android:layout_height="178dp"
-                    android:layout_gravity="center"
-                    app:srcCompat="@drawable/wcpdiagram" />
-            </LinearLayout>
-
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="330dp"
+                android:layout_height="200dp"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/wcpdiagram" />
         </LinearLayout>
 
-    </RelativeLayout>
+    </LinearLayout>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

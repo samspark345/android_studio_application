@@ -50,6 +50,7 @@ public class EmployeeServiceAvailability extends AppCompatActivity {
         user = curr.getCurrentUser();
         branchName = user.getUid();//get branch name
 
+        //https://developer.android.com/guide/topics/ui/controls/spinner#java reference
         spinnerday = findViewById(R.id.day);
         adapterday = ArrayAdapter.createFromResource(this, R.array.day, android.R.layout.simple_spinner_item);
         adapterday.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

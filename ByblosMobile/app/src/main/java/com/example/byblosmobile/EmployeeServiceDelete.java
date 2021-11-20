@@ -60,6 +60,13 @@ public class EmployeeServiceDelete extends AppCompatActivity {
 
     }
 
+
+    //display all the service
+
+
+
+
+
     private void showDeleteDialog(String service) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
