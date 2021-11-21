@@ -84,6 +84,11 @@ public class WelcomePage extends AppCompatActivity {
         startActivity(switchToEmployeeActivity);
     }
 
+    public void openServiceRequest(View view){
+        Intent switchToUserActivity = new Intent(this,CustomerRequest.class);
+        startActivity(switchToUserActivity);
+    }
+
 
 
 }

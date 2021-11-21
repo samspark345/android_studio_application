@@ -2,15 +2,12 @@ package com.example.byblosmobile;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,7 +20,6 @@ import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class EmployeeDealRequest extends AppCompatActivity {
@@ -45,7 +41,7 @@ public class EmployeeDealRequest extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employee_requestlist);
 
-        listViewRequests=(ListView) findViewById(R.id.requestList);
+        listViewRequests=(ListView) findViewById(R.id.services);
 
         Intent intent = getIntent();
         this.username = intent.getStringExtra("username");
