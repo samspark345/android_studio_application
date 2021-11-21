@@ -38,6 +38,7 @@
         <activity android:name=".EmployeeServiceAdd"></activity>
         <activity android:name=".EmployeeServiceDelete"></activity>
         <activity android:name=".EmployeeDealRequest"></activity>
+        <activity android:name=".EmployeeProfileEdit"></activity>
     </application>
 
 </manifest>

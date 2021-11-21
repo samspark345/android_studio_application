@@ -101,7 +101,10 @@ public class EmployeeProfileEdit extends AppCompatActivity {
 
                 Intent intent = new Intent(EmployeeProfileEdit.this, EmployeeInfo.class);
                 startActivity(intent);
-            }else{}
+            }else{
+                Intent intent = new Intent(EmployeeProfileEdit.this, EmployeeInfo.class);
+                startActivity(intent);
+            }
 
         }
     }
