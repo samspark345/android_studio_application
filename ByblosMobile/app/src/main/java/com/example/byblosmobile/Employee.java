@@ -7,11 +7,13 @@ public class Employee extends User{
     private String branchName;
     private String branchAddress;
     private String branchPhoneNumber;
+    private ArrayList<String> service;
+    private ArrayList<String> availability;
+    private ArrayList<String> requests;
 
-    private ArrayList<Service> branchServices;
+
     public Employee(String userName, String password, String role) {
         super(userName, password, role);
-        branchServices = new ArrayList<Service>();
         branchName = userName;
         branchAddress = null;
         branchPhoneNumber = null;
@@ -22,17 +24,18 @@ public class Employee extends User{
         this.branchAddress = address;
         this.branchPhoneNumber = phoneNumber;
         this.branchName = userName;
-        branchServices = new ArrayList<Service>();
     }
 
-    //not sure whether need method or not
-    /*public Employee(String userName,String password, String role, String address, String phoneNumber,ArrayList<TimeSlot> availability){
+
+        public Employee(String userName,String password, String role, String address, String phoneNumber, ArrayList<String> serviceList,ArrayList<String> availability,ArrayList<String> requests){
         super(userName,password,role);
-        branchServices = new ArrayList<Service>();
-
-
-
-    }*/
+        branchName = userName;
+        this.branchPhoneNumber = phoneNumber;
+        this.branchAddress = address;
+        this.service = serviceList;
+        this.availability = availability;
+        this.requests = requests;
+    }
 
 
     //getter & setter
@@ -48,10 +51,8 @@ public class Employee extends User{
     public String getBranchPhoneNumber(){return branchPhoneNumber;}
     public void setBranchPhoneNumber(String newPhoneNumber){this.branchPhoneNumber = newPhoneNumber;}
 
-    public ArrayList<Service> getBranchServices() {return branchServices;}
-    public void setBranchServices(ArrayList<Service> newBranchService) {
-        this.branchServices = newBranchService;
-    }
+
+
 
 
 

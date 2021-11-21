@@ -71,7 +71,7 @@ public class SignupActivity extends AppCompatActivity {
             newUser.setValue(password.getText().toString());
         }else{
             role = "Employee";
-            Employee employee = new Employee(usernameString, _password, role, "null", "null");
+            Employee employee = new Employee(usernameString, _password, role, "null", "null",null,null,null);
             DatabaseReference newUser = database.getReference("users/"+role+"/"+usernameString);
             newUser.setValue(employee);
             DatabaseReference passwordData = database.getReference("users/"+role+"/"+usernameString+"/password");

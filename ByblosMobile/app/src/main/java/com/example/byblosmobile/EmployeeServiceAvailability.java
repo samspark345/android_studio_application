@@ -16,6 +16,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class EmployeeServiceAvailability extends AppCompatActivity {
     //three spinner to check day,start hour, end hour
@@ -39,6 +40,8 @@ public class EmployeeServiceAvailability extends AppCompatActivity {
     FirebaseUser user;
     String branchName;
 
+    List<TimeSlot> listOfTimeSlot;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +51,7 @@ public class EmployeeServiceAvailability extends AppCompatActivity {
         db = FirebaseDatabase.getInstance();
         curr = FirebaseAuth.getInstance();
         user = curr.getCurrentUser();
-       // branchName = user.getUid();//get branch name
+        branchName = user.getUid();//get branch name
 
         //https://developer.android.com/guide/topics/ui/controls/spinner#java reference
         spinnerday = findViewById(R.id.day);
@@ -114,11 +117,10 @@ public class EmployeeServiceAvailability extends AppCompatActivity {
         }
         else {
             TimeSlot newTime = new TimeSlot(day,startHour,endHour);
-
-            databaseService = db.getReference("users/" + "Employee" + branchName).child("availability");
+            databaseService = db.getReference("users/Employee/" + branchName).child("availability").child(newTime.getDay());
             //if there has availability then add, if not create a new attribute
-
-            databaseService.child(newTime.getDay()).setValue(newTime);
+            databaseService.child("startHour").setValue(newTime.getStartHour());
+            databaseService.child("endHour").setValue(newTime.getEndHour());
 
             //the database should look like:
             /* users
