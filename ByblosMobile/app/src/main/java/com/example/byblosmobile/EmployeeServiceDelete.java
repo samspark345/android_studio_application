@@ -57,7 +57,7 @@ public class EmployeeServiceDelete extends AppCompatActivity {
         db = FirebaseDatabase.getInstance();
         curr = FirebaseAuth.getInstance();
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("user").child("Employee");
+        databaseReference = db.getInstance().getReference("user").child("Employee");
 
 
         branchServicesList = new ArrayList<>();
@@ -186,8 +186,15 @@ public class EmployeeServiceDelete extends AppCompatActivity {
 
     }
 
+    public void goBackToEmployeeWelcome(View view){
+        Intent backToWelcome = new Intent(this, EmployeeWelcomePage.class);
+        startActivity(backToWelcome);
+    }
 
-
+    public void goBackToEmployeeInfo(View view){
+        Intent i = new Intent(this, EmployeeInfo.class);
+        startActivity(i);
+    }
 
 
 }

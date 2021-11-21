@@ -33,12 +33,24 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".EmployeeServiceAvailability"></activity>
-        <activity android:name=".EmployeeInfo"></activity>
-        <activity android:name=".EmployeeServiceAdd"></activity>
-        <activity android:name=".EmployeeServiceDelete"></activity>
-        <activity android:name=".EmployeeDealRequest"></activity>
-        <activity android:name=".EmployeeProfileEdit"></activity>
+        <activity
+            android:name=".EmployeeServiceAvailability"
+            android:exported="true" />
+        <activity
+            android:name=".EmployeeInfo"
+            android:exported="true"/>
+        <activity
+            android:name=".EmployeeServiceAdd"
+            android:exported="true"/>
+        <activity
+            android:name=".EmployeeServiceDelete"
+            android:exported="true"/>
+        <activity
+            android:name=".EmployeeDealRequest"
+            android:exported="true"/>
+        <activity
+            android:name=".EmployeeProfileEdit"
+            android:exported="true"/>
     </application>
 
 </manifest>

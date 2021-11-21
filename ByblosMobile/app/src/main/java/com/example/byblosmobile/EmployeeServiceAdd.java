@@ -62,9 +62,9 @@ public class EmployeeServiceAdd extends AppCompatActivity {
 
         db = FirebaseDatabase.getInstance();
         curr = FirebaseAuth.getInstance();
-        databaseService = FirebaseDatabase.getInstance().getReference("services");
-        databaseReference = FirebaseDatabase.getInstance().getReference("user").child("Employee");
-        users = FirebaseDatabase.getInstance().getReference("users/"+"Employee");
+        databaseService = db.getInstance().getReference("services");
+        databaseReference = db.getInstance().getReference("user").child("Employee");
+        users = db.getInstance().getReference("users/"+"Employee");
 
         services = new ArrayList<>();
         branchServicesList = new ArrayList<>();
