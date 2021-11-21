@@ -1,5 +1,6 @@
 package com.example.byblosmobile;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,13 +27,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EmployeeServiceDelete extends AppCompatActivity {
+    String username;
+    String roleName;
+
     ListView branchService;
 
+    DatabaseReference databaseReference;
     DatabaseReference databaseService;
     FirebaseDatabase db;
     FirebaseAuth curr;
 
-    FirebaseUser user;
+    DatabaseReference user;
 
     List<String> branchServicesList; //services offered by branch
 
@@ -42,16 +47,22 @@ public class EmployeeServiceDelete extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employee_delete_branchservice);
 
+        Intent intent = getIntent();
+        this.username = intent.getStringExtra("username");
+        this.roleName = intent.getStringExtra("roleName");
+
         branchService = (ListView) findViewById(R.id.listOfBranchService);
         databaseService = FirebaseDatabase.getInstance().getReference("services");
 
         db = FirebaseDatabase.getInstance();
         curr = FirebaseAuth.getInstance();
 
+        databaseReference = FirebaseDatabase.getInstance().getReference("user").child("Employee");
+
 
         branchServicesList = new ArrayList<>();
 
-        user = curr.getCurrentUser();
+        user = databaseReference.child(username);
 
         getCurrBranchServices();
 
@@ -130,7 +141,7 @@ public class EmployeeServiceDelete extends AppCompatActivity {
     private void deleteService(String service) {
         branchServicesList.remove(service);
 
-        String branchName = user.getUid();//get branch name
+        String branchName = user.toString();//get branch name
 
         DatabaseReference dR = FirebaseDatabase.getInstance().getReference("users/" + "Employee/" + branchName + "/branchServices");
         dR.setValue(branchServicesList); //replace list value to the branchService attribute
@@ -141,7 +152,7 @@ public class EmployeeServiceDelete extends AppCompatActivity {
 
     private void getCurrBranchServices() { //check database
         if(user!=null){
-            String branchName = user.getUid();
+            String branchName = user.toString();
             DatabaseReference userData = db.getReference("users/" + "Employee/"+ branchName);
             userData.addValueEventListener(new ValueEventListener() {
 
@@ -163,7 +174,7 @@ public class EmployeeServiceDelete extends AppCompatActivity {
     public void showBranchService(DataSnapshot dataSnapshot){
         branchServicesList.clear();
         if(user != null){
-            String branchName = user.getUid();
+            String branchName = user.toString();
             for(DataSnapshot ds : dataSnapshot.child("Users").child("Employee").child(branchName).child("branchServices").getChildren()){
                 branchServicesList.add(ds.getValue().toString());
             }

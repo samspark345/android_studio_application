@@ -29,12 +29,14 @@ import java.util.List;
 public class EmployeeDealRequest extends AppCompatActivity {
 
 
-   
+    String username;
+    String roleName;
     ListView listViewRequests;
 
     DatabaseReference databaseR;
+    DatabaseReference databaseReference;
     FirebaseDatabase db;
-    FirebaseAuth curr;
+    DatabaseReference curr;
 
     List<String> branchRequestsList; //stores all the request name
     List<String> requestName;
@@ -45,9 +47,14 @@ public class EmployeeDealRequest extends AppCompatActivity {
 
         listViewRequests=(ListView) findViewById(R.id.requestList);
 
+        Intent intent = getIntent();
+        this.username = intent.getStringExtra("username");
+        this.roleName = intent.getStringExtra("roleName");
+
         db = FirebaseDatabase.getInstance();
-        curr = FirebaseAuth.getInstance();
+        curr = databaseReference.child(username);;
         databaseR = db.getReference();
+        databaseReference = FirebaseDatabase.getInstance().getReference("user").child("Employee");
 
 
         branchRequestsList = new ArrayList<>();
@@ -89,10 +96,10 @@ public class EmployeeDealRequest extends AppCompatActivity {
 
 
     private void getCurrBranchRequest() { //check database get all the request in curr branch
-        FirebaseUser user = curr.getCurrentUser();
+        String user = curr.toString();
 
         if(user!=null){
-            String branchName = user.getUid();
+            String branchName = user;
             DatabaseReference userData = db.getReference("users/" + "Employee/"+ branchName);
             userData.addValueEventListener(new ValueEventListener() {
 
@@ -124,8 +131,8 @@ public class EmployeeDealRequest extends AppCompatActivity {
 
     public void showRequestData(DataSnapshot dataSnapshot){
         branchRequestsList.clear();
-        FirebaseUser user = curr.getCurrentUser();
-        String branchName = user.getUid();
+        String user = curr.toString();
+        String branchName = user;
         for(DataSnapshot ds : dataSnapshot.child("Users").child("Employee").child(branchName).child("branchRequests").getChildren()){
            branchRequestsList.add(ds.getValue().toString());
         }

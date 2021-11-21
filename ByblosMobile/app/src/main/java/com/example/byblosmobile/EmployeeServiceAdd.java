@@ -29,9 +29,12 @@ import java.util.Collections;
 import java.util.List;
 
 public class EmployeeServiceAdd extends AppCompatActivity {
+    String username;
+    String roleName;
 
     ListView serviceList;
 
+    DatabaseReference databaseReference;
     DatabaseReference databaseService;
     FirebaseDatabase db;
     FirebaseAuth curr;
@@ -40,7 +43,7 @@ public class EmployeeServiceAdd extends AppCompatActivity {
     List<String> branchServicesList; //services offered by branch
     String branchName;
 
-    FirebaseUser user;
+    DatabaseReference user;
 
     DatabaseReference users;
     FirebaseAuth.AuthStateListener mAuthListener;
@@ -53,19 +56,24 @@ public class EmployeeServiceAdd extends AppCompatActivity {
 
         serviceList = (ListView) findViewById(R.id.serviceList);
 
+        Intent intent = getIntent();
+        this.username = intent.getStringExtra("username");
+        this.roleName = intent.getStringExtra("roleName");
+
         db = FirebaseDatabase.getInstance();
         curr = FirebaseAuth.getInstance();
         databaseService = FirebaseDatabase.getInstance().getReference("services");
+        databaseReference = FirebaseDatabase.getInstance().getReference("user").child("Employee");
         users = FirebaseDatabase.getInstance().getReference("users/"+"Employee");
 
         services = new ArrayList<>();
         branchServicesList = new ArrayList<>();
 
 
-        user=curr.getCurrentUser();
+        user=databaseReference.child(username);
         if (user != null) {
             branchName=FirebaseDatabase.getInstance().getReference().child("Users")
-                    .child(user.getUid()).toString();
+                    .child(user.toString()).toString();
         }
 
 

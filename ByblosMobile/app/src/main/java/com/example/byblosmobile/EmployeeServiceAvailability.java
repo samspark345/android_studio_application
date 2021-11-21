@@ -19,10 +19,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EmployeeServiceAvailability extends AppCompatActivity {
+    String username;
+    String roleName;
+
     //three spinner to check day,start hour, end hour
     Spinner spinnerday;
     Spinner spinnerStart;
     Spinner spinnerEnd;
+
 
     ArrayAdapter<CharSequence> adapterday;
     ArrayAdapter<CharSequence> adapterStart;
@@ -35,9 +39,10 @@ public class EmployeeServiceAvailability extends AppCompatActivity {
 
     //Firebase
     DatabaseReference databaseService;
+    DatabaseReference databaseReference;
     FirebaseDatabase db;
     FirebaseAuth curr;
-    FirebaseUser user;
+    DatabaseReference user;
     String branchName;
 
     List<TimeSlot> listOfTimeSlot;
@@ -50,7 +55,13 @@ public class EmployeeServiceAvailability extends AppCompatActivity {
 
         db = FirebaseDatabase.getInstance();
         curr = FirebaseAuth.getInstance();
-        user = curr.getCurrentUser();
+        databaseReference = FirebaseDatabase.getInstance().getReference("user").child("Employee");
+        user = databaseReference.child(username);;
+
+
+        Intent intent = getIntent();
+        this.username = intent.getStringExtra("username");
+        this.roleName = intent.getStringExtra("roleName");
 
 
         //https://developer.android.com/guide/topics/ui/controls/spinner#java reference
@@ -70,7 +81,7 @@ public class EmployeeServiceAvailability extends AppCompatActivity {
         spinnerStart.setAdapter(adapterStart);
         spinnerEnd.setAdapter(adapterEnd);
         if(user != null){
-            branchName = user.getUid();//get branch name
+            branchName = user.toString();//get branch name
         }
 
         //Sets the day

@@ -16,6 +16,10 @@ import com.google.firebase.database.FirebaseDatabase;
 
 
 public class EmployeeProfileEdit extends AppCompatActivity {
+    String username;
+    String roleName;
+
+
     Button backToEmployeeMain;
     EditText branchName;
     EditText branchAddress;
@@ -24,11 +28,15 @@ public class EmployeeProfileEdit extends AppCompatActivity {
     Button cancelButton;
 
     DatabaseReference databaseReference;
-    private FirebaseUser currUser;
+    private DatabaseReference currUser;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employee_profile);
+
+        Intent intent = getIntent();
+        this.username = intent.getStringExtra("username");
+        this.roleName = intent.getStringExtra("roleName");
 
         branchName = (EditText) findViewById(R.id.inputBranchNameField);
         branchAddress = (EditText) findViewById(R.id.inputBranchAddress);
@@ -40,7 +48,7 @@ public class EmployeeProfileEdit extends AppCompatActivity {
 
         //access to current account and employee data base
         databaseReference = FirebaseDatabase.getInstance().getReference("user").child("Employee");
-        currUser = FirebaseAuth.getInstance().getCurrentUser();
+        currUser = databaseReference.child(username);;
 
 
         //adding an onclicklistener to button
@@ -87,7 +95,7 @@ public class EmployeeProfileEdit extends AppCompatActivity {
         }else {
             //passed validation
             if (currUser != null) {
-                String currId = currUser.getUid(); //return should be the name of the employee
+                String currId = currUser.toString(); //return should be the name of the employee
                 DatabaseReference currEmployee = databaseReference.child(currId);
 
                 //edit branch name

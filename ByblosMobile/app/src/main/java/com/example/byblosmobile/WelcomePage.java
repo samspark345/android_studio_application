@@ -10,6 +10,8 @@ import android.widget.TextView;
 public class WelcomePage extends AppCompatActivity {
     TextView usernameText;
     TextView roleNameText;
+    String username;
+    String roleName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,8 +20,8 @@ public class WelcomePage extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        String username = intent.getStringExtra("username");
-        String roleName = intent.getStringExtra("roleName");
+        this.username = intent.getStringExtra("username");
+        this.roleName = intent.getStringExtra("roleName");
 
 
 
@@ -42,31 +44,43 @@ public class WelcomePage extends AppCompatActivity {
 
     public void openEmployeeProfile(View view){
         Intent switchToEmployeeActivity = new Intent(this, EmployeeProfileEdit.class);
+        switchToEmployeeActivity.putExtra("roleName", roleName);
+        switchToEmployeeActivity.putExtra("username", username.trim());
         startActivity(switchToEmployeeActivity);
     }
 
     public void openBranchInfo(View view){
         Intent switchToEmployeeActivity = new Intent(this,EmployeeInfo.class);
+        switchToEmployeeActivity.putExtra("roleName", roleName);
+        switchToEmployeeActivity.putExtra("username", username.trim());
         startActivity(switchToEmployeeActivity);
     }
 
     public void openBranchServiceAdd(View view){
         Intent switchToEmployeeActivity = new Intent(this,EmployeeServiceAdd.class);
+        switchToEmployeeActivity.putExtra("roleName", roleName);
+        switchToEmployeeActivity.putExtra("username", username.trim());
         startActivity(switchToEmployeeActivity);
     }
 
     public void openBranchServiceDelete(View view){
         Intent switchToEmployeeActivity = new Intent(this,EmployeeServiceDelete.class);
+        switchToEmployeeActivity.putExtra("roleName", roleName);
+        switchToEmployeeActivity.putExtra("username", username.trim());
         startActivity(switchToEmployeeActivity);
     }
 
     public void openBranchServiceAvailability(View view){
         Intent switchToEmployeeActivity = new Intent(this,EmployeeServiceAvailability.class);
+        switchToEmployeeActivity.putExtra("roleName", roleName);
+        switchToEmployeeActivity.putExtra("username", username.trim());
         startActivity(switchToEmployeeActivity);
     }
 
     public void openBranchRequests(View view){
         Intent switchToEmployeeActivity = new Intent(this,EmployeeDealRequest.class);
+        switchToEmployeeActivity.putExtra("roleName", roleName);
+        switchToEmployeeActivity.putExtra("username", username.trim());
         startActivity(switchToEmployeeActivity);
     }
 
