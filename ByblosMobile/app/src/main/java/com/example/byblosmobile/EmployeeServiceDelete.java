@@ -107,8 +107,8 @@ public class EmployeeServiceDelete extends AppCompatActivity {
         final View dialogView = inflater.inflate(R.layout.layout_employee_delete_service, null);
         dialogBuilder.setView(dialogView);
 
-        final Button buttonAdd = (Button) dialogView.findViewById(R.id.add);
-        final Button buttonCancel = (Button) dialogView.findViewById(R.id.cancel);
+        final Button buttonDelete = (Button) dialogView.findViewById(R.id.DeleteButton);
+        final Button buttonCancel = (Button) dialogView.findViewById(R.id.CancelButton);
 
         dialogBuilder.setTitle(service);
         final AlertDialog dialog = dialogBuilder.create();
@@ -121,7 +121,7 @@ public class EmployeeServiceDelete extends AppCompatActivity {
             }
         });
 
-        buttonAdd.setOnClickListener(new View.OnClickListener() {
+        buttonDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(branchServicesList != null) {
@@ -174,17 +174,12 @@ public class EmployeeServiceDelete extends AppCompatActivity {
 
     public void showBranchService(DataSnapshot dataSnapshot){
         branchServicesList.clear();
-        Context context = getApplicationContext();
-        CharSequence text = "i got here!";
-        int duration = Toast.LENGTH_SHORT;
 
-        Toast toast = Toast.makeText(context, text, duration);
-        toast.show();
         if(username != null){
             String branchName = username;
-            for(DataSnapshot ds : dataSnapshot.child("users").child("Employee").child(branchName).child("branchServices").getChildren()){
+//            child("users").child("Employee").child(branchName).child("branchServices").
+            for(DataSnapshot ds : dataSnapshot.getChildren()){
                 branchServicesList.add(ds.getValue().toString());
-                toast = Toast.makeText(context, ds.getValue().toString(),duration);
             }
 
             ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, branchServicesList);
