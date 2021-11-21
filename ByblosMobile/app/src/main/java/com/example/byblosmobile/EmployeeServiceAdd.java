@@ -38,6 +38,12 @@ public class EmployeeServiceAdd extends AppCompatActivity {
 
     List<Service> services; //all services in system
     List<String> branchServicesList; //services offered by branch
+    String branchName;
+
+    FirebaseUser user;
+
+    DatabaseReference users;
+    FirebaseAuth.AuthStateListener mAuthListener;
 
 
     @Override
@@ -49,10 +55,19 @@ public class EmployeeServiceAdd extends AppCompatActivity {
 
         db = FirebaseDatabase.getInstance();
         curr = FirebaseAuth.getInstance();
-        databaseService = db.getReference("service");
+        databaseService = FirebaseDatabase.getInstance().getReference("services");
+        users = FirebaseDatabase.getInstance().getReference("users/"+"Employee");
 
         services = new ArrayList<>();
         branchServicesList = new ArrayList<>();
+
+
+        user=curr.getCurrentUser();
+        if (user != null) {
+            branchName=FirebaseDatabase.getInstance().getReference().child("Users")
+                    .child(user.getUid()).toString();
+        }
+
 
         getCurrBranchServices();
 
@@ -67,32 +82,31 @@ public class EmployeeServiceAdd extends AppCompatActivity {
         });
     }
 
-
     @Override
     protected void onStart() {
         super.onStart();
-        //Finds all services in the database and displays them in list view
-        databaseService.addValueEventListener(new ValueEventListener() {
+        databaseService.addValueEventListener(new ValueEventListener(){
+
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
                 services.clear();
-                //iterate through all the nodes
+
+
                 for(DataSnapshot postSnapshot:dataSnapshot.getChildren()){
-                    //getting product
+
                     Service service = postSnapshot.getValue(Service.class);
 
-                    //adding product to the list
                     services.add(service);
 
-                    //creating adapter
                     ServiceList servicesAdapater = new ServiceList(EmployeeServiceAdd.this,services);
-                    //attaching adapter to the listview
+
                     serviceList.setAdapter(servicesAdapater);
                 }
-
             }
+
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseerror) {
 
             }
         });
@@ -101,7 +115,6 @@ public class EmployeeServiceAdd extends AppCompatActivity {
     private void getCurrBranchServices() { //check database
         FirebaseUser user = curr.getCurrentUser();
         if(user!=null){
-            String branchName = user.getUid();
             DatabaseReference userData = db.getReference("users/" + "Employee/"+ branchName);
             userData.addValueEventListener(new ValueEventListener() {
 
@@ -167,8 +180,6 @@ public class EmployeeServiceAdd extends AppCompatActivity {
         }
         branchServicesList.add(serviceName);
 
-        FirebaseUser user = curr.getCurrentUser();
-        String branchName = user.getUid();//get branch name
 
         //create a new attribute (branchServices) for the branch
         DatabaseReference dr = FirebaseDatabase.getInstance().getReference("users/" + "Employee/" + branchName + "/branchServices");

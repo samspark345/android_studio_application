@@ -32,6 +32,7 @@ public class EmployeeServiceDelete extends AppCompatActivity {
     FirebaseDatabase db;
     FirebaseAuth curr;
 
+    FirebaseUser user;
 
     List<String> branchServicesList; //services offered by branch
 
@@ -42,12 +43,15 @@ public class EmployeeServiceDelete extends AppCompatActivity {
         setContentView(R.layout.activity_employee_delete_branchservice);
 
         branchService = (ListView) findViewById(R.id.listOfBranchService);
+        databaseService = FirebaseDatabase.getInstance().getReference("services");
 
         db = FirebaseDatabase.getInstance();
         curr = FirebaseAuth.getInstance();
 
 
         branchServicesList = new ArrayList<>();
+
+        user = curr.getCurrentUser();
 
         getCurrBranchServices();
 
@@ -126,7 +130,6 @@ public class EmployeeServiceDelete extends AppCompatActivity {
     private void deleteService(String service) {
         branchServicesList.remove(service);
 
-        FirebaseUser user = curr.getCurrentUser();
         String branchName = user.getUid();//get branch name
 
         DatabaseReference dR = FirebaseDatabase.getInstance().getReference("users/" + "Employee/" + branchName + "/branchServices");
@@ -137,7 +140,6 @@ public class EmployeeServiceDelete extends AppCompatActivity {
     }
 
     private void getCurrBranchServices() { //check database
-        FirebaseUser user = curr.getCurrentUser();
         if(user!=null){
             String branchName = user.getUid();
             DatabaseReference userData = db.getReference("users/" + "Employee/"+ branchName);
@@ -160,14 +162,17 @@ public class EmployeeServiceDelete extends AppCompatActivity {
 
     public void showBranchService(DataSnapshot dataSnapshot){
         branchServicesList.clear();
-        FirebaseUser user = curr.getCurrentUser();
-        String branchName = user.getUid();
-        for(DataSnapshot ds : dataSnapshot.child("Users").child("Employee").child(branchName).child("branchServices").getChildren()){
-            branchServicesList.add(ds.getValue().toString());
+        if(user != null){
+            String branchName = user.getUid();
+            for(DataSnapshot ds : dataSnapshot.child("Users").child("Employee").child(branchName).child("branchServices").getChildren()){
+                branchServicesList.add(ds.getValue().toString());
+            }
+
+            ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, branchServicesList);
+            branchService.setAdapter(adapter);
+
         }
 
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, branchServicesList);
-        branchService.setAdapter(adapter);
     }
 
 

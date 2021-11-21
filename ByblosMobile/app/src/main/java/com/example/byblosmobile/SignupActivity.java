@@ -12,6 +12,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
 
+import java.util.ArrayList;
+
 public class SignupActivity extends AppCompatActivity {
     private boolean customerRole;
     private boolean gottenRole;
@@ -71,6 +73,8 @@ public class SignupActivity extends AppCompatActivity {
             newUser.setValue(password.getText().toString());
         }else{
             role = "Employee";
+            ArrayList<String> serviceList = new ArrayList();
+            ArrayList<String> availability = new ArrayList();
             Employee employee = new Employee(usernameString, _password, role, "null", "null",null,null,null);
             DatabaseReference newUser = database.getReference("users/"+role+"/"+usernameString);
             newUser.setValue(employee);

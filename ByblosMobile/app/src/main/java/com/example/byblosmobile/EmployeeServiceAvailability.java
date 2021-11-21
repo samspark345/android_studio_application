@@ -51,7 +51,7 @@ public class EmployeeServiceAvailability extends AppCompatActivity {
         db = FirebaseDatabase.getInstance();
         curr = FirebaseAuth.getInstance();
         user = curr.getCurrentUser();
-        branchName = user.getUid();//get branch name
+
 
         //https://developer.android.com/guide/topics/ui/controls/spinner#java reference
         spinnerday = findViewById(R.id.day);
@@ -69,6 +69,9 @@ public class EmployeeServiceAvailability extends AppCompatActivity {
         spinnerday.setAdapter(adapterday);
         spinnerStart.setAdapter(adapterStart);
         spinnerEnd.setAdapter(adapterEnd);
+        if(user != null){
+            branchName = user.getUid();//get branch name
+        }
 
         //Sets the day
         spinnerday.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -114,6 +117,7 @@ public class EmployeeServiceAvailability extends AppCompatActivity {
         //Checks if the end time is before the start time
         if (endHour < startHour){
             Toast.makeText(getApplicationContext(), "Invalid Time, Please Check again!", Toast.LENGTH_SHORT).show();
+
         }
         else {
             TimeSlot newTime = new TimeSlot(day,startHour,endHour);

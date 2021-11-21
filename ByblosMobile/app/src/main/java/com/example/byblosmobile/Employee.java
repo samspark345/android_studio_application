@@ -12,7 +12,7 @@ public class Employee extends User{
     private ArrayList<String> requests;
 
 
-    public Employee(String userName, String password, String role) {
+    /*public Employee(String userName, String password, String role) {
         super(userName, password, role);
         branchName = userName;
         branchAddress = null;
@@ -24,7 +24,7 @@ public class Employee extends User{
         this.branchAddress = address;
         this.branchPhoneNumber = phoneNumber;
         this.branchName = userName;
-    }
+    }*/
 
 
         public Employee(String userName,String password, String role, String address, String phoneNumber, ArrayList<String> serviceList,ArrayList<String> availability,ArrayList<String> requests){
