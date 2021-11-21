@@ -43,7 +43,7 @@ public class EmployeeServiceAdd extends AppCompatActivity {
     List<String> branchServicesList; //services offered by branch
     String branchName;
 
-    DatabaseReference user;
+    String user;
 
     DatabaseReference users;
     FirebaseAuth.AuthStateListener mAuthListener;
@@ -63,17 +63,17 @@ public class EmployeeServiceAdd extends AppCompatActivity {
         db = FirebaseDatabase.getInstance();
         curr = FirebaseAuth.getInstance();
         databaseService = db.getInstance().getReference("services");
-        databaseReference = db.getInstance().getReference("user").child("Employee");
+        databaseReference = db.getInstance().getReference("users").child("Employee");
         users = db.getInstance().getReference("users/"+"Employee");
 
         services = new ArrayList<>();
         branchServicesList = new ArrayList<>();
 
 
-        user=databaseReference.child(username);
+        user=username;
         if (user != null) {
-            branchName=FirebaseDatabase.getInstance().getReference().child("Users")
-                    .child(user.toString()).toString();
+            branchName=user;
+            System.out.println(branchName);
         }
 
 
@@ -190,7 +190,7 @@ public class EmployeeServiceAdd extends AppCompatActivity {
 
 
         //create a new attribute (branchServices) for the branch
-        DatabaseReference dr = FirebaseDatabase.getInstance().getReference("users/" + "Employee/" + branchName + "/branchServices");
+        DatabaseReference dr = FirebaseDatabase.getInstance().getReference("users/" + "Employee/" + branchName).child("branchServices");
         dr.setValue(branchServicesList); //add list value to the branchService attribute
 
         Toast.makeText(getApplicationContext(), "Service has been added Successfully", Toast.LENGTH_SHORT).show();

@@ -1,5 +1,6 @@
 package com.example.byblosmobile;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -37,7 +38,7 @@ public class EmployeeServiceDelete extends AppCompatActivity {
     FirebaseDatabase db;
     FirebaseAuth curr;
 
-    DatabaseReference user;
+//    DatabaseReference user;
 
     List<String> branchServicesList; //services offered by branch
 
@@ -52,17 +53,17 @@ public class EmployeeServiceDelete extends AppCompatActivity {
         this.roleName = intent.getStringExtra("roleName");
 
         branchService = (ListView) findViewById(R.id.listOfBranchService);
-        databaseService = FirebaseDatabase.getInstance().getReference("services");
+        databaseService = FirebaseDatabase.getInstance().getReference("users/Employee/"+username+"/branchServices");
 
         db = FirebaseDatabase.getInstance();
         curr = FirebaseAuth.getInstance();
 
-        databaseReference = db.getInstance().getReference("user").child("Employee");
+        databaseReference = db.getInstance().getReference("users").child("Employee");
 
 
         branchServicesList = new ArrayList<>();
 
-        user = databaseReference.child(username);
+//        String user = username;
 
         getCurrBranchServices();
 
@@ -141,7 +142,7 @@ public class EmployeeServiceDelete extends AppCompatActivity {
     private void deleteService(String service) {
         branchServicesList.remove(service);
 
-        String branchName = user.toString();//get branch name
+        String branchName = username;//get branch name
 
         DatabaseReference dR = FirebaseDatabase.getInstance().getReference("users/" + "Employee/" + branchName + "/branchServices");
         dR.setValue(branchServicesList); //replace list value to the branchService attribute
@@ -151,8 +152,8 @@ public class EmployeeServiceDelete extends AppCompatActivity {
     }
 
     private void getCurrBranchServices() { //check database
-        if(user!=null){
-            String branchName = user.toString();
+        if(username!=null){
+            String branchName = username;
             DatabaseReference userData = db.getReference("users/" + "Employee/"+ branchName);
             userData.addValueEventListener(new ValueEventListener() {
 
@@ -173,10 +174,17 @@ public class EmployeeServiceDelete extends AppCompatActivity {
 
     public void showBranchService(DataSnapshot dataSnapshot){
         branchServicesList.clear();
-        if(user != null){
-            String branchName = user.toString();
-            for(DataSnapshot ds : dataSnapshot.child("Users").child("Employee").child(branchName).child("branchServices").getChildren()){
+        Context context = getApplicationContext();
+        CharSequence text = "i got here!";
+        int duration = Toast.LENGTH_SHORT;
+
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
+        if(username != null){
+            String branchName = username;
+            for(DataSnapshot ds : dataSnapshot.child("users").child("Employee").child(branchName).child("branchServices").getChildren()){
                 branchServicesList.add(ds.getValue().toString());
+                toast = Toast.makeText(context, ds.getValue().toString(),duration);
             }
 
             ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, branchServicesList);

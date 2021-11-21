@@ -9,6 +9,7 @@
         <entry key="..\:/Users/samue/Documents/SEG2105PROJ/seg2105f21-project-project_gr32/ByblosMobile/app/src/main/res/layout/activity_admin_welcome_page.xml" value="0.25" />
         <entry key="..\:/Users/samue/Documents/SEG2105PROJ/seg2105f21-project-project_gr32/ByblosMobile/app/src/main/res/layout/activity_branchaddelete.xml" value="0.1766304347826087" />
         <entry key="..\:/Users/samue/Documents/SEG2105PROJ/seg2105f21-project-project_gr32/ByblosMobile/app/src/main/res/layout/activity_customer_welcome_page.xml" value="0.17255434782608695" />
+        <entry key="..\:/Users/samue/Documents/SEG2105PROJ/seg2105f21-project-project_gr32/ByblosMobile/app/src/main/res/layout/activity_employee_delete_branchservice.xml" value="0.25" />
         <entry key="..\:/Users/samue/Documents/SEG2105PROJ/seg2105f21-project-project_gr32/ByblosMobile/app/src/main/res/layout/activity_employee_welcome_page.xml" value="0.17255434782608695" />
         <entry key="..\:/Users/samue/Documents/SEG2105PROJ/seg2105f21-project-project_gr32/ByblosMobile/app/src/main/res/layout/activity_login.xml" value="0.1" />
         <entry key="..\:/Users/samue/Documents/SEG2105PROJ/seg2105f21-project-project_gr32/ByblosMobile/app/src/main/res/layout/activity_main.xml" value="0.1" />
@@ -16,6 +17,7 @@
         <entry key="..\:/Users/samue/Documents/SEG2105PROJ/seg2105f21-project-project_gr32/ByblosMobile/app/src/main/res/layout/activity_servicelist.xml" value="0.22" />
         <entry key="..\:/Users/samue/Documents/SEG2105PROJ/seg2105f21-project-project_gr32/ByblosMobile/app/src/main/res/layout/activity_welcome_page.xml" value="0.25" />
         <entry key="..\:/Users/samue/Documents/SEG2105PROJ/seg2105f21-project-project_gr32/ByblosMobile/app/src/main/res/layout/edit_service.xml" value="0.18854166666666666" />
+        <entry key="..\:/Users/samue/Documents/SEG2105PROJ/seg2105f21-project-project_gr32/ByblosMobile/app/src/main/res/layout/layout_employee_delete_service.xml" value="0.16875" />
       </map>
     </option>
   </component>
