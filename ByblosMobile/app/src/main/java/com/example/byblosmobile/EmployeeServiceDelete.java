@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -31,6 +32,7 @@ public class EmployeeServiceDelete extends AppCompatActivity {
     FirebaseDatabase db;
     FirebaseAuth curr;
 
+
     List<String> branchServicesList; //services offered by branch
 
 
@@ -43,6 +45,7 @@ public class EmployeeServiceDelete extends AppCompatActivity {
 
         db = FirebaseDatabase.getInstance();
         curr = FirebaseAuth.getInstance();
+
 
         branchServicesList = new ArrayList<>();
 
@@ -60,8 +63,23 @@ public class EmployeeServiceDelete extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
 
-    //display all the service
+        databaseService.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                showBranchService(dataSnapshot);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) { }
+        });
+
+    }
+    //display all the request for that employee
+
 
 
 
@@ -137,6 +155,19 @@ public class EmployeeServiceDelete extends AppCompatActivity {
                 }
             });
         } else{}
+    }
+
+
+    public void showBranchService(DataSnapshot dataSnapshot){
+        branchServicesList.clear();
+        FirebaseUser user = curr.getCurrentUser();
+        String branchName = user.getUid();
+        for(DataSnapshot ds : dataSnapshot.child("Users").child("Employee").child(branchName).child("branchServices").getChildren()){
+            branchServicesList.add(ds.getValue().toString());
+        }
+
+        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, branchServicesList);
+        branchService.setAdapter(adapter);
     }
 
 

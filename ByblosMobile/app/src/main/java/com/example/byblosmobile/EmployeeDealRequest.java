@@ -1,12 +1,16 @@
 package com.example.byblosmobile;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,7 +32,7 @@ public class EmployeeDealRequest extends AppCompatActivity {
    
     ListView listViewRequests;
 
-    DatabaseReference databaseService;
+    DatabaseReference databaseR;
     FirebaseDatabase db;
     FirebaseAuth curr;
 
@@ -43,6 +47,9 @@ public class EmployeeDealRequest extends AppCompatActivity {
 
         db = FirebaseDatabase.getInstance();
         curr = FirebaseAuth.getInstance();
+        databaseR = db.getReference();
+
+
         branchRequestsList = new ArrayList<>();
 
         getCurrBranchRequest();
@@ -50,45 +57,36 @@ public class EmployeeDealRequest extends AppCompatActivity {
         listViewRequests.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-
                 String request = branchRequestsList.get(i);
-                showEditRequestsDialog(request);
+                viewRequestInfo(request);
                 return true;
             }
         });
     }
 
+
+    private void viewRequestInfo(String request) {
+        Intent intent = new Intent(this, EmployeeViewRequest.class);
+        startActivity(intent);
+
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
-        FirebaseAuth fbAuthRef = FirebaseAuth.getInstance();
-        FirebaseUser currentUser = fbAuthRef.getCurrentUser();
-        DatabaseReference dbRootRef = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference dbRequestsRef = dbRootRef.child("users").child(currentUser.getUid()).child("branchRequests");
+        databaseR.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                showRequestData(dataSnapshot);
+            }
 
-        //Finds all the current services in the database and displays them in list view
-        if (dbRequestsRef != null) {
-            dbRequestsRef.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    branchRequestsList.clear();
-
-                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                        
-                    }
-                }
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
-        }
-    }
-
-    private void showEditRequestsDialog(String request) {
-
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) { }
+        });
 
     }
+    //display all the request for that employee
+
 
     private void getCurrBranchRequest() { //check database get all the request in curr branch
         FirebaseUser user = curr.getCurrentUser();
@@ -111,18 +109,28 @@ public class EmployeeDealRequest extends AppCompatActivity {
                         BranchName
                             ...
                             branchRequests
-                                request1
-                                request2
-                                request3
+                                request1(String)
+                                request2(Strng)
+                                request3(String)
                      */
                 }
-
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
                 }
             });
         } else{}
 
+    }
+
+    public void showRequestData(DataSnapshot dataSnapshot){
+        branchRequestsList.clear();
+        FirebaseUser user = curr.getCurrentUser();
+        String branchName = user.getUid();
+        for(DataSnapshot ds : dataSnapshot.child("Users").child("Employee").child(branchName).child("branchRequests").getChildren()){
+           branchRequestsList.add(ds.getValue().toString());
+        }
+        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, branchRequestsList);
+        listViewRequests.setAdapter(adapter);
     }
 
 }
