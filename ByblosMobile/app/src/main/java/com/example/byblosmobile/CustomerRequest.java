@@ -41,7 +41,6 @@ public class CustomerRequest extends AppCompatActivity {
     String username;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +54,7 @@ public class CustomerRequest extends AppCompatActivity {
         services = new ArrayList<>();
         serviceList = (ListView) findViewById(R.id.services);
         curr = FirebaseAuth.getInstance();
+
 
 
         serviceList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -121,7 +121,8 @@ public class CustomerRequest extends AppCompatActivity {
         buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               fromRequestToCustomerWelcome(view);
+              // fromRequestToCustomerWelcome(view);
+                dialog.dismiss();
             }
         });
 
@@ -129,7 +130,8 @@ public class CustomerRequest extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 addRequest(serviceName);
-                fromRequestToCustomerWelcome(view);
+                //fromRequestToCustomerWelcome(view);
+                dialog.dismiss();
             }
         });
 
@@ -151,15 +153,14 @@ public class CustomerRequest extends AppCompatActivity {
             Request request = new Request(serviceName,username,"null");
             //saving the Product
             String id = username +
-            databaseRequests.child(serviceName).setValue(request);
+            databaseRequests.child(username).setValue(request);
 
             Toast.makeText(this,"Request added",Toast.LENGTH_LONG).show();
 
     }
 
     public void fromRequestToCustomerWelcome(View view){
-        Intent backToWelcome = new Intent(this, CustomerWelcomePage.class);
-        startActivity(backToWelcome);
+        setContentView(R.layout.activity_customer_welcome_page);
     }
 
 }

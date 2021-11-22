@@ -46,6 +46,8 @@ public class EmployeeDealRequest extends AppCompatActivity {
     Button acceptButton;
     Button rejectButton;
 
+    DatabaseReference databaseRequests;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employee_requestlist);
@@ -56,37 +58,92 @@ public class EmployeeDealRequest extends AppCompatActivity {
         this.username = intent.getStringExtra("username");
         this.roleName = intent.getStringExtra("roleName");
 
+
         db = FirebaseDatabase.getInstance();
         databaseR = db.getReference();//get whole system database
         databaseReference = FirebaseDatabase.getInstance().getReference("users").child("Employee");
         currBranch = databaseReference.child(username);//stores all the information about the branch
 
+        requestName = new ArrayList<>();
         requestsList = new ArrayList<>();
-        getAllRequest();//get all the request from database
+      //  getAllRequest();//get all the request from database
 
         listViewRequests.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Request request = requestsList.get(i);
-                showRequestDialog(request);
+                //showRequestDialog(request);
+                showDialog(request);
                 return true;
             }
         });
+        databaseRequests = db.getInstance().getReference("requests");
+    }
+    private void showDialog(Request request) {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.activity_employee_request, null);
+
+        dialogBuilder.setView(dialogView);
+        AlertDialog alertDialog = dialogBuilder.create();
+
+        alertDialog.show();
+
+        final Button buttonAccept = (Button) alertDialog.findViewById(R.id.acceptButton);
+        final Button buttonReject = (Button) alertDialog.findViewById(R.id.rejectButton);
+
+
+        String requestCustomer = request.getCustomerName();
+        String requestService = request.getServiceName();
+        String status = request.getStatus();
+
+        customerName = (TextView) alertDialog.findViewById(R.id.CustomerInfo);
+        serviceName=(TextView) alertDialog.findViewById(R.id.RequestedService);
+        requestStatus =(TextView)alertDialog.findViewById(R.id.RequestStatus);
+
+
+        customerName.setText(requestCustomer);
+        serviceName.setText(requestService);
+        requestStatus.setText(status);
+        DatabaseReference systemRequest = databaseR.child("requests");
+
+        //button click to change status of the request
+        buttonAccept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                request.setStatus("Accept");
+                // add this request to branch request section
+                DatabaseReference branchrequest = currBranch.child("branchRequest");
+                branchrequest.child(request.getCustomerName()).setValue(request);
+
+                //update the request status to database
+                DatabaseReference systemRequest = databaseR.child("requests");
+                systemRequest.child(request.getCustomerName()).setValue(request);
+
+                alertDialog.dismiss();
+            }
+        });
+
+        buttonReject.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                request.setStatus("Delete");
+                //update the request status to database
+                DatabaseReference systemRequest = databaseR.child("requests");
+                systemRequest.child(request.getCustomerName()).setValue(request);
+                alertDialog.dismiss();
+            }
+        });
+
     }
 
-    private void showRequestDialog(Request request) {
+    /*private void showRequestDialog(Request request) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.activity_employee_request, null);
         dialogBuilder.setView(dialogView);
 
 
-        customerName = (TextView) findViewById(R.id.CustomerInfo);
-        serviceName=(TextView) findViewById(R.id.RequestedService);
-        requestStatus =(TextView)findViewById(R.id.RequestStatus);
-
-        acceptButton = (Button)findViewById(R.id.acceptButton);
-        rejectButton =(Button)findViewById(R.id.rejectButton);
 
         final AlertDialog dialog = dialogBuilder.create();
         dialog.show();
@@ -128,7 +185,7 @@ public class EmployeeDealRequest extends AppCompatActivity {
             }
         });
 
-    }
+    }*/
 
     @Override
     protected void onStart() {
@@ -142,11 +199,36 @@ public class EmployeeDealRequest extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) { }
         });
+        databaseRequests.addValueEventListener(new ValueEventListener(){
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                requestsList.clear();
+
+
+                for(DataSnapshot postSnapshot:dataSnapshot.getChildren()){
+
+                    Request request = postSnapshot.getValue(Request.class);
+
+                    requestsList.add(request);
+
+                    RequestList servicesAdapater = new RequestList(EmployeeDealRequest.this,requestsList);
+
+                    listViewRequests.setAdapter(servicesAdapater);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseerror) {
+
+            }
+        });
 
     }
 
 
-    private void getAllRequest() { //check database get all the request in curr branch
+   /* private void getAllRequest() { //check database get all the request in curr branch
         if(username!=null){
             DatabaseReference requestsData = db.getReference("requests"); //get requests data
             requestsData.addValueEventListener(new ValueEventListener() {
@@ -165,11 +247,13 @@ public class EmployeeDealRequest extends AppCompatActivity {
             });
         } else{}
 
-    }
+    }*/
 
     //display string
     public void showRequestData(DataSnapshot dataSnapshot){
         requestName.clear();
+
+
         String branchName = username;
         for(DataSnapshot ds : dataSnapshot.child("requests").getChildren()){ //the children is a Request object
             String request = ds.getValue().toString();

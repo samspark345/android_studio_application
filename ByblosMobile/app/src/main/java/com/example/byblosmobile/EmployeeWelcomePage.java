@@ -8,7 +8,7 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-class EmployeeWelcomePage extends Activity {
+public class EmployeeWelcomePage extends Activity {
     Button branchProfileButton;
     Button branchInfoButton;
     Button branchAvailabilityButton;
@@ -21,25 +21,11 @@ class EmployeeWelcomePage extends Activity {
         setContentView(R.layout.activity_employee_welcome_page);
 
         branchProfileButton = (Button) findViewById(R.id.completeProfile);
-        branchInfoButton = (Button)findViewById(R.id.currentOffer);
         branchAvailabilityButton = (Button)findViewById(R.id.availability);
         branchRequestsButton = (Button)findViewById(R.id.dealServiceRequest);
         branchAddServiceButton = (Button)findViewById(R.id.addServiceBranch);
         branchDeleteServiceButton = (Button)findViewById(R.id.deleteServiceBranch);
 
-        branchProfileButton.setOnClickListener(new View.OnClickListener(){ // switch to another UI with Service class
-            @Override
-            public void onClick(View view){
-                openEmployeeProfile(view);
-            }
-        });
-
-        branchInfoButton.setOnClickListener(new View.OnClickListener(){ // switch to another UI with Service class
-            @Override
-            public void onClick(View view){
-                openBranchInfo(view);
-            }
-        });
 
         branchAvailabilityButton.setOnClickListener(new View.OnClickListener(){ //switch to service editing class
             @Override
@@ -68,15 +54,6 @@ class EmployeeWelcomePage extends Activity {
         });
     }
 
-    public void openEmployeeProfile(View view){
-        Intent switchToEmployeeActivity = new Intent(this, EmployeeProfileEdit.class);
-        startActivity(switchToEmployeeActivity);
-    }
-
-    public void openBranchInfo(View view){
-        Intent switchToEmployeeActivity = new Intent(this,EmployeeInfo.class);
-        startActivity(switchToEmployeeActivity);
-    }
 
     public void openBranchServiceAdd(View view){
         Intent switchToEmployeeActivity = new Intent(this,EmployeeServiceAdd.class);
@@ -97,6 +74,7 @@ class EmployeeWelcomePage extends Activity {
         Intent switchToEmployeeActivity = new Intent(this,EmployeeDealRequest.class);
         startActivity(switchToEmployeeActivity);
     }
+
 
 
 }

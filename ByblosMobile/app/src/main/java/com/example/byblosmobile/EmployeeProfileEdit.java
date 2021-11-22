@@ -111,11 +111,11 @@ public class EmployeeProfileEdit extends AppCompatActivity {
 
                 Toast.makeText(getApplicationContext(), "Success!", Toast.LENGTH_LONG).show();
 
-                Intent intent = new Intent(EmployeeProfileEdit.this, EmployeeInfo.class);
-                startActivity(intent);
+                //Intent intent = new Intent(EmployeeProfileEdit.this, EmployeeInfo.class);
+                //startActivity(intent);
             }else{
-                Intent intent = new Intent(EmployeeProfileEdit.this, EmployeeInfo.class);
-                startActivity(intent);
+                //Intent intent = new Intent(EmployeeProfileEdit.this, EmployeeInfo.class);
+                //startActivity(intent);
             }
 
         }

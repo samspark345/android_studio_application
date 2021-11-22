@@ -39,6 +39,7 @@ public class EmployeeInfo extends AppCompatActivity {
         String name;
         String address;
         String phoneNumber;
+        FirebaseDatabase db;
 
         //array for availability and branch service
         ArrayList<String> availability;
@@ -59,6 +60,9 @@ public class EmployeeInfo extends AppCompatActivity {
             branchName = (TextView) findViewById(R.id.branchname);
             branchAddress=(TextView) findViewById(R.id.branchaddress);
             branchNumber =(TextView)findViewById(R.id.branchnumber);
+
+           // databaseReference = db.getInstance().getReference("users").child("Employee");
+            availability = new ArrayList<>();
 
 
             databaseReference = FirebaseDatabase.getInstance().getReference();//get system data
@@ -98,7 +102,7 @@ public class EmployeeInfo extends AppCompatActivity {
     }
 
     private void showServiceData(DataSnapshot dataSnapshot) {
-        serviceOffered.clear();//refresh data
+       // serviceOffered.clear();//refresh data
         if(username != null){
             String branchName = username;
             // child("users").child("Employee").child(branchName).child("branchServices").
@@ -106,8 +110,8 @@ public class EmployeeInfo extends AppCompatActivity {
                 serviceOffered.add(ds.getValue().toString());
             }
 
-            ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, serviceOffered);
-            currentService.setAdapter(adapter);
+          //  ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, serviceOffered);
+            //currentService.setAdapter(adapter);
 
         }
 
@@ -116,23 +120,24 @@ public class EmployeeInfo extends AppCompatActivity {
     }
 
     private void showAvailabilityData(DataSnapshot dataSnapshot) {
-            availability.clear();//refresh data
+         //   availability.clear();//refresh data
             TimeSlot newTimeSlot;
-        for(DataSnapshot ds : dataSnapshot.child(username).child("availability").getChildren()){
+        for(DataSnapshot ds : dataSnapshot.child("Employee").child(username).child("availability").getChildren()){
             //ds is at availability attribute, getChildren will give date
             String day = ds.child("day").getValue().toString();
             String endhour = ds.child("endHour").getValue().toString();
             String starthour = ds.child("startHour").getValue().toString();
 
-            if(endhour != "null" || starthour!="null"){
-                int end = Integer.valueOf(endhour); //get int value
-                int start = Integer.valueOf(starthour);
-                newTimeSlot = new TimeSlot(day,start,end);
-                availability.add(newTimeSlot.toString());
-            }
+
+
+            int end = Integer.valueOf(endhour); //get int value
+            int start = Integer.valueOf(starthour);
+            newTimeSlot = new TimeSlot(day,start,end);
+            availability.add(newTimeSlot.toString());
+
         }
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, availability);
-        currentAvailability.setAdapter(adapter);
+      //  ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, availability);
+      //  currentAvailability.setAdapter(adapter);
     }
     //button click method
     public void goBackToEmployeeWelcome(View view){

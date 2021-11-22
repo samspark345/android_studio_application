@@ -39,7 +39,11 @@
         <activity android:name=".EmployeeServiceDelete"></activity>
         <activity android:name=".EmployeeDealRequest"></activity>
         <activity android:name=".EmployeeProfileEdit"></activity>
-        <activity android:name=".CustomerRequest"></activity>
+        <activity android:name=".EmployeeWelcomePage"></activity>
+
+        <activity
+            android:name=".CustomerRequest"
+            android:exported="true" />
 
 
     </application>
