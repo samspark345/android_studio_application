@@ -47,7 +47,7 @@ public class EmployeeProfileEdit extends AppCompatActivity {
         cancelButton = findViewById(R.id.cancelEditProfile);
 
         //access to current account and employee data base
-        databaseReference = FirebaseDatabase.getInstance().getReference("user").child("Employee");
+        databaseReference = FirebaseDatabase.getInstance().getReference("users").child("Employee");
         currUser = databaseReference.child(username);;
 
 
@@ -95,15 +95,13 @@ public class EmployeeProfileEdit extends AppCompatActivity {
         }else {
             //passed validation
             if (currUser != null) {
-                String currId = currUser.toString(); //return should be the name of the employee
-                DatabaseReference currEmployee = databaseReference.child(currId);
 
                 //edit branch name
-                currEmployee.child("branchName").setValue(nameContent);
+                currUser.child("branchName").setValue(nameContent);
                 //edit branch address
-                currEmployee.child("branchAddress").setValue(addressContent);
+                currUser.child("branchAddress").setValue(addressContent);
                 //edit branch phone number
-                currEmployee.child("branchPhoneNumber").setValue(numberContent);
+                currUser.child("branchPhoneNumber").setValue(numberContent);
 
                 Toast.makeText(getApplicationContext(), "Success!", Toast.LENGTH_LONG).show();
 
