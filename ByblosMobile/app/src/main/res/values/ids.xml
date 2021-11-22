@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <item name="reject" type="id">reject</item>
-    <item name="rejectbutton" type="id">rejectbutton</item>
-    <item name="acceptRequest" type="id">accept</item>
-    <item name="button6" type="id">button1</item>
-</resources>

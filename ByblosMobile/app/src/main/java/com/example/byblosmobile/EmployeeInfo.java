@@ -87,7 +87,7 @@ public class EmployeeInfo extends AppCompatActivity {
                  name = ds.child("branchName").getValue().toString();
                 branchName.setText(name);
 
-                 address = ds.child("branchAddress").getValue().toString();
+                address = ds.child("branchAddress").getValue().toString();
                 branchAddress.setText(address);
 
                 phoneNumber = ds.child("branchPhoneNumber").getValue().toString();

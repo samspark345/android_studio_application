@@ -40,6 +40,7 @@ public class CustomerRequest extends AppCompatActivity {
 
     String username;
 
+    
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -149,7 +150,8 @@ public class CustomerRequest extends AppCompatActivity {
             //creating a product Object
             Request request = new Request(serviceName,username,"null");
             //saving the Product
-            databaseRequests.child(username).setValue(request);
+            String id = username +
+            databaseRequests.child(serviceName).setValue(request);
 
             Toast.makeText(this,"Request added",Toast.LENGTH_LONG).show();
 
