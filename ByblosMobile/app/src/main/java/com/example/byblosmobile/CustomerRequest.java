@@ -40,7 +40,7 @@ public class CustomerRequest extends AppCompatActivity {
 
     String username;
 
-    
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
