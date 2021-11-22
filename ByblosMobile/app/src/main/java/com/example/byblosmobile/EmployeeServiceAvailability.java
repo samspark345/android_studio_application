@@ -53,16 +53,14 @@ public class EmployeeServiceAvailability extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employee_timeslot);
 
-        db = FirebaseDatabase.getInstance();
-        curr = FirebaseAuth.getInstance();
-        databaseReference = FirebaseDatabase.getInstance().getReference("user").child("Employee");
-        user = databaseReference.child(username);;
-
-
         Intent intent = getIntent();
         this.username = intent.getStringExtra("username");
         this.roleName = intent.getStringExtra("roleName");
 
+        db = FirebaseDatabase.getInstance();
+        curr = FirebaseAuth.getInstance();
+        databaseReference = FirebaseDatabase.getInstance().getReference("user").child("Employee");
+        user = databaseReference.child(username);;
 
         //https://developer.android.com/guide/topics/ui/controls/spinner#java reference
         spinnerday = findViewById(R.id.day);
@@ -132,7 +130,7 @@ public class EmployeeServiceAvailability extends AppCompatActivity {
         }
         else {
             TimeSlot newTime = new TimeSlot(day,startHour,endHour);
-            databaseService = db.getReference("users/Employee/" + branchName).child("availability").child(newTime.getDay());
+            databaseService = db.getReference("users/Employee/" + username).child("availability").child(newTime.getDay());
             //if there has availability then add, if not create a new attribute
             databaseService.child("startHour").setValue(newTime.getStartHour());
             databaseService.child("endHour").setValue(newTime.getEndHour());
