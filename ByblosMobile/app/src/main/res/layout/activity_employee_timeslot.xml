@@ -18,9 +18,6 @@
             android:textSize="16sp"
             android:textStyle="bold" />
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="50dp" />
 
         <TextView
             android:id="@+id/timeSlot"
@@ -98,13 +95,14 @@
             android:layout_gravity="center"
             android:onClick="onClickConfirmTime"
             android:text="Comfirm" />
+
         <Button
             android:id="@+id/backToInfo1"
             android:layout_width="250dp"
-            android:layout_gravity="center"
             android:layout_height="wrap_content"
-            android:text="Return To info page"
-            android:onClick="openBranchInfo"/>
+            android:layout_gravity="center"
+            android:onClick="goBackToEmployeeInfo"
+            android:text="Return To info page" />
 
 
 

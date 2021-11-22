@@ -15,12 +15,9 @@
             android:id="@+id/backToBranchMenuPage"
             android:layout_width="170dp"
             android:layout_height="wrap_content"
-            android:onClick="goBackToEmployeeWelcome"
+            android:onClick="switchEmployeeWelcome"
             android:text="BACK TO Menu" />
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/textView4"
@@ -42,7 +39,7 @@
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:onClick="goBackToEmployeeInfo"
+            android:onClick="fromAddToInfo"
             android:text="Return To info page" />
 
         <TextView

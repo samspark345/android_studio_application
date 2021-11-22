@@ -194,10 +194,11 @@ public class EmployeeServiceDelete extends AppCompatActivity {
         startActivity(backToWelcome);
     }
 
-    public void goBackToEmployeeInfo(View view){
+    public void fromDeleteToInfo(View view){
         Intent i = new Intent(this, EmployeeInfo.class);
         startActivity(i);
     }
+
 
 
 }

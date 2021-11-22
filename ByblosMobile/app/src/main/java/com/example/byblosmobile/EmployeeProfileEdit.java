@@ -52,7 +52,7 @@ public class EmployeeProfileEdit extends AppCompatActivity {
 
 
         //adding an onclicklistener to button
-        backToEmployeeMain.setOnClickListener(new View.OnClickListener() {
+        /*backToEmployeeMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(EmployeeProfileEdit.this, EmployeeWelcomePage.class);
@@ -67,7 +67,7 @@ public class EmployeeProfileEdit extends AppCompatActivity {
                 Intent i = new Intent(EmployeeProfileEdit.this, EmployeeWelcomePage.class);
                 startActivity(i);
             }
-        });
+        });*/
 
 
         comfirmButton.setOnClickListener(new View.OnClickListener() {
@@ -77,6 +77,12 @@ public class EmployeeProfileEdit extends AppCompatActivity {
             }
         });
 
+    }
+
+
+    public void fromEditToEmployeeWelcome(View view){
+        Intent i = new Intent(EmployeeProfileEdit.this, EmployeeWelcomePage.class);
+        startActivity(i);
     }
 
     private void update(){

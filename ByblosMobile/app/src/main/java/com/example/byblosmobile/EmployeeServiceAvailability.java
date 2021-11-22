@@ -155,6 +155,16 @@ public class EmployeeServiceAvailability extends AppCompatActivity {
         }
     }
 
+    public void goBackToEmployeeWelcome(View view){
+        Intent backToWelcome = new Intent(this, EmployeeWelcomePage.class);
+        startActivity(backToWelcome);
+    }
+
+    public void goBackToEmployeeInfo(View view){
+        Intent i = new Intent(this, EmployeeInfo.class);
+        startActivity(i);
+    }
+
 }
 
 

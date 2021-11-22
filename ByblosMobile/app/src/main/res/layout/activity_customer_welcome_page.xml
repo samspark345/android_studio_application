@@ -26,9 +26,6 @@
                 android:text="@string/logoutWelcomePage"
                 android:textColor="#1E1C1C" />
 
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="50dp" />
 
             <LinearLayout
                 android:layout_width="fill_parent"
@@ -102,9 +99,6 @@
 
             </LinearLayout>
 
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="20dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"

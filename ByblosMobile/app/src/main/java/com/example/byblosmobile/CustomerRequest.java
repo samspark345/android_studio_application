@@ -81,7 +81,6 @@ public class CustomerRequest extends AppCompatActivity {
 
                 services.clear();
 
-
                 for(DataSnapshot postSnapshot:dataSnapshot.getChildren()){
 
                     Service service = postSnapshot.getValue(Service.class);
@@ -100,14 +99,15 @@ public class CustomerRequest extends AppCompatActivity {
             }
         });
     }
+
     //display overall service in system
     private void showForm(String serviceName) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.activity_customer_add_request, null);
-        requestName = (EditText) dialogView.findViewById(R.id.requestName);
+        /*requestName = (EditText) dialogView.findViewById(R.id.requestName);
         customerInfo = (EditText) dialogView.findViewById(R.id.customerInfo);
-        requestedService = (EditText) dialogView.findViewById(R.id.requestedService);
+        requestedService = (EditText) dialogView.findViewById(R.id.requestedService);*/
         dialogBuilder.setView(dialogView);
 
         final Button buttonAdd = (Button) dialogView.findViewById(R.id.AddRequest);
@@ -120,45 +120,44 @@ public class CustomerRequest extends AppCompatActivity {
         buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+               fromRequestToCustomerWelcome(view);
             }
         });
 
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                addRequest(view);
-
+                addRequest(serviceName);
+                fromRequestToCustomerWelcome(view);
             }
         });
 
     }
 
-    public void addRequest(View view){
+    public void addRequest(String serviceName){
 
+        /*
         String rs = requestedService.getText().toString().trim();
         String ci = customerInfo.getText().toString().trim();
-        String rn = requestName.getText().toString().trim();
+        String rn = requestName.getText().toString().trim();*/
+
         //checking if the value is provided
-        if(!(rs.isEmpty()||ci.isEmpty()||rn.isEmpty())){
+        //if(!(rs.isEmpty()||ci.isEmpty()||rn.isEmpty())){
             //getting a unique id using push().getKey() method
             //it will create a unique id and we will use it as the primary key for our product
 
             //creating a product Object
-            Request request = new Request(rs,ci, rn, "null");
-
+            Request request = new Request(serviceName,username,"null");
             //saving the Product
             databaseRequests.child(username).setValue(request);
 
-            //setting edittext to blank again
-            requestName.setText("");
-            customerInfo.setText("");
-            requestedService.setText("");
-
             Toast.makeText(this,"Request added",Toast.LENGTH_LONG).show();
-        }else{
-            Toast.makeText(this, "(PLEASE ENTER VALID INFORMATION!)", Toast.LENGTH_LONG).show();
-        }
+
+    }
+
+    public void fromRequestToCustomerWelcome(View view){
+        Intent backToWelcome = new Intent(this, CustomerWelcomePage.class);
+        startActivity(backToWelcome);
     }
 
 }

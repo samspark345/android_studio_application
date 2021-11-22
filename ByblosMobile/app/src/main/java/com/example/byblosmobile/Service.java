@@ -47,4 +47,9 @@ public class Service {
     }
     public String getRequiredInfo(){return requiredInfo;}
 
+    public String toString(){
+        String output = getName() + " RATE: " + getRate();
+        return output;
+    }
+
 }

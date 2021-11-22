@@ -7,10 +7,9 @@ public class Request {
     private String serviceName;
     private String status;
 
-    public Request(String requestName,String customerName,String serviceName,String status){
+    public Request(String serviceName,String customerName,String status){
         this.customerName = customerName;
         this.serviceName = serviceName;
-        this.requestName = requestName;
         this.status = status;
     }
 

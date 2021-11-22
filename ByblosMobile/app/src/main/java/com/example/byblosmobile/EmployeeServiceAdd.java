@@ -188,7 +188,6 @@ public class EmployeeServiceAdd extends AppCompatActivity {
         }
         branchServicesList.add(serviceName);
 
-
         //create a new attribute (branchServices) for the branch
         DatabaseReference dr = FirebaseDatabase.getInstance().getReference("users/" + "Employee/" + branchName).child("branchServices");
         dr.setValue(branchServicesList); //add list value to the branchService attribute
@@ -199,12 +198,12 @@ public class EmployeeServiceAdd extends AppCompatActivity {
 
 
     //button click method
-    public void goBackToEmployeeWelcome(View view){
+    public void switchEmployeeWelcome(View view){
         Intent backToWelcome = new Intent(this, EmployeeWelcomePage.class);
         startActivity(backToWelcome);
     }
 
-    public void goBackToEmployeeInfo(View view){
+    public void fromAddToInfo(View view){
         Intent i = new Intent(this, EmployeeInfo.class);
         startActivity(i);
     }
