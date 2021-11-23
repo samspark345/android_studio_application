@@ -162,7 +162,7 @@ public class EmployeeInfo extends AppCompatActivity {
         //Sets up the textViews
         for (DataSnapshot ds : dataSnapshot.getChildren()) { //dataSnapshot is get the employee username
             //if (ds.getValue().toString().equals(username)) {
-                 name = ds.child("branchName").getValue().toString();
+                name = ds.child("branchName").getValue().toString();
                 branchName.setText(username);
 
                 address = ds.child("branchAddress").getValue().toString();
