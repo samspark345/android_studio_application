@@ -1,10 +1,16 @@
 package com.example.byblosmobile;
 
+import java.sql.Time;
+
 public class TimeSlot {
 
     private String day;
     private int startHour;
     private int endHour;
+
+    public TimeSlot(){
+
+    }
 
     public TimeSlot(String day,int startHour, int endHour){
         this.day = day;

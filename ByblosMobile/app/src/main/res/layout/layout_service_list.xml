@@ -11,19 +11,19 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textViewName"
+            android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView" />
 
         <TextView
-            android:id="@+id/textViewRate"
+            android:id="@+id/openTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView" />
 
         <TextView
-            android:id="@+id/textViewInfo"
+            android:id="@+id/closeTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView" />

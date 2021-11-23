@@ -85,26 +85,26 @@ public class SignupActivity extends AppCompatActivity {
 
             DatabaseReference dates = database.getReference("users/"+role+"/"+usernameString+"/availability");
             dates.child("Monday").child("day").setValue("Monday");
-            dates.child("Monday").child("startHour").setValue("null");
-            dates.child("Monday").child("endHour").setValue("null");
+            dates.child("Monday").child("startHour").setValue(0);
+            dates.child("Monday").child("endHour").setValue(0);
             dates.child("Tuesday").child("day").setValue("Tuesday");
-            dates.child("Tuesday").child("startHour").setValue("null");
-            dates.child("Tuesday").child("endHour").setValue("null");
+            dates.child("Tuesday").child("startHour").setValue(0);
+            dates.child("Tuesday").child("endHour").setValue(0);
             dates.child("Wednesday").child("day").setValue("Wednesday");
-            dates.child("Wednesday").child("startHour").setValue("null");
-            dates.child("Wednesday").child("endHour").setValue("null");
+            dates.child("Wednesday").child("startHour").setValue(0);
+            dates.child("Wednesday").child("endHour").setValue(0);
             dates.child("Thursday").child("day").setValue("Thursday");
-            dates.child("Thursday").child("startHour").setValue("null");
-            dates.child("Thursday").child("endHour").setValue("null");
+            dates.child("Thursday").child("startHour").setValue(0);
+            dates.child("Thursday").child("endHour").setValue(0);
             dates.child("Friday").child("day").setValue("Friday");
-            dates.child("Friday").child("startHour").setValue("null");
-            dates.child("Friday").child("endHour").setValue("null");
+            dates.child("Friday").child("startHour").setValue(0);
+            dates.child("Friday").child("endHour").setValue(0);
             dates.child("Saturday").child("day").setValue("Saturday");
-            dates.child("Saturday").child("startHour").setValue("null");
-            dates.child("Saturday").child("endHour").setValue("null");
+            dates.child("Saturday").child("startHour").setValue(0);
+            dates.child("Saturday").child("endHour").setValue(0);
             dates.child("Sunday").child("day").setValue("Sunday");
-            dates.child("Sunday").child("startHour").setValue("null");
-            dates.child("Sunday").child("endHour").setValue("null");
+            dates.child("Sunday").child("startHour").setValue(0);
+            dates.child("Sunday").child("endHour").setValue(0);
 
 
         }

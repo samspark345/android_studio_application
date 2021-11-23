@@ -26,9 +26,9 @@ public class ServiceList extends ArrayAdapter<Service> {
         LayoutInflater inflater = context.getLayoutInflater();
         View listViewItem = inflater.inflate(R.layout.layout_service_list, null, true);
 
-        TextView textViewName = (TextView) listViewItem.findViewById(R.id.textViewName);
-        TextView textViewRate = (TextView) listViewItem.findViewById(R.id.textViewRate);
-        TextView textViewInfo = (TextView) listViewItem.findViewById(R.id.textViewInfo);
+        TextView textViewName = (TextView) listViewItem.findViewById(R.id.date);
+        TextView textViewRate = (TextView) listViewItem.findViewById(R.id.openTime);
+        TextView textViewInfo = (TextView) listViewItem.findViewById(R.id.closeTime);
 
 
         Service service = services.get(position);

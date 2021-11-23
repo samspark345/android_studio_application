@@ -134,37 +134,8 @@
 
             <ListView
                 android:layout_width="match_parent"
-                android:layout_height="195dp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/addServiceButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:onClick="goToAddService"
-                android:text="Add Service" />
-
-            <Button
-                android:id="@+id/deleteServiceButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:onClick="goToDeleteService"
-                android:text="Delete Service" />
-
-            <Button
-                android:id="@+id/button5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:onClick="goToSetTimeSlot"
-                android:text="Edit availability" />
+                android:layout_height="195dp"
+                android:id="@+id/availabilitySlot"/>
         </LinearLayout>
 
 
