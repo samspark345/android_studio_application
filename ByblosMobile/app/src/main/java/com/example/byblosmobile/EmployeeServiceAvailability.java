@@ -60,7 +60,7 @@ public class EmployeeServiceAvailability extends AppCompatActivity {
         db = FirebaseDatabase.getInstance();
         curr = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference("user").child("Employee");
-        user = databaseReference.child(username);;
+        user = databaseReference.child(username);
 
         //https://developer.android.com/guide/topics/ui/controls/spinner#java reference
         spinnerday = findViewById(R.id.day);
@@ -156,12 +156,16 @@ public class EmployeeServiceAvailability extends AppCompatActivity {
     }
 
     public void goBackToEmployeeWelcome(View view){
-        Intent backToWelcome = new Intent(this, EmployeeWelcomePage.class);
+        Intent backToWelcome = new Intent(this, WelcomePage.class);
+        backToWelcome.putExtra("username", username);
+        backToWelcome.putExtra("roleName", roleName);
         startActivity(backToWelcome);
     }
 
     public void goBackToEmployeeInfo(View view){
         Intent i = new Intent(this, EmployeeInfo.class);
+        i.putExtra("username", username);
+        i.putExtra("roleName", roleName);
         startActivity(i);
     }
 

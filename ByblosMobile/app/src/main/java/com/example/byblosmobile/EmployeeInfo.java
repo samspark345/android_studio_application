@@ -3,6 +3,7 @@ package com.example.byblosmobile;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -45,7 +46,7 @@ public class EmployeeInfo extends AppCompatActivity {
         ArrayList<TimeSlot> availability;
         ArrayList<String> serviceOffered;
 
-        List<Service> services;
+        List<String> services;
         ListView serviceList;
         List<TimeSlot> availableTime;
         ListView availabilityList;
@@ -78,14 +79,14 @@ public class EmployeeInfo extends AppCompatActivity {
 
             databaseReference = FirebaseDatabase.getInstance().getReference();//get system data
 
-            databaseServices = FirebaseDatabase.getInstance().getReference("services");
+            databaseServices = FirebaseDatabase.getInstance().getReference("users").child("Employee").child(username).child("branchServices");
             databaseAvailability = FirebaseDatabase.getInstance().getReference("users").child("Employee").child(username).child("availability");
 
             //Retrieve data from database to display
             databaseReference.child("users").child("Employee").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    showBranchInfo(dataSnapshot);
+                     showBranchInfo(dataSnapshot);
                     //showServiceData(dataSnapshot);
                     //showAvailabilityData(dataSnapshot);
                 }
@@ -139,16 +140,17 @@ public class EmployeeInfo extends AppCompatActivity {
 
                 services.clear();
 
-                for(DataSnapshot postSnapshot:dataSnapshot.getChildren()){
+                for(DataSnapshot postSnapshot:dataSnapshot.getChildren()) {
 
-                    Service service = postSnapshot.getValue(Service.class);
+                    String service = postSnapshot.getValue().toString();
 
                     services.add(service);
+                }
 
-                    ServiceList servicesAdapater = new ServiceList(EmployeeInfo.this,services);
+                    ArrayAdapter servicesAdapater = new ArrayAdapter(EmployeeInfo.this,android.R.layout.simple_list_item_1, services);
 
                     serviceList.setAdapter(servicesAdapater);
-                }
+
             }
 
             @Override
@@ -215,7 +217,9 @@ public class EmployeeInfo extends AppCompatActivity {
     }*/
     //button click method
     public void goBackToEmployeeWelcome(View view){
-        Intent backToWelcome = new Intent(this, EmployeeWelcomePage.class);
+        Intent backToWelcome = new Intent(this, WelcomePage.class);
+        backToWelcome.putExtra("username", username);
+        backToWelcome.putExtra("roleName", roleName);
         startActivity(backToWelcome);
     }
 
@@ -232,6 +236,8 @@ public class EmployeeInfo extends AppCompatActivity {
     }
     public void goToSetTimeSlot(View view){
         Intent backToWelcome = new Intent(this, EmployeeServiceAvailability.class);
+        backToWelcome.putExtra("username", username);
+        backToWelcome.putExtra("roleName", roleName);
         startActivity(backToWelcome);
 
     }

@@ -190,7 +190,9 @@ public class EmployeeServiceDelete extends AppCompatActivity {
     }
 
     public void goBackToEmployeeWelcome(View view){
-        Intent backToWelcome = new Intent(this, EmployeeWelcomePage.class);
+        Intent backToWelcome = new Intent(this, WelcomePage.class);
+        backToWelcome.putExtra("username", username);
+        backToWelcome.putExtra("roleName", roleName);
         startActivity(backToWelcome);
     }
 

@@ -81,7 +81,9 @@ public class EmployeeProfileEdit extends AppCompatActivity {
 
 
     public void fromEditToEmployeeWelcome(View view){
-        Intent i = new Intent(EmployeeProfileEdit.this, EmployeeWelcomePage.class);
+        Intent i = new Intent(EmployeeProfileEdit.this, WelcomePage.class);
+        i.putExtra("username", username);
+        i.putExtra("roleName", roleName);
         startActivity(i);
     }
 
