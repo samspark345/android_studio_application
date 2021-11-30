@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="List Of Branch"
+            android:text="List Of Customer Account"
             android:textColor="#100F0F"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -37,7 +37,7 @@
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Long Click To Delete Branch"
+            android:text="Long Click To Delete account"
             android:textSize="16sp"
             android:layout_gravity="center"
             android:textStyle="bold" />

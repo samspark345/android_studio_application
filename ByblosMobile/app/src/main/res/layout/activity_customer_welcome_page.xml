@@ -99,22 +99,65 @@
 
             </LinearLayout>
 
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="30dp" />
+
+            <Button
+                android:id="@+id/button5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="View My REQUEST" />
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Make Request? "
+                android:textColor="#FEFFFF"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Find Branch by searching:"
+                android:textColor="#FEFFFF"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="92dp"
+                android:layout_height="160dp"
                 android:orientation="vertical">
 
-
                 <Button
-                    android:id="@+id/button2"
+                    android:id="@+id/searchByService"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:onClick="openServiceRequest"
-                    android:text="Request Service" />
-            </LinearLayout>
+                    android:text="Service" />
 
+                <Button
+                    android:id="@+id/searchByAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Address" />
+
+                <Button
+                    android:id="@+id/searchByWorkingHour"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Working Hour" />
+
+
+            </LinearLayout>
 
 
             <LinearLayout
@@ -125,8 +168,8 @@
                 <ImageView
                     android:id="@+id/imageView"
                     android:layout_width="300dp"
-                    android:layout_gravity="center"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     app:srcCompat="@drawable/wcpdiagram" />
             </LinearLayout>
 
