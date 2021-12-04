@@ -20,6 +20,16 @@
             android:layout_width="match_parent"
             android:layout_height="24dp" />
 
+        <TextView
+            android:id="@+id/textView24"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Create Service"
+            android:textAlignment="center"
+            android:textColor="#272424"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -30,7 +40,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Service Name:"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/editServiceName"
@@ -38,12 +49,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
+                android:hint="enter the name of the service"
                 android:inputType="textPersonName" />
         </LinearLayout>
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="24dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -55,7 +63,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Hourly Rate:"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/editTextHourRate"
@@ -63,13 +72,10 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
+                android:hint="enter the price of the service"
                 android:inputType="textPersonName" />
 
         </LinearLayout>
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="24dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -80,32 +86,30 @@
                 android:id="@+id/requiredInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Requirement:"
-                android:textSize="16sp" />
-
-            <EditText
-                android:id="@+id/editTextRequiredInfo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:inputType="textPersonName" />
+                android:text="Reuired Info:"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="24dp" />
+
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="87dp"
+            android:layout_height="200dp"
             android:orientation="vertical">
 
 
-            <Space
+            <EditText
+                android:id="@+id/editTextRequiredInfo"
                 android:layout_width="match_parent"
-                android:layout_height="22dp" />
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="In addition to Bacic customer info"
+                android:inputType="textPersonName"
+                android:selectAllOnFocus="false"
+                android:singleLine="false" />
 
 
             <Button
@@ -123,13 +127,15 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:gravity="center"
-            android:text="Services offered"
-            android:textSize="30sp" />
+            android:text="Services Created"
+            android:textColor="#171515"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
         <ListView
             android:id="@+id/listServices"
             android:layout_width="match_parent"
-            android:layout_height="161dp"
+            android:layout_height="250dp"
             android:layout_below="@id/textView"></ListView>
 
 
@@ -146,7 +152,15 @@
             android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="(Long click on the list to edit or delete a service)" />
+            android:text="(Long click on the list to edit or delete a service)"
+            android:textAlignment="center"
+            android:textColor="#2B2626"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"></LinearLayout>
 
 
     </LinearLayout>

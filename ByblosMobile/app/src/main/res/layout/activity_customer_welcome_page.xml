@@ -108,7 +108,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="View My REQUEST" />
+                android:text="View My REQUEST"
+                android:onClick="switchToCheckRequest"/>
 
             <TextView
                 android:id="@+id/textView10"
@@ -140,21 +141,24 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="Service" />
+                    android:text="Service"
+                    android:onClick="switchToSearchByService"/>
 
                 <Button
                     android:id="@+id/searchByAddress"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="Address" />
+                    android:text="Address"
+                    android:onClick="switchToSearchByAddress"/>
 
                 <Button
                     android:id="@+id/searchByWorkingHour"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="Working Hour" />
+                    android:text="Working Hour"
+                    android:onClick="switchToSearchByWorkingHour"/>
 
 
             </LinearLayout>
