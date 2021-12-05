@@ -12,6 +12,7 @@
             android:id="@+id/backToMenuFromSearchAddress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="goBackToCustomerMenu"
             android:text="Back" />
 
         <SearchView
@@ -24,7 +25,7 @@
         <ListView
             android:id="@+id/addresslistview"
             android:layout_width="match_parent"
-            android:layout_height="626dp">
+            android:layout_height="495dp">
 
         </ListView>
 

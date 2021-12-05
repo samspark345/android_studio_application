@@ -23,7 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-public class EmployeeDealRequest extends AppCompatActivity {
+/*public class EmployeeDealRequest extends AppCompatActivity {
 
 
     String username; // curr employee username
@@ -187,7 +187,7 @@ public class EmployeeDealRequest extends AppCompatActivity {
 
     }*/
 
-    @Override
+ /*   @Override
     protected void onStart() {
         super.onStart();
         databaseR.addValueEventListener(new ValueEventListener() {
@@ -225,7 +225,7 @@ public class EmployeeDealRequest extends AppCompatActivity {
             }
         });
 
-    }
+    }*/
 
 
    /* private void getAllRequest() { //check database get all the request in curr branch
@@ -250,7 +250,7 @@ public class EmployeeDealRequest extends AppCompatActivity {
     }*/
 
     //display string
-    public void showRequestData(DataSnapshot dataSnapshot){
+   /* public void showRequestData(DataSnapshot dataSnapshot){
         requestName.clear();
 
 
@@ -270,4 +270,4 @@ public class EmployeeDealRequest extends AppCompatActivity {
         startActivity(backToWelcome);
     }
 
-}
+}*/

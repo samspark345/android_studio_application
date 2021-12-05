@@ -42,7 +42,7 @@
         <activity android:name=".EmployeeWelcomePage"></activity>
 
         <activity
-            android:name=".CustomerRequest"
+            android:name=".CustomerCheckBranchService"
             android:exported="true" />
 
 

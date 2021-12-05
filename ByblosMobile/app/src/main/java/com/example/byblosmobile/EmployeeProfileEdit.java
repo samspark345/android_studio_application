@@ -48,7 +48,7 @@ public class EmployeeProfileEdit extends AppCompatActivity {
 
         //access to current account and employee data base
         databaseReference = FirebaseDatabase.getInstance().getReference("users").child("Employee");
-        currUser = databaseReference.child(username);;
+        currUser = databaseReference.child(username);
 
 
         //adding an onclicklistener to button

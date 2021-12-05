@@ -71,6 +71,15 @@ public class SignupActivity extends AppCompatActivity {
             // create = new User(username.getText().toString(), password.getText().toString(), "Customer");
             DatabaseReference newUser = database.getReference("users/"+role+"/"+usernameString+"/password");
             newUser.setValue(password.getText().toString());
+
+            DatabaseReference basicInfo = database.getReference("users/"+role+"/"+usernameString+"/BasicInfo");
+            basicInfo.child("firstName").setValue("");
+            basicInfo.child("lastName").setValue("");
+            basicInfo.child("email").setValue("");
+            basicInfo.child("address").setValue("");
+            basicInfo.child("birthday").setValue("");
+
+
         }else{
             role = "Employee";
             ArrayList<String> serviceList = new ArrayList();
