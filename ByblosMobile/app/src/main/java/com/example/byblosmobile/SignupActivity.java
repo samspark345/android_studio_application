@@ -72,6 +72,9 @@ public class SignupActivity extends AppCompatActivity {
             DatabaseReference newUser = database.getReference("users/"+role+"/"+usernameString+"/password");
             newUser.setValue(password.getText().toString());
 
+            DatabaseReference u = database.getReference("users/"+role+"/"+usernameString+"/username");
+            u.setValue(usernameString);
+
             DatabaseReference basicInfo = database.getReference("users/"+role+"/"+usernameString+"/BasicInfo");
             basicInfo.child("firstName").setValue("");
             basicInfo.child("lastName").setValue("");

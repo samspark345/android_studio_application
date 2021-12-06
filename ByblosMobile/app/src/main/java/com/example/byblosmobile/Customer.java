@@ -16,5 +16,7 @@ public class Customer extends User{
         super(userName, password, role);
     }
 
-
+    public String getUserName() {
+        return userName;
+    }
 }

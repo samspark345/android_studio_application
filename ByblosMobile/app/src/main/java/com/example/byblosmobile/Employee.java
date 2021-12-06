@@ -10,6 +10,7 @@ public class Employee extends User{
     private ArrayList<String> service;
     private ArrayList<String> availability;
     private ArrayList<String> requests;
+    private String username;
 
 
     /*public Employee(String userName, String password, String role) {
@@ -29,6 +30,7 @@ public class Employee extends User{
 
         public Employee(String userName,String password, String role, String address, String phoneNumber, ArrayList<String> serviceList,ArrayList<String> availability,ArrayList<String> requests){
         super(userName,password,role);
+        username = userName;
         branchName = userName;
         this.branchPhoneNumber = phoneNumber;
         this.branchAddress = address;
@@ -44,6 +46,7 @@ public class Employee extends User{
     }
     public String getBranchName(){return branchName;}
     public void setBranchName(String newName){this.branchName = newName;}
+    public String getBranchUsername(){return username; }
 
     public String getBranchAddress(){return branchAddress;}
     public void setBranchAddress(String newAddress){this.branchAddress = newAddress;}

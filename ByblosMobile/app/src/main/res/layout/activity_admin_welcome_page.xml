@@ -132,15 +132,16 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@string/delete_service"
-                        android:onClick="openServiceActivity"/>
+                        android:onClick="openServiceActivity"
+                        android:text="@string/delete_service" />
+
                     <Button
                         android:id="@+id/editService"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="EDIT Service"
-                        android:onClick="openServiceActivity"/>
+                        android:onClick="openServiceActivity"
+                        android:text="EDIT Service" />
 
                 </LinearLayout>
 
@@ -159,6 +160,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:onClick="switchToDeleteBranch"
                         android:text="@string/delete_branch" />
 
                 </LinearLayout>
@@ -178,6 +180,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:onClick="switchToDeleteCustomer"
                         android:text="Delete Customer" />
                 </LinearLayout>
 

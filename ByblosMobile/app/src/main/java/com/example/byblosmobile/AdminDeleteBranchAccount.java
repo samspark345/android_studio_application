@@ -29,7 +29,8 @@ public class AdminDeleteBranchAccount extends AppCompatActivity {
     //show list of branch account in the system
     DatabaseReference db;
 
-    List<String> branchList;
+    List<Employee> branchList;
+    List<String> branchName;
     ListView listBranchAccount;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +48,8 @@ public class AdminDeleteBranchAccount extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                String service = branchList.get(i);
-                showDeleteDialog(service);
+                Employee b = branchList.get(i);
+                showDeleteDialog(b);
                 return true;
             }
         });
@@ -77,7 +78,7 @@ public class AdminDeleteBranchAccount extends AppCompatActivity {
 
 
 
-    private void showDeleteDialog(String service) {
+    private void showDeleteDialog(Employee branch) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.layout_employee_delete_service, null);
@@ -86,7 +87,7 @@ public class AdminDeleteBranchAccount extends AppCompatActivity {
         final Button buttonDelete = (Button) dialogView.findViewById(R.id.DeleteButton);
         final Button buttonCancel = (Button) dialogView.findViewById(R.id.CancelButton);
 
-        dialogBuilder.setTitle(service);
+        dialogBuilder.setTitle(branch.getBranchName());
         final AlertDialog dialog = dialogBuilder.create();
         dialog.show();
 
@@ -100,33 +101,37 @@ public class AdminDeleteBranchAccount extends AppCompatActivity {
         buttonDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                deleteService(service);
-
+                deleteBranch(branch);
                 dialog.dismiss();
             }
         });
 
     }
 
-    private void deleteService(String branch) {
+    private void deleteBranch(Employee branch) {
         branchList.remove(branch);
 
-        String branchName = branch;//get branch name
+        String branchName = branch.getBranchUsername();//get branch name
 
         DatabaseReference dR = FirebaseDatabase.getInstance().getReference("users/" + "Employee/" + branchName);
-        dR.setValue(branchServicesList); //replace list value to the branchService attribute
+        dR.setValue(branchList); //replace list value to the branchService attribute
 
-        Toast.makeText(getApplicationContext(), "Service has been deleted Successfully", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Branch has been deleted Successfully", Toast.LENGTH_SHORT).show();
 
     }
 
     private void getCurrBranch(DataSnapshot dataSnapshot) { //check database
         branchList.clear();
+        branchName.clear();
+
 
         // child("users").child("Employee").child(branchName)
         for(DataSnapshot ds : dataSnapshot.getChildren()){ // curr is one of  branch name in the system
-            String branchname = ds.getKey();
-            branchList.add(branchname);
+            //add branch class
+            Employee employee = ds.getValue(Employee.class);
+            branchList.add(employee);
+            branchName.add(employee.getBranchName());
+
         }
     }
 
@@ -134,7 +139,7 @@ public class AdminDeleteBranchAccount extends AppCompatActivity {
     public void showBranch(DataSnapshot dataSnapshot){
            getCurrBranch(dataSnapshot);
 
-            ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, branchList);
+            ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, branchName);
             listBranchAccount.setAdapter(adapter);
 
         }
