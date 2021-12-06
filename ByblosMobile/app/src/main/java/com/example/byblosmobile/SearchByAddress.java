@@ -52,9 +52,7 @@ public class SearchByAddress extends AppCompatActivity {
         address = new ArrayList<>();
         databaseServices = FirebaseDatabase.getInstance().getReference("users/Employee");
 
-
-        displayView = new ArrayAdapter(this, android.R.layout.simple_list_item_1,address);
-        listAddress.setAdapter(displayView);
+        getListOfBranches();
 
         searchAddress.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -81,14 +79,18 @@ public class SearchByAddress extends AppCompatActivity {
         });
     }
 
-    /*private void getListOfBranches() {
+    private void getListOfBranches() {
         //from users/Employee
         databaseServices.addValueEventListener(new ValueEventListener() {
 
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) { //SNAPSHOT IS users/Employee
-                String branchName = snapshot.getChildren().toString();//employee name
-                branches.add(branchName); //branches should contains all the branches name in system
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot ds : snapshot.getChildren()){ // loop through children of Employee
+                    String branchname = ds.toString();
+                    String branchAddress = ds.child("branchAddress").toString();
+                    address.add(branchAddress);
+                    branches.add(branchname); //input the name of the Branch
+                }
             }
 
             @Override
@@ -96,11 +98,11 @@ public class SearchByAddress extends AppCompatActivity {
             }
         });
 
-    }*/
+    }
 
     private void pickedBranch(String branch) {
         //show list  service offered by this branch
-        Intent switchToCheck = new Intent(this, CustomerCheckBranchService.class);
+        Intent switchToCheck = new Intent(this, CustomerCheckService.class);
         switchToCheck.putExtra("username", username);
         switchToCheck.putExtra("roleName", roleName);
         switchToCheck.putExtra("branchName",branch);
@@ -122,7 +124,7 @@ public class SearchByAddress extends AppCompatActivity {
         databaseServices.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                showBranches(dataSnapshot);
+                showAddress(dataSnapshot);
             }
 
             @Override
@@ -131,7 +133,7 @@ public class SearchByAddress extends AppCompatActivity {
 
     }
 
-    private void showBranches(DataSnapshot dataSnapshot) {
+    private void showAddress(DataSnapshot dataSnapshot) {
         branches.clear();
         address.clear();
 

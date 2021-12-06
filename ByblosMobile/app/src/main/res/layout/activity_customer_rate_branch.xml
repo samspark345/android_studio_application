@@ -37,13 +37,15 @@
                 android:textColor="#201E1E"
                 android:textSize="24sp"
                 android:textStyle="bold" />
+
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/imageView6"
-            android:layout_width="match_parent"
-            android:layout_height="500dp"
-            app:srcCompat="@drawable/Service" />
+            android:id="@+id/imageView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/service" />
 
         <RatingBar
             android:id="@+id/ratingBar"

@@ -18,7 +18,13 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomerCheckBranchService extends AppCompatActivity {
+
+//after customer search and select particular branch
+//then jump to here to check service
+//once picked service in here
+//then jump to CustomerMakeRequests
+
+public class CustomerCheckService extends AppCompatActivity {
     DatabaseReference databaseService;
     DatabaseReference databaseRequests;
     List<Service> services; //all services in system
@@ -35,7 +41,7 @@ public class CustomerCheckBranchService extends AppCompatActivity {
         this.username = intent.getStringExtra("username");
         this.branchName = intent.getStringExtra("branchName");
 
-        setContentView(R.layout.activity_customer_check_branchservice);
+        setContentView(R.layout.activity_customer_check_service);
 
         databaseRequests = FirebaseDatabase.getInstance().getReference("requests");
         databaseService = FirebaseDatabase.getInstance().getReference("users/Employee/branchName/services");
@@ -73,7 +79,7 @@ public class CustomerCheckBranchService extends AppCompatActivity {
 
                     services.add(service);
 
-                    ServiceList servicesAdapater = new ServiceList(CustomerCheckBranchService.this,services);
+                    ServiceList servicesAdapater = new ServiceList(CustomerCheckService.this,services);
 
                     serviceList.setAdapter(servicesAdapater);
                 }

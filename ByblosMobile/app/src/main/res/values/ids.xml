@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item name="workinghourSearchView" type="id">workinghourSearchView</item>
-    <item name="serviceSearchView" type="id">serviceSearchView</item>
-    <item name="addressSearchView" type="id">addressSearchView</item>
+    <item name="workinghourSearchView" type="id"></item>
+    <item name="serviceSearchView" type="id"></item>
+    <item name="addressSearchView" type="id"></item>
 </resources>

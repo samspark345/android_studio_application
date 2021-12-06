@@ -85,7 +85,7 @@ public class WelcomePage extends AppCompatActivity {
     }
 
     public void openServiceRequest(View view){
-        Intent switchToUserActivity = new Intent(this, CustomerCheckBranchService.class);
+        Intent switchToUserActivity = new Intent(this, CustomerCheckService.class);
         switchToUserActivity.putExtra("roleName", roleName);
         switchToUserActivity.putExtra("username", username.trim());
         startActivity(switchToUserActivity);

@@ -23,7 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-/*public class EmployeeDealRequest extends AppCompatActivity {
+public class EmployeeDealRequest extends AppCompatActivity {
 
 
     String username; // curr employee username
@@ -52,7 +52,7 @@ import java.util.List;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employee_requestlist);
 
-        listViewRequests=(ListView) findViewById(R.id.request);
+        listViewRequests = (ListView) findViewById(R.id.request);
 
         Intent intent = getIntent();
         this.username = intent.getStringExtra("username");
@@ -66,10 +66,10 @@ import java.util.List;
 
         requestName = new ArrayList<>();
         requestsList = new ArrayList<>();
-      //  getAllRequest();//get all the request from database
+        //  getAllRequest();//get all the request from database
 
-        listViewRequests.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
+        // listViewRequests.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+          /*  @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Request request = requestsList.get(i);
                 //showRequestDialog(request);
@@ -77,9 +77,11 @@ import java.util.List;
                 return true;
             }
         });
-        databaseRequests = db.getInstance().getReference("requests");
+        databaseRequests = db.getInstance().getReference("requests");*/
     }
-    private void showDialog(Request request) {
+
+}
+  /*  private void showDialog(Request request) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.activity_employee_request, null);

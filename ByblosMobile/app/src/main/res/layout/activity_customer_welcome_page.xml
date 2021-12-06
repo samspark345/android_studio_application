@@ -108,8 +108,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="View My REQUEST"
-                android:onClick="switchToCheckRequest"/>
+                android:onClick=""
+                android:text="View My REQUEST" />
 
             <TextView
                 android:id="@+id/textView10"
@@ -141,24 +141,24 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="Service"
-                    android:onClick="switchToSearchByService"/>
+                    android:onClick="switchToSearchByService"
+                    android:text="Service" />
 
                 <Button
                     android:id="@+id/searchByAddress"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="Address"
-                    android:onClick="switchToSearchByAddress"/>
+                    android:onClick="switchToSearchByAddress"
+                    android:text="Address" />
 
                 <Button
                     android:id="@+id/searchByWorkingHour"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="Working Hour"
-                    android:onClick="switchToSearchByWorkingHour"/>
+                    android:onClick="switchToSearchByWorkingHour"
+                    android:text="Working Hour" />
 
 
             </LinearLayout>

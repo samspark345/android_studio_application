@@ -42,8 +42,16 @@
         <activity android:name=".EmployeeWelcomePage"></activity>
 
         <activity
-            android:name=".CustomerCheckBranchService"
+            android:name=".CustomerCheckService"
             android:exported="true" />
+
+        <activity android:name=".CustomerWelcomePage"></activity>
+        <activity android:name=".CustomerMakeRequests"></activity>
+        <activity android:name=".CustomerViewRequest"></activity>
+
+        <activity android:name=".SearchByWorkingHour"></activity>
+        <activity android:name=".SearchByAddress"></activity>
+        <activity android:name=".SearchByService"></activity>
 
 
     </application>
