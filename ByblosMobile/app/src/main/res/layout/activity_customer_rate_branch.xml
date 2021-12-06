@@ -29,7 +29,7 @@
                 android:textSize="24sp" />
 
             <TextView
-                android:id="@+id/textView27"
+                android:id="@+id/displayBranchName"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -47,11 +47,13 @@
             android:layout_weight="1"
             app:srcCompat="@drawable/service" />
 
-        <RatingBar
-            android:id="@+id/ratingBar"
-            android:layout_width="345dp"
+        <EditText
+            android:id="@+id/rate"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center" />
+            android:ems="10"
+            android:hint="Rate from 1 to 5"
+            android:inputType="textPersonName" />
 
         <Button
             android:id="@+id/submitRate"

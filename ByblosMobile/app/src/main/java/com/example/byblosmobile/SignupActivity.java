@@ -92,6 +92,9 @@ public class SignupActivity extends AppCompatActivity {
             DatabaseReference passwordData = database.getReference("users/"+role+"/"+usernameString+"/password");
             passwordData.setValue(password.getText().toString());
 
+            DatabaseReference rating = database.getReference("users/"+role+"/"+usernameString+"/rating");
+            rating.setValue(0);
+
             DatabaseReference dates = database.getReference("users/"+role+"/"+usernameString+"/availability");
             dates.child("Monday").child("day").setValue("Monday");
             dates.child("Monday").child("startHour").setValue(0);
