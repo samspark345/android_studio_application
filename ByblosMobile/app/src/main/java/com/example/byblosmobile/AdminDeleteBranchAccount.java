@@ -77,10 +77,6 @@ public class AdminDeleteBranchAccount extends AppCompatActivity {
     //display all the request for that employee
 
 
-
-
-
-
     private void showDeleteDialog(Employee branch) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
@@ -118,7 +114,7 @@ public class AdminDeleteBranchAccount extends AppCompatActivity {
 
         DatabaseReference dR = FirebaseDatabase.getInstance().getReference("users/" + "Employee/" + branchName);
 
-        dR.setValue(branchList); //replace list value to the branchService attribute
+        dR.setValue(null); //replace list value to the branchService attribute
 
 
         Toast.makeText(getApplicationContext(), "Branch has been deleted Successfully", Toast.LENGTH_SHORT).show();
@@ -133,9 +129,20 @@ public class AdminDeleteBranchAccount extends AppCompatActivity {
         // child("users").child("Employee").child(branchName)
         for(DataSnapshot ds : dataSnapshot.getChildren()){ // curr is one of  branch name in the system
             //add branch class
-            Employee employee = ds.getValue(Employee.class);
+            //String userName,String password, String role, String address, String phoneNumber, ArrayList<String> serviceList,ArrayList<String> availability,ArrayList<String> requests
+            String password = String.valueOf(ds.child("password").getValue());
+            String username = String.valueOf(ds.child("branchName").getValue());
+            String role = String.valueOf(ds.child("userType").getValue());
+            String address = String.valueOf(ds.child("branchAddress").getValue());
+            String phoneNumber = String.valueOf(ds.child("branchPhoneNumber").getValue());
+            //ArrayList<String> serviceList = (ArrayList<String>) ds.child("serviceList").getValue();
+            //ArrayList<String> availability = (ArrayList<String>) ds.child("availability").getValue();
+            //ArrayList<String> requests = (ArrayList<String>) ds.child("BranchRequest").getValue();
+
+
+            Employee employee = new Employee(username, password, role, address, phoneNumber, null, null, null);
             branchList.add(employee);
-            branchName.add(employee.getBranchName());
+            branchName.add(username);
 
         }
     }
