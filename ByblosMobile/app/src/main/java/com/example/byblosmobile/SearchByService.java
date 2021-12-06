@@ -24,28 +24,30 @@ public class SearchByService extends AppCompatActivity {
     String username;
     String roleName;
 
-    List<Service> services;
+    List<String> services;
 
     ListView listService;
     SearchView searchService;
-    DatabaseReference databaseService;
+    DatabaseReference databaseServices;
 
     ArrayAdapter<String> displayView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_customer_search_by_workinghour);
+        setContentView(R.layout.activity_customer_search_by_service);
 
         Intent intent = getIntent();
         this.username = intent.getStringExtra("username");
         this.roleName = intent.getStringExtra("roleName");
 
-        listService = (ListView) findViewById(R.id.workinghourlistview);
-        searchService = (SearchView) findViewById(R.id.workinghourSearchView);
+        listService = (ListView) findViewById(R.id.servicelistview);
+        searchService = (SearchView) findViewById(R.id.serviceSearchView);
         services = new ArrayList<>();
 
-        databaseService = FirebaseDatabase.getInstance().getReference("services");
+        databaseServices = FirebaseDatabase.getInstance().getReference("services");
+        getListOfServices();
+
 
         searchService.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -63,8 +65,8 @@ public class SearchByService extends AppCompatActivity {
         listService.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Service s = services.get(i);//looping through
-                pickedService(s.getName());
+                String s = services.get(i);//looping through
+                pickedService(s);//passing service name
             }
         });
     }
@@ -78,14 +80,15 @@ public class SearchByService extends AppCompatActivity {
         startActivity(switchToCheck);
     }
     //display all the service offered by system
+
     @Override
     protected void onStart() {
         super.onStart();
 
-        databaseService.addValueEventListener(new ValueEventListener() {
+        databaseServices.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                showServices(dataSnapshot);
+                showAddress(dataSnapshot);
             }
 
             @Override
@@ -93,36 +96,37 @@ public class SearchByService extends AppCompatActivity {
         });
 
     }
-    private void showServices(DataSnapshot dataSnapshot) {
-        getListOfServices(dataSnapshot);
+
+    private void showAddress(DataSnapshot dataSnapshot) {
+        services.clear();
+
+        for(DataSnapshot ds : dataSnapshot.getChildren()){ // loop through children of Employee
+
+            String s = ds.child("name").getValue().toString();
+            services.add(s);
+        }
+
         displayView = new ArrayAdapter(this, android.R.layout.simple_list_item_1,services);
         listService.setAdapter(displayView);
     }
 
-    private void getListOfServices(DataSnapshot dataSnapshot) {
-        databaseService.addValueEventListener(new ValueEventListener(){
+
+    private void getListOfServices() {
+        //from users/Employee
+        databaseServices.addValueEventListener(new ValueEventListener() {
 
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                services.clear();
-
-
-                for(DataSnapshot postSnapshot:dataSnapshot.getChildren()){
-
-                    Service service = postSnapshot.getValue(Service.class);
-
-                    services.add(service);
-
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot ds : snapshot.getChildren()){ // loop through children of Employee
+                    String s = ds.child("name").getValue().toString();
+                    services.add(s);
                 }
             }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseerror) {
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
             }
         });
-
-
 
     }
 
