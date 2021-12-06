@@ -48,9 +48,11 @@ public class SearchByWorkingHour extends AppCompatActivity {
         searchTimeslot = (SearchView) findViewById(R.id.workinghourSearchView);
         branches = new ArrayList<String>();
         timeslot = new ArrayList<>();
-        databaseServices = FirebaseDatabase.getInstance().getReference("users/Employee");
+        databaseServices = FirebaseDatabase.getInstance().getReference("users").child("Employee");
 
-        displayView = new ArrayAdapter(this, android.R.layout.simple_list_item_1,timeslot);
+        getListOfTimeslot();
+        //displayView = new ArrayAdapter(this, android.R.layout.simple_list_item_1,timeslot);
+        //listTimeslot.setAdapter(displayView);
 
 
         searchTimeslot.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -98,7 +100,7 @@ public class SearchByWorkingHour extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         branches = new ArrayList<>();
-        DatabaseReference db = FirebaseDatabase.getInstance().getReference("users/Employee");
+        DatabaseReference db = FirebaseDatabase.getInstance().getReference("users").child("Employee");
         db.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -125,10 +127,13 @@ public class SearchByWorkingHour extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     for(DataSnapshot time : dataSnapshot.getChildren()){
                         //branches.add(time.getKey());
-                        TimeSlot timeSlot = time.getValue(TimeSlot.class);
+                        String date = time.child("day").getValue().toString();
+                        String end= time.child("endHour").getValue().toString();
+                        String start =  time.child("startHour").getValue().toString();
+                        String display = branchname + " " + date + "/start Hour: "+ start + "/End Hour: " + end;
 
-                        if (timeSlot.getEndHour() != 0 && timeSlot.getStartHour() != 0) {
-                            timeslot.add(timeSlot.toString());
+                        if (Integer.valueOf(end) != 0 && Integer.valueOf(start) != 0) {
+                            timeslot.add(display);
                             //timeslot.add("Branch name: " + branchname + "/ Date: " +time.getKey() + "/ Start hour: " + timeSlot.getStartHour() + "/ End hour : " + timeSlot.getEndHour());
                             branches.add(branchname); //input the name of the Branch
                         }
@@ -142,8 +147,53 @@ public class SearchByWorkingHour extends AppCompatActivity {
             });
         }
 
-        displayView = new ArrayAdapter(this, android.R.layout.simple_list_item_1, timeslot);
+        displayView = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, timeslot);
         listTimeslot.setAdapter(displayView);
+
+    }
+
+
+    private void getListOfTimeslot() {
+        databaseServices.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot ds : snapshot.getChildren()){ // curr is one of  branch name in the system
+                    String branchname = ds.getKey();
+                    //branches.add(branchname);
+                    DatabaseReference times = FirebaseDatabase.getInstance().getReference("users/Employee/"+branchname+"/availability");
+                    times.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            for(DataSnapshot time : dataSnapshot.getChildren()){
+                                //branches.add(time.getKey());
+                                String date = time.child("day").getValue().toString();
+                                String end= time.child("endHour").getValue().toString();
+                                String start =  time.child("startHour").getValue().toString();
+                                String display = branchname + " " + date + "/start Hour: "+ start + "/End Hour: " + end;
+
+                                if (Integer.valueOf(end) != 0 && Integer.valueOf(start) != 0) {
+                                    timeslot.add(display);
+                                    //timeslot.add("Branch name: " + branchname + "/ Date: " +time.getKey() + "/ Start hour: " + timeSlot.getStartHour() + "/ End hour : " + timeSlot.getEndHour());
+                                    branches.add(branchname); //input the name of the Branch
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
 
     }
 
