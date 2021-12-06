@@ -87,7 +87,7 @@ public class SearchByAddress extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot ds : snapshot.getChildren()){ // loop through children of Employee
                     String branchname = ds.toString();
-                    String branchAddress = ds.child("branchAddress").toString();
+                    String branchAddress = ds.child("branchAddress").getValue().toString();
                     address.add(branchAddress);
                     branches.add(branchname); //input the name of the Branch
                 }
