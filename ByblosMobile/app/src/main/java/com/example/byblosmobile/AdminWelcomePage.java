@@ -71,4 +71,14 @@ public class AdminWelcomePage extends AppCompatActivity {
         startActivity(switchToServiceActivity);
     }
 
+    public void switchToDeleteBranch(View view){
+        Intent s = new Intent(this, AdminDeleteBranchAccount.class);
+        startActivity(s);
+    }
+
+    public void switchToDeleteCustomer(View view){
+        Intent s = new Intent(this, AdminDeleteCustomerAccount.class);
+        startActivity(s);
+    }
+
 }

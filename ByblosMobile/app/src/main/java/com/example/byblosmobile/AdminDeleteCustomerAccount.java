@@ -111,7 +111,7 @@ public class AdminDeleteCustomerAccount extends AppCompatActivity {
         String customerName = customer.getUserName();//get branch name
 
         DatabaseReference dR = FirebaseDatabase.getInstance().getReference("users/" + "customer/" + customerName);
-        dR.setValue(customerList); //replace list value to the branchService attribute
+        dR.setValue(null); //replace list value to the branchService attribute
 
         Toast.makeText(getApplicationContext(), "customer has been deleted Successfully", Toast.LENGTH_SHORT).show();
 
@@ -125,9 +125,12 @@ public class AdminDeleteCustomerAccount extends AppCompatActivity {
         // child("users").child("Employee").child(branchName)
         for(DataSnapshot ds : dataSnapshot.getChildren()){ // curr is one of  branch name in the system
             //add branch class
-            Customer customer = ds.getValue(Customer.class);
+            String username = String.valueOf(ds.child("username").getValue());
+            String password = String.valueOf(ds.child("password").getValue());
+
+            Customer customer = new Customer(username, password, "Customer");
             customerList.add(customer);
-            customerName.add(customer.getUserName());
+            customerName.add(username);
 
         }
     }
@@ -140,8 +143,6 @@ public class AdminDeleteCustomerAccount extends AppCompatActivity {
         listCustomerAccount.setAdapter(adapter);
 
     }
-
-
 
 
 
