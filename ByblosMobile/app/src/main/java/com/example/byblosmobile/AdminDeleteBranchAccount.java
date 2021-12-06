@@ -37,12 +37,15 @@ public class AdminDeleteBranchAccount extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_branchaddelete);
 
+        branchList = new ArrayList<>();
+        branchName = new ArrayList<>();
+
 
         listBranchAccount = (ListView) findViewById(R.id.listBranch);
         db = FirebaseDatabase.getInstance().getReference("users").child("Employee");
 
 
-        branchList = new ArrayList<>();
+
 
         listBranchAccount.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -123,9 +126,9 @@ public class AdminDeleteBranchAccount extends AppCompatActivity {
     }
 
     private void getCurrBranch(DataSnapshot dataSnapshot) { //check database
+
         branchList.clear();
         branchName.clear();
-
 
         // child("users").child("Employee").child(branchName)
         for(DataSnapshot ds : dataSnapshot.getChildren()){ // curr is one of  branch name in the system

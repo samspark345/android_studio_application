@@ -54,6 +54,9 @@
         <activity android:name=".SearchByAddress"></activity>
         <activity android:name=".SearchByService"></activity>
 
+        <activity android:name=".AdminDeleteBranchAccount"></activity>
+        <activity android:name=".AdminDeleteCustomerAccount"></activity>
+
 
     </application>
 
