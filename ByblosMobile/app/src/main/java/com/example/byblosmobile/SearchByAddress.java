@@ -87,9 +87,13 @@ public class SearchByAddress extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot ds : snapshot.getChildren()){ // loop through children of Employee
                     String branchname = ds.getKey();
-                    String branchAddress = ds.child("branchAddress").getValue().toString();
-                    address.add(branchAddress);
-                    branches.add(branchname); //input the name of the Branch
+
+                    if(ds.child("branchAddress").getValue() != null){
+                        String branchAddress = ds.child("branchAddress").getValue().toString();
+                        address.add(branchAddress);
+                        branches.add(branchname); //input the name of the Branch
+                    }
+
                 }
             }
 
@@ -139,9 +143,11 @@ public class SearchByAddress extends AppCompatActivity {
 
         for(DataSnapshot ds : dataSnapshot.getChildren()){ // loop through children of Employee
             String branchname = ds.getKey();
-            String branchAddress = ds.child("branchAddress").getValue().toString();
-            address.add(branchAddress);
-            branches.add(branchname); //input the name of the Branch
+            if(ds.child("branchAddress").getValue() != null){
+                String branchAddress = ds.child("branchAddress").getValue().toString();
+                address.add(branchAddress);
+                branches.add(branchname); //input the name of the Branch
+            }
         }
 
          displayView = new ArrayAdapter(this, android.R.layout.simple_list_item_1,address);

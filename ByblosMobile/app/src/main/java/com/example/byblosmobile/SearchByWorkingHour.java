@@ -27,7 +27,7 @@ public class SearchByWorkingHour extends AppCompatActivity {
     String roleName;
 
     List<String> branches;
-    List<TimeSlot> timeslot;
+    List<String> timeslot;
 
     ListView listTimeslot;
     SearchView searchTimeslot;
@@ -49,7 +49,10 @@ public class SearchByWorkingHour extends AppCompatActivity {
         branches = new ArrayList<String>();
         timeslot = new ArrayList<>();
         databaseServices = FirebaseDatabase.getInstance().getReference("users/Employee");
-        displayView = new ArrayAdapter(this, android.R.layout.simple_list_item_1,branches);
+
+        displayView = new ArrayAdapter(this, android.R.layout.simple_list_item_1,timeslot);
+
+
         searchTimeslot.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
@@ -67,7 +70,7 @@ public class SearchByWorkingHour extends AppCompatActivity {
         listTimeslot.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                TimeSlot a = timeslot.get(i);//looping through
+                String a = timeslot.get(i);//looping through
                 String b = branches.get(i);
                 pickedTimeSlot(b);
             }
@@ -110,6 +113,7 @@ public class SearchByWorkingHour extends AppCompatActivity {
     }
     public void showBranch(DataSnapshot dataSnapshot){
         branches.clear();
+        timeslot.clear();
 
         // child("users").child("Employee").child(branchName)
         for(DataSnapshot ds : dataSnapshot.getChildren()){ // curr is one of  branch name in the system
@@ -124,8 +128,9 @@ public class SearchByWorkingHour extends AppCompatActivity {
                         TimeSlot timeSlot = time.getValue(TimeSlot.class);
 
                         if (timeSlot.getEndHour() != 0 && timeSlot.getStartHour() != 0) {
-                            branches.add("Branch name: " + branchname + "/ Date: " +time.getKey() + "/ Start hour: " + timeSlot.getStartHour() + "/ End hour : " + timeSlot.getEndHour());
-                            //branches.add(branchname); //input the name of the Branch
+                            timeslot.add(timeSlot.toString());
+                            //timeslot.add("Branch name: " + branchname + "/ Date: " +time.getKey() + "/ Start hour: " + timeSlot.getStartHour() + "/ End hour : " + timeSlot.getEndHour());
+                            branches.add(branchname); //input the name of the Branch
                         }
                     }
                 }
@@ -137,10 +142,12 @@ public class SearchByWorkingHour extends AppCompatActivity {
             });
         }
 
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, branches);
-        listTimeslot.setAdapter(adapter);
+        displayView = new ArrayAdapter(this, android.R.layout.simple_list_item_1, timeslot);
+        listTimeslot.setAdapter(displayView);
 
     }
+
+
 
    /* private void showBranches(DataSnapshot dataSnapshot) {
         getListOfTimeslot(dataSnapshot);
@@ -150,7 +157,7 @@ public class SearchByWorkingHour extends AppCompatActivity {
 
 
 
-    /*private void getListOfTimeslot(DataSnapshot dataSnapshot) {
+    private void getListOfTimeslot(DataSnapshot dataSnapshot) {
         branches.clear();
         timeslot.clear();
 
@@ -177,7 +184,8 @@ public class SearchByWorkingHour extends AppCompatActivity {
 
                }
            });
-        }*/
+        }
 
-    // }
+    // }*/
+
 }
