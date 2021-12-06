@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +17,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.w3c.dom.Text;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,11 +32,15 @@ import java.util.List;
 public class CustomerCheckService extends AppCompatActivity {
     DatabaseReference databaseService;
     DatabaseReference databaseRequests;
-    List<Service> services; //all services in system
+    List<String> services; //all services for that branch
     ListView serviceList;
     String username;
     String branchName;
     String serviceName;
+
+    ArrayAdapter<String> displayView;
+
+    TextView branch;
 
 
     @Override
@@ -41,19 +50,24 @@ public class CustomerCheckService extends AppCompatActivity {
         this.username = intent.getStringExtra("username");
         this.branchName = intent.getStringExtra("branchName");
 
+
         setContentView(R.layout.activity_customer_check_service);
 
-        databaseRequests = FirebaseDatabase.getInstance().getReference("requests");
-        databaseService = FirebaseDatabase.getInstance().getReference("users/Employee/branchName/services");
-        services = new ArrayList<>();
+        branch = (TextView)findViewById(R.id.selectedBranch);
         serviceList = (ListView) findViewById(R.id.services);
+
+        branch.setText(branchName);
+        databaseRequests = FirebaseDatabase.getInstance().getReference("requests");
+        databaseService = FirebaseDatabase.getInstance().getReference("users/Employee/").child(branchName).child("branchServices");
+        services = new ArrayList<>();
+
+        getListOfServices();
 
         serviceList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-                Service service = services.get(i);
-                showForm(service.getName());
+                String service = services.get(i);
+                showForm(service);
                 return true;
             }
         });
@@ -62,35 +76,57 @@ public class CustomerCheckService extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
 
-        databaseService.addValueEventListener(new ValueEventListener(){
+
+    private void getListOfServices() {
+        //from users/Employee
+        databaseService.addValueEventListener(new ValueEventListener() {
 
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                services.clear();
-
-                for(DataSnapshot postSnapshot:dataSnapshot.getChildren()){
-
-                    Service service = postSnapshot.getValue(Service.class);
-
-                    services.add(service);
-
-                    ServiceList servicesAdapater = new ServiceList(CustomerCheckService.this,services);
-
-                    serviceList.setAdapter(servicesAdapater);
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot ds : snapshot.getChildren()){ // loop through children of Employee
+                    String s = ds.getKey();
+                    services.add(s);
                 }
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseerror) {
-
+            public void onCancelled(@NonNull DatabaseError error) {
             }
         });
+
     }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        databaseService.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                showService(dataSnapshot);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) { }
+        });
+
+    }
+
+    private void showService(DataSnapshot dataSnapshot) {
+        services.clear();
+
+        for(DataSnapshot ds : dataSnapshot.getChildren()){ // loop through children of Employee
+            String branchService = ds.getValue().toString();
+            services.add(branchService);
+        }
+
+        displayView = new ArrayAdapter(this, android.R.layout.simple_list_item_1,services);
+        serviceList.setAdapter(displayView);
+    }
+
+
 
     //display overall service in system
     private void showForm(String serviceName) {

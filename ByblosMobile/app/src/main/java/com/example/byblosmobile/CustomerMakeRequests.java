@@ -18,6 +18,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +30,7 @@ public class CustomerMakeRequests extends AppCompatActivity {
     String serviceName;
     //display extra requirements
     TextView extraRequirements;
+    TextView user;
 
     //customer input section
     EditText firstName;
@@ -41,6 +44,7 @@ public class CustomerMakeRequests extends AppCompatActivity {
     Button submitButton;
 
     DatabaseReference db;
+    DatabaseReference serviceInfo;
 
 
     List<Request> customerRequestList;
@@ -55,12 +59,16 @@ public class CustomerMakeRequests extends AppCompatActivity {
         this.branchName = intent.getStringExtra("branchName");
         this.serviceName = intent.getStringExtra("serviceName");
 
-        db = FirebaseDatabase.getInstance().getReference("requests").child("username");
+        db = FirebaseDatabase.getInstance().getReference("requests").child(username);
+        serviceInfo = FirebaseDatabase.getInstance().getReference("services").child(serviceName).child("requiredInfo");
+
         customerRequestList = new ArrayList<>();
 
         //refer to the value
         extraRequirements = (TextView) findViewById(R.id.extraRequirements);
+        user = (TextView) findViewById(R.id.usernamehere);
 
+        user.setText(username);
         firstName =(EditText) findViewById(R.id.firstNameInput);
         lastName=(EditText) findViewById(R.id.lastNameInput);
         address =(EditText) findViewById(R.id.addressInput);
@@ -70,13 +78,26 @@ public class CustomerMakeRequests extends AppCompatActivity {
 
         submitButton =(Button) findViewById(R.id.sumbitButton);
 
+        serviceInfo.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String requirements = snapshot.getValue().toString();
+                extraRequirements.setText(requirements);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         //method for sumbit button
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 storeRequests();
                 backToCustomerMenu(view);
-
             }
         });
 

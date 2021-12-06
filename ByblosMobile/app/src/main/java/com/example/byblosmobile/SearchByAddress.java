@@ -73,7 +73,7 @@ public class SearchByAddress extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String a = address.get(i);//looping through
                 String b = branches.get(i);
-                pickedBranch(b);
+                pickedBranch(b);//get the branchName
 
             }
         });
@@ -86,7 +86,7 @@ public class SearchByAddress extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot ds : snapshot.getChildren()){ // loop through children of Employee
-                    String branchname = ds.toString();
+                    String branchname = ds.getKey();
                     String branchAddress = ds.child("branchAddress").getValue().toString();
                     address.add(branchAddress);
                     branches.add(branchname); //input the name of the Branch
@@ -138,8 +138,8 @@ public class SearchByAddress extends AppCompatActivity {
         address.clear();
 
         for(DataSnapshot ds : dataSnapshot.getChildren()){ // loop through children of Employee
-            String branchname = ds.toString();
-            String branchAddress = ds.child("branchAddress").toString();
+            String branchname = ds.getKey();
+            String branchAddress = ds.child("branchAddress").getValue().toString();
             address.add(branchAddress);
             branches.add(branchname); //input the name of the Branch
         }
