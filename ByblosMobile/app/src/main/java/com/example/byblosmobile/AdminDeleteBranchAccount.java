@@ -114,7 +114,7 @@ public class AdminDeleteBranchAccount extends AppCompatActivity {
         String branchName = branch;//get branch name
 
         DatabaseReference dR = FirebaseDatabase.getInstance().getReference("users/" + "Employee/" + branchName);
-        dR.setValue(branchServicesList); //replace list value to the branchService attribute
+        //dR.setValue(branchServicesList); //replace list value to the branchService attribute
 
         Toast.makeText(getApplicationContext(), "Service has been deleted Successfully", Toast.LENGTH_SHORT).show();
 

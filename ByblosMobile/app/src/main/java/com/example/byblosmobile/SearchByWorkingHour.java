@@ -2,6 +2,7 @@ package com.example.byblosmobile;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -48,7 +49,7 @@ public class SearchByWorkingHour extends AppCompatActivity {
         branches = new ArrayList<String>();
         timeslot = new ArrayList<>();
         databaseServices = FirebaseDatabase.getInstance().getReference("users/Employee");
-
+        displayView = new ArrayAdapter(this, android.R.layout.simple_list_item_1,branches);
         searchTimeslot.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
@@ -56,6 +57,7 @@ public class SearchByWorkingHour extends AppCompatActivity {
             }
             @Override
             public boolean onQueryTextChange(String s) {
+
                 displayView.getFilter().filter(s);
                 return false;
             }
@@ -89,14 +91,16 @@ public class SearchByWorkingHour extends AppCompatActivity {
         startActivity(backToWelcome);
     }
 
-    @Override
+    //@Override
     protected void onStart() {
         super.onStart();
-
-        databaseServices.addValueEventListener(new ValueEventListener() {
+        branches = new ArrayList<>();
+        DatabaseReference db = FirebaseDatabase.getInstance().getReference("users/Employee");
+        db.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                showBranches(dataSnapshot);
+                //showBranches(dataSnapshot);
+                showBranch(dataSnapshot);
             }
 
             @Override
@@ -104,15 +108,49 @@ public class SearchByWorkingHour extends AppCompatActivity {
         });
 
     }
+    public void showBranch(DataSnapshot dataSnapshot){
+        branches.clear();
 
-    private void showBranches(DataSnapshot dataSnapshot) {
+        // child("users").child("Employee").child(branchName)
+        for(DataSnapshot ds : dataSnapshot.getChildren()){ // curr is one of  branch name in the system
+            String branchname = ds.getKey();
+            //branches.add(branchname);
+            DatabaseReference times = FirebaseDatabase.getInstance().getReference("users/Employee/"+branchname+"/availability");
+            times.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for(DataSnapshot time : dataSnapshot.getChildren()){
+                        //branches.add(time.getKey());
+                        TimeSlot timeSlot = time.getValue(TimeSlot.class);
+
+                        if (timeSlot.getEndHour() != 0 && timeSlot.getStartHour() != 0) {
+                            branches.add("Branch name: " + branchname + "/ Date: " +time.getKey() + "/ Start hour: " + timeSlot.getStartHour() + "/ End hour : " + timeSlot.getEndHour());
+                            //branches.add(branchname); //input the name of the Branch
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
+
+        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, branches);
+        listTimeslot.setAdapter(adapter);
+
+    }
+
+   /* private void showBranches(DataSnapshot dataSnapshot) {
         getListOfTimeslot(dataSnapshot);
         displayView = new ArrayAdapter(this, android.R.layout.simple_list_item_1,timeslot);
         listTimeslot.setAdapter(displayView);
     }
 
 
-    private void getListOfTimeslot(DataSnapshot dataSnapshot) {
+
+    /*private void getListOfTimeslot(DataSnapshot dataSnapshot) {
         branches.clear();
         timeslot.clear();
 
@@ -139,7 +177,7 @@ public class SearchByWorkingHour extends AppCompatActivity {
 
                }
            });
-        }
+        }*/
 
-    }
+   // }
 }

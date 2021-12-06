@@ -7,10 +7,14 @@
       <root url="file://$PROJECT_DIR$/../../seg2105f21-project-project_gr32/ByblosMobile/gradle/caches/transforms-3/6adff63397c1ac50e331d47bdf613af2/transformed/jetified-play-services-basement-17.1.0/AndroidManifest.xml" />
       <root url="jar://$PROJECT_DIR$/../../seg2105f21-project-project_gr32/ByblosMobile/gradle/caches/transforms-3/6adff63397c1ac50e331d47bdf613af2/transformed/jetified-play-services-basement-17.1.0/jars/classes.jar!/" />
       <root url="file://$PROJECT_DIR$/../../seg2105f21-project-project_gr32/ByblosMobile/gradle/caches/transforms-3/6adff63397c1ac50e331d47bdf613af2/transformed/jetified-play-services-basement-17.1.0/res" />
+      <root url="file://$PROJECT_DIR$/../../../../SEG_project/seg2105f21-project-project_gr32/seg2105f21-project-project_gr32/ByblosMobile/gradle/caches/transforms-3/6adff63397c1ac50e331d47bdf613af2/transformed/jetified-play-services-basement-17.1.0/AndroidManifest.xml" />
+      <root url="jar://$PROJECT_DIR$/../../../../SEG_project/seg2105f21-project-project_gr32/seg2105f21-project-project_gr32/ByblosMobile/gradle/caches/transforms-3/6adff63397c1ac50e331d47bdf613af2/transformed/jetified-play-services-basement-17.1.0/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../../../SEG_project/seg2105f21-project-project_gr32/seg2105f21-project-project_gr32/ByblosMobile/gradle/caches/transforms-3/6adff63397c1ac50e331d47bdf613af2/transformed/jetified-play-services-basement-17.1.0/res" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/AppData/Local/Android/Sdk/caches/modules-2/files-2.1/com.google.android.gms/play-services-basement/17.1.0/7fa2e5498ad43ed18a3cf89f1c615821d2174dd8/play-services-basement-17.1.0-javadoc.jar!/" />
       <root url="jar://$PROJECT_DIR$/../../seg2105f21-project-project_gr32/ByblosMobile/gradle/caches/modules-2/files-2.1/com.google.android.gms/play-services-basement/17.1.0/7fa2e5498ad43ed18a3cf89f1c615821d2174dd8/play-services-basement-17.1.0-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../../SEG_project/seg2105f21-project-project_gr32/seg2105f21-project-project_gr32/ByblosMobile/gradle/caches/modules-2/files-2.1/com.google.android.gms/play-services-basement/17.1.0/7fa2e5498ad43ed18a3cf89f1c615821d2174dd8/play-services-basement-17.1.0-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES />
   </library>

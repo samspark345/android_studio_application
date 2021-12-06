@@ -7,11 +7,15 @@
       <root url="jar://$PROJECT_DIR$/../../seg2105f21-project-project_gr32/ByblosMobile/gradle/caches/transforms-3/43212925780674393d894e81ec2cdee2/transformed/navigation-fragment-2.3.5/jars/classes.jar!/" />
       <root url="file://$PROJECT_DIR$/../../seg2105f21-project-project_gr32/ByblosMobile/gradle/caches/transforms-3/43212925780674393d894e81ec2cdee2/transformed/navigation-fragment-2.3.5/res" />
       <root url="file://$PROJECT_DIR$/../../seg2105f21-project-project_gr32/ByblosMobile/gradle/caches/transforms-3/43212925780674393d894e81ec2cdee2/transformed/navigation-fragment-2.3.5/AndroidManifest.xml" />
+      <root url="jar://$PROJECT_DIR$/../../../../SEG_project/seg2105f21-project-project_gr32/seg2105f21-project-project_gr32/ByblosMobile/gradle/caches/transforms-3/43212925780674393d894e81ec2cdee2/transformed/navigation-fragment-2.3.5/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../../../SEG_project/seg2105f21-project-project_gr32/seg2105f21-project-project_gr32/ByblosMobile/gradle/caches/transforms-3/43212925780674393d894e81ec2cdee2/transformed/navigation-fragment-2.3.5/res" />
+      <root url="file://$PROJECT_DIR$/../../../../SEG_project/seg2105f21-project-project_gr32/seg2105f21-project-project_gr32/ByblosMobile/gradle/caches/transforms-3/43212925780674393d894e81ec2cdee2/transformed/navigation-fragment-2.3.5/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
       <root url="jar://$USER_HOME$/AppData/Local/Android/Sdk/caches/modules-2/files-2.1/androidx.navigation/navigation-fragment/2.3.5/3622ca880ed637740e391a55d7cd5d0869285d29/navigation-fragment-2.3.5-sources.jar!/" />
       <root url="jar://$PROJECT_DIR$/../../seg2105f21-project-project_gr32/ByblosMobile/gradle/caches/modules-2/files-2.1/androidx.navigation/navigation-fragment/2.3.5/3622ca880ed637740e391a55d7cd5d0869285d29/navigation-fragment-2.3.5-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../../SEG_project/seg2105f21-project-project_gr32/seg2105f21-project-project_gr32/ByblosMobile/gradle/caches/modules-2/files-2.1/androidx.navigation/navigation-fragment/2.3.5/3622ca880ed637740e391a55d7cd5d0869285d29/navigation-fragment-2.3.5-sources.jar!/" />
     </SOURCES>
   </library>
 </component>
