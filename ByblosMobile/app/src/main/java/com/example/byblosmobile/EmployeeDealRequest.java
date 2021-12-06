@@ -24,19 +24,24 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 public class EmployeeDealRequest extends AppCompatActivity {
+    //workflow
+    /*
+    find the requests that matches with the branch
+    display in the listview
+     */
 
 
-    String username; // curr employee username
+    String username; // current employee username
     String roleName;
     ListView listViewRequests;
 
-    DatabaseReference databaseR;
+    DatabaseReference databaseRequests;
     DatabaseReference databaseReference;
     FirebaseDatabase db;
     DatabaseReference currBranch;
 
     List<Request> requestsList; //stores all the request name
-    List<String> requestName;
+    List<String> key;
 
 
     TextView customerName;
@@ -46,42 +51,37 @@ public class EmployeeDealRequest extends AppCompatActivity {
     Button acceptButton;
     Button rejectButton;
 
-    DatabaseReference databaseRequests;
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employee_requestlist);
-
-        listViewRequests = (ListView) findViewById(R.id.request);
 
         Intent intent = getIntent();
         this.username = intent.getStringExtra("username");
         this.roleName = intent.getStringExtra("roleName");
 
+        listViewRequests = (ListView) findViewById(R.id.request);
+
 
         db = FirebaseDatabase.getInstance();
-        databaseR = db.getReference();//get whole system database
+        databaseRequests = FirebaseDatabase.getInstance().getReference("requests");
         databaseReference = FirebaseDatabase.getInstance().getReference("users").child("Employee");
         currBranch = databaseReference.child(username);//stores all the information about the branch
-
-        requestName = new ArrayList<>();
         requestsList = new ArrayList<>();
-        //  getAllRequest();//get all the request from database
 
-        // listViewRequests.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-          /*  @Override
+
+        listViewRequests.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Request request = requestsList.get(i);
-                //showRequestDialog(request);
-                showDialog(request);
+                String k = key.get(i);
+                showDialog(request,k);
                 return true;
             }
         });
-        databaseRequests = db.getInstance().getReference("requests");*/
     }
 
-}
-  /*  private void showDialog(Request request) {
+
+  private void showDialog(Request request,String key) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.activity_employee_request, null);
@@ -107,7 +107,6 @@ public class EmployeeDealRequest extends AppCompatActivity {
         customerName.setText(requestCustomer);
         serviceName.setText(requestService);
         requestStatus.setText(status);
-        DatabaseReference systemRequest = databaseR.child("requests");
 
         //button click to change status of the request
         buttonAccept.setOnClickListener(new View.OnClickListener() {
@@ -115,12 +114,14 @@ public class EmployeeDealRequest extends AppCompatActivity {
             public void onClick(View view) {
                 request.setStatus("Accept");
                 // add this request to branch request section
+
+
                 DatabaseReference branchrequest = currBranch.child("branchRequest");
-                branchrequest.child(request.getCustomerName()).setValue(request);
+                branchrequest.setValue(request);
 
                 //update the request status to database
-                DatabaseReference systemRequest = databaseR.child("requests");
-                systemRequest.child(request.getCustomerName()).setValue(request);
+                DatabaseReference systemRequest = databaseRequests.child(requestCustomer);
+                systemRequest.child(key).setValue(request);
 
                 alertDialog.dismiss();
             }
@@ -131,139 +132,73 @@ public class EmployeeDealRequest extends AppCompatActivity {
             public void onClick(View view) {
                 request.setStatus("Delete");
                 //update the request status to database
-                DatabaseReference systemRequest = databaseR.child("requests");
-                systemRequest.child(request.getCustomerName()).setValue(request);
+                DatabaseReference systemRequest = databaseRequests.child(requestCustomer);
+                systemRequest.child(key).setValue(request);
                 alertDialog.dismiss();
             }
         });
 
     }
 
-    /*private void showRequestDialog(Request request) {
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-        LayoutInflater inflater = getLayoutInflater();
-        final View dialogView = inflater.inflate(R.layout.activity_employee_request, null);
-        dialogBuilder.setView(dialogView);
 
-
-
-        final AlertDialog dialog = dialogBuilder.create();
-        dialog.show();
-
-        //display request information
-        String requestCustomer = request.getCustomerName();
-        String requestService = request.getServiceName();
-        String status = request.getStatus();
-
-        customerName.setText(requestCustomer);
-        serviceName.setText(requestService);
-        requestStatus.setText(status);
-
-        //button click to change status of the request
-        acceptButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-               request.setStatus("Accept");
-                // add this request to branch request section
-                DatabaseReference branchrequest = currBranch.child("branchRequest");
-                branchrequest.child(request.getCustomerName()).setValue(request);
-
-                //update the request status to database
-                DatabaseReference systemRequest = databaseR.child("requests");
-                systemRequest.child(request.getCustomerName()).setValue(request);
-
-                dialog.dismiss();
-            }
-        });
-
-        rejectButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                request.setStatus("Delete");
-                //update the request status to database
-                DatabaseReference systemRequest = databaseR.child("requests");
-                systemRequest.child(request.getCustomerName()).setValue(request);
-                dialog.dismiss();
-            }
-        });
-
-    }*/
-
- /*   @Override
+    //display all the requests that signed to this branch in the list view
+    @Override
     protected void onStart() {
         super.onStart();
-        databaseR.addValueEventListener(new ValueEventListener() {
+        requestsList.clear();
+
+        databaseRequests.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                showRequestData(dataSnapshot);
+                showRequest(dataSnapshot);
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) { }
-        });
-        databaseRequests.addValueEventListener(new ValueEventListener(){
-
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                requestsList.clear();
-
-
-                for(DataSnapshot postSnapshot:dataSnapshot.getChildren()){
-
-                    Request request = postSnapshot.getValue(Request.class);
-
-                    requestsList.add(request);
-
-                    RequestList servicesAdapater = new RequestList(EmployeeDealRequest.this,requestsList);
-
-                    listViewRequests.setAdapter(servicesAdapater);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseerror) {
-
+            public void onCancelled(@NonNull DatabaseError error) {
             }
         });
 
-    }*/
+    }
 
+    private void showRequest(DataSnapshot dataSnapshot) {
+        getListOfRequests(dataSnapshot);
+        ArrayAdapter displayView = new ArrayAdapter(this, android.R.layout.simple_list_item_1,requestsList);
+        listViewRequests.setAdapter(displayView);
+    }
 
-   /* private void getAllRequest() { //check database get all the request in curr branch
-        if(username!=null){
-            DatabaseReference requestsData = db.getReference("requests"); //get requests data
-            requestsData.addValueEventListener(new ValueEventListener() {
+    private void getListOfRequests(DataSnapshot dataSnapshot) {
+        requestsList.clear();
 
+        for(DataSnapshot ds : dataSnapshot.getChildren()){ // loop through children of Employee
+            String customerName = ds.toString();
+            DatabaseReference db = FirebaseDatabase.getInstance().getReference("requests").child(customerName);
+
+            //loop all the timeslot contain in this branch
+            db.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    GenericTypeIndicator<List<Request>> list= new GenericTypeIndicator<List<Request>>() {};
-                    //create list of requests that store as Request class
+                    for(DataSnapshot postSnapshot:dataSnapshot.getChildren()) { //loop through all the requests that made by this customer
 
-                    requestsList = snapshot.getValue(list);
-                    //it contains all the request that branch receives
+                        Request r = postSnapshot.getValue(Request.class);
+
+
+                        if (r.getBranchName() == username) { //only the requests SIGN TO this branch
+                            requestsList.add(r);
+                            key.add(postSnapshot.getKey());
+
+                        }
+                    }
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
+
                 }
             });
-        } else{}
-
-    }*/
-
-    //display string
-   /* public void showRequestData(DataSnapshot dataSnapshot){
-        requestName.clear();
-
-
-        String branchName = username;
-        for(DataSnapshot ds : dataSnapshot.child("requests").getChildren()){ //the children is a Request object
-            String request = ds.getValue().toString();
-            requestName.add(request);
         }
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, requestName);
-        listViewRequests.setAdapter(adapter);
+
     }
+
+
 
     public void fromRequestListToEmployeeWelcomePage(View view){
         Intent backToWelcome = new Intent(this, WelcomePage.class);
@@ -272,4 +207,4 @@ public class EmployeeDealRequest extends AppCompatActivity {
         startActivity(backToWelcome);
     }
 
-}*/
+}

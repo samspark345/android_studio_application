@@ -6,6 +6,7 @@ public class Request {
     private String serviceName;
     private String status;
     private String extraInfo;
+    private String customerName;
 
 
     //request need have customer name
@@ -14,8 +15,9 @@ public class Request {
     //branch
     //status
 
-    public Request(String serviceName,String branchName,String extraInfo,String status){
+    public Request(String serviceName,String customerName, String branchName,String extraInfo,String status){
         this.serviceName = serviceName;
+        this.customerName = customerName;
         this.branchName = branchName;
         this.extraInfo = extraInfo;
         this.status = status;
@@ -23,6 +25,7 @@ public class Request {
 
     public String getServiceName(){return serviceName;}
     public String getBranchName(){return branchName;}
+    public String getCustomerName(){return customerName; }
     public String getStatus(){return status;}
     public String getExtraInfo(){return extraInfo;}
     public void setStatus(String status){

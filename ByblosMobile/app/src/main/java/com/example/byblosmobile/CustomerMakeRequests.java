@@ -138,7 +138,7 @@ public class CustomerMakeRequests extends AppCompatActivity {
             basicInfo.child("address").setValue(customerAddress);
             basicInfo.child("birthday").setValue(customerBirthday);
 
-            Request newRequest = new Request(serviceName, branchName, customerExtra, null);
+            Request newRequest = new Request(serviceName, username, branchName, customerExtra, null);
             getCustomerRequestsList();
             //add the request to database
             customerRequestList.add(newRequest);

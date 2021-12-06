@@ -3,6 +3,8 @@ package com.example.byblosmobile;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
@@ -19,6 +21,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerViewRequest extends AppCompatActivity {
+
+    //show the list of customer made list --> long click to rate the
     String username;
     String roleName;
 
@@ -28,7 +32,8 @@ public class CustomerViewRequest extends AppCompatActivity {
     ListView requests;
     DatabaseReference databaseRequests;
 
-    List<String> customerRequestList;
+    List<Request> customerRequestList;
+    List<String> requestStringFormat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,29 +49,59 @@ public class CustomerViewRequest extends AppCompatActivity {
         //next child should be the number of the request
 
         customerRequestList = new ArrayList<>();
+        requestStringFormat = new ArrayList<>();
 
-        getCurrCustomerRequests();
-
+        requests.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Request r = customerRequestList.get(i);//looping through
+                String rString = requestStringFormat.get(i);
+                String branch = r.getBranchName();
+                rate(branch);
+            }
+        });
     }
 
-    private void getCurrCustomerRequests() {
-        DatabaseReference db = FirebaseDatabase.getInstance().getReference("requests" + username);
-        db.addValueEventListener(new ValueEventListener() {
+    private void rate(String branch) {
+        Intent switchPage = new Intent(this,CustomerRateBranch.class);
+        switchPage.putExtra("username", username);
+        switchPage.putExtra("roleName", roleName);
+        switchPage.putExtra("branch",branch);
+        startActivity(switchPage);
+    }
 
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        databaseRequests.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                GenericTypeIndicator<List<String>> list= new GenericTypeIndicator<List<String>>() {};
-
-                customerRequestList = snapshot.child("branchServices").getValue(list);
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                showCustomerRequests(dataSnapshot);
             }
-
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
+            public void onCancelled(@NonNull DatabaseError error) { }
         });
 
     }
 
+    private void showCustomerRequests(DataSnapshot dataSnapshot) {
+        getListOfRequests(dataSnapshot);
+        ArrayAdapter show =  new ArrayAdapter(this, android.R.layout.simple_list_item_1,requestStringFormat);
+        requests.setAdapter(show);
+    }
+
+
+    private void getListOfRequests(DataSnapshot dataSnapshot) {
+        customerRequestList.clear();
+        requestStringFormat.clear();
+
+        for(DataSnapshot ds : dataSnapshot.getChildren()){ // loop through children of customer
+            Request r = ds.getValue(Request.class);
+            customerRequestList.add(r);
+            requestStringFormat.add(r.toString());
+        }
+    }
 
     public void backToCustomerMenu(View view){
         Intent switchPage = new Intent(this,CustomerWelcomePage.class);
