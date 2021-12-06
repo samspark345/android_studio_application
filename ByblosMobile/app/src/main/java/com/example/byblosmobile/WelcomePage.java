@@ -1,9 +1,11 @@
 package com.example.byblosmobile;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.view.View;
 import android.widget.TextView;
 
@@ -90,6 +92,50 @@ public class WelcomePage extends AppCompatActivity {
         switchToUserActivity.putExtra("username", username.trim());
         startActivity(switchToUserActivity);
     }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_customer_welcome_page);
+
+
+    }
+
+
+    public void switchToCheckRequest(View view){
+        Intent switchPage = new Intent(this,CustomerViewRequest.class);
+        switchPage.putExtra("username", username);
+        switchPage.putExtra("roleName", roleName);
+        startActivity(switchPage);
+    }
+
+
+    public void switchToSearchByService(View view){
+        Intent switchPage = new Intent(this,SearchByService.class);
+        switchPage.putExtra("username", username);
+        switchPage.putExtra("roleName", roleName);
+        startActivity(switchPage);
+    }
+
+    public void switchToSearchByAddress(View view){
+        Intent switchPage = new Intent(this,SearchByAddress.class);
+        switchPage.putExtra("username", username);
+        switchPage.putExtra("roleName", roleName);
+        startActivity(switchPage);
+    }
+
+    public void switchToSearchByWorkingHour(View view){
+        Intent switchPage = new Intent(this,SearchByWorkingHour.class);
+        switchPage.putExtra("username", username);
+        switchPage.putExtra("roleName", roleName);
+        startActivity(switchPage);
+    }
+
+    public void openServiceActivity(View view){
+        Intent switchToServiceActivity = new Intent(this, ServiceActivityForAdmin.class);
+        startActivity(switchToServiceActivity);
+    }
+
 
 
 }
