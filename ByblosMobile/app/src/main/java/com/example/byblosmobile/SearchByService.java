@@ -79,6 +79,7 @@ public class SearchByService extends AppCompatActivity {
         switchToCheck.putExtra("service",service);
         startActivity(switchToCheck);
     }
+
     //display all the service offered by system
 
     @Override

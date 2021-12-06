@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +17,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +34,7 @@ public class CustomerCheckBranches extends AppCompatActivity {
 
     DatabaseReference db;
     ListView listBranches;
+    TextView servicen;
     List<String> branches;
 
 
@@ -41,10 +45,15 @@ public class CustomerCheckBranches extends AppCompatActivity {
         this.username = intent.getStringExtra("username");
         this.service = intent.getStringExtra("service");
 
-        setContentView(R.layout.activity_customer_check_service);
-        db = FirebaseDatabase.getInstance().getReference("users/Employee");
+        setContentView(R.layout.activity_customer_check_branches);
+
+        db = FirebaseDatabase.getInstance().getReference("users").child("Employee");
         branches = new ArrayList<>();
         listBranches = (ListView) findViewById(R.id.branches);
+        servicen = (TextView)findViewById(R.id.servicena);
+
+        servicen.setText(service);
+        getListOfBranches();
 
         listBranches.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -55,9 +64,6 @@ public class CustomerCheckBranches extends AppCompatActivity {
                 return true;
             }
         });
-
-
-
     }
 
 
@@ -82,7 +88,33 @@ public class CustomerCheckBranches extends AppCompatActivity {
 
     }
     private void showBranches(DataSnapshot dataSnapshot) {
-        getListOfBranches();
+        branches.clear();
+
+        for(DataSnapshot postSnapshot:dataSnapshot.getChildren()) { // list of branch
+
+            String b = postSnapshot.child("branchName").getValue().toString();
+
+            //check whether the branch service has the service
+            DatabaseReference branchService = FirebaseDatabase.getInstance().getReference("users/Employee/" + b).child("branchServices");
+            branchService.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) { //loop the branchservice class
+                        String s = postSnapshot.getValue().toString();
+                        /*if (s == service) {
+                            branches.add(b);
+                            break;
+                        }*/
+                        branches.add(b);
+
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }
         //create adapter of branches
         ArrayAdapter servicesAdapater = new ArrayAdapter(this,android.R.layout.simple_list_item_1, branches);
 
@@ -102,7 +134,7 @@ public class CustomerCheckBranches extends AppCompatActivity {
 
                 for(DataSnapshot postSnapshot:dataSnapshot.getChildren()){ // list of branch
 
-                    String branchName = postSnapshot.getValue().toString();
+                    String branchName = postSnapshot.getKey();
                     //check whether the branch service has the service
                     DatabaseReference branchService = FirebaseDatabase.getInstance().getReference("users/Employee/"+branchName).child("branchServices");
                     branchService.addValueEventListener(new ValueEventListener() { //check each branch's offered service
