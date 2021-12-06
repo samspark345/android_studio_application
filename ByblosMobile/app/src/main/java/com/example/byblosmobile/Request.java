@@ -14,6 +14,9 @@ public class Request {
     //addition info
     //branch
     //status
+    public Request(){
+        
+    }
 
     public Request(String serviceName,String customerName, String branchName,String extraInfo,String status){
         this.serviceName = serviceName;
