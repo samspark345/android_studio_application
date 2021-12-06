@@ -15,6 +15,7 @@
             android:id="@+id/BackToAdminMenu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="goBackToAdminWelcome"
             android:text="Back" />
 
         <TextView
@@ -28,6 +29,7 @@
             android:textStyle="bold" />
 
         <ListView
+            android:id="@+id/listBranch"
             android:layout_width="match_parent"
             android:layout_height="413dp" >
 
