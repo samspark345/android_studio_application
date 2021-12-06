@@ -35,12 +35,11 @@ public class AdminDeleteCustomerAccount extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_customerdelete);
 
+        customerList = new ArrayList<>();
+        customerName = new ArrayList<>();
 
         listCustomerAccount = (ListView) findViewById(R.id.listCustomer);
         db = FirebaseDatabase.getInstance().getReference("users").child("Customer");
-
-
-        customerList = new ArrayList<>();
 
         listCustomerAccount.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override

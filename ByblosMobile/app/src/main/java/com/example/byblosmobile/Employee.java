@@ -26,7 +26,7 @@ public class Employee extends User{
         this.branchPhoneNumber = phoneNumber;
         this.branchName = userName;
     }*/
-
+    public Employee(){}
 
         public Employee(String userName,String password, String role, String address, String phoneNumber, ArrayList<String> serviceList,ArrayList<String> availability,ArrayList<String> requests){
         super(userName,password,role);
