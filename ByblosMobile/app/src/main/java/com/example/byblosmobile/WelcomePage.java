@@ -152,5 +152,11 @@ public class WelcomePage extends AppCompatActivity {
     }
 
 
+    public void setToLogout(View view){
+        Intent switchPage = new Intent(this,MainActivity.class);
+        startActivity(switchPage);
+    }
+
+
 
 }
