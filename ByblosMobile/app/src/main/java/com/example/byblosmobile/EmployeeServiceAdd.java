@@ -207,6 +207,8 @@ public class EmployeeServiceAdd extends AppCompatActivity {
 
     public void fromAddToInfo(View view){
         Intent i = new Intent(this, EmployeeInfo.class);
+        i.putExtra("username", username);
+        i.putExtra("roleName", roleName);
         startActivity(i);
     }
 

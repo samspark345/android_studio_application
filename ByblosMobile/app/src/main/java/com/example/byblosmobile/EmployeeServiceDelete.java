@@ -198,6 +198,8 @@ public class EmployeeServiceDelete extends AppCompatActivity {
 
     public void fromDeleteToInfo(View view){
         Intent i = new Intent(this, EmployeeInfo.class);
+        i.putExtra("username", username);
+        i.putExtra("roleName", roleName);
         startActivity(i);
     }
 
