@@ -35,7 +35,7 @@ public class AdminDeleteCustomerAccount extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_customerdelete);
 
-        customerList = new ArrayList<>();
+        //customerList = new ArrayList<>();
         customerName = new ArrayList<>();
 
         listCustomerAccount = (ListView) findViewById(R.id.listCustomer);
@@ -45,8 +45,9 @@ public class AdminDeleteCustomerAccount extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                Customer b = customerList.get(i);
-                showDeleteDialog(b);
+                //Customer b = customerList.get(i);
+                String customern = customerName.get(i);
+                showDeleteDialog(customern);
                 return true;
             }
         });
@@ -69,13 +70,34 @@ public class AdminDeleteCustomerAccount extends AppCompatActivity {
 
     }
     //display all the request for that employee
+    public void showBranch(DataSnapshot dataSnapshot){
+        //customerList.clear();
+        customerName.clear();
+
+        for(DataSnapshot ds : dataSnapshot.getChildren()) {
+            //we can get customer name here
+            String customername = ds.getKey();
+            Toast.makeText(getApplicationContext(),customername,Toast.LENGTH_LONG).show();
+            //Customer object = ds.getValue(Customer.class);
+
+            //String username = String.valueOf(ds.child("username").getValue());
+            //String password = String.valueOf(ds.child("password").getValue());
+
+            //Customer customer = new Customer(username, password, "Customer");
+            //customerList.add(object);
+            customerName.add(customername);
+        }
+        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, customerName);
+        listCustomerAccount.setAdapter(adapter);
+
+    }
 
 
 
 
 
 
-    private void showDeleteDialog(Customer customer) {
+    private void showDeleteDialog(String customerName) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.layout_employee_delete_service, null);
@@ -84,7 +106,7 @@ public class AdminDeleteCustomerAccount extends AppCompatActivity {
         final Button buttonDelete = (Button) dialogView.findViewById(R.id.DeleteButton);
         final Button buttonCancel = (Button) dialogView.findViewById(R.id.CancelButton);
 
-        dialogBuilder.setTitle(customer.getUserName());
+        dialogBuilder.setTitle(customerName);
         final AlertDialog dialog = dialogBuilder.create();
         dialog.show();
 
@@ -98,51 +120,26 @@ public class AdminDeleteCustomerAccount extends AppCompatActivity {
         buttonDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                deleteCustomer(customer);
+                deleteCustomer(customerName);
                 dialog.dismiss();
             }
         });
 
     }
 
-    private void deleteCustomer(Customer customer) {
-        customerList.remove(customer);
+    private void deleteCustomer(String name) {
+        customerName.remove(name);
 
-        String customerName = customer.getUserName();//get branch name
+        //String cn = customer.getUserName();//get branch name
 
-        DatabaseReference dR = FirebaseDatabase.getInstance().getReference("users/" + "customer/" + customerName);
+
+        DatabaseReference dR = FirebaseDatabase.getInstance().getReference("users").child("Customer").child(name);
         dR.setValue(null); //replace list value to the branchService attribute
 
         Toast.makeText(getApplicationContext(), "customer has been deleted Successfully", Toast.LENGTH_SHORT).show();
 
     }
 
-    private void getCurrCustomer(DataSnapshot dataSnapshot) { //check database
-        customerList.clear();
-        customerName.clear();
-
-
-        // child("users").child("Employee").child(branchName)
-        for(DataSnapshot ds : dataSnapshot.getChildren()){ // curr is one of  branch name in the system
-            //add branch class
-            String username = String.valueOf(ds.child("username").getValue());
-            String password = String.valueOf(ds.child("password").getValue());
-
-            Customer customer = new Customer(username, password, "Customer");
-            customerList.add(customer);
-            customerName.add(username);
-
-        }
-    }
-
-
-    public void showBranch(DataSnapshot dataSnapshot){
-        getCurrCustomer(dataSnapshot);
-
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, customerName);
-        listCustomerAccount.setAdapter(adapter);
-
-    }
 
 
 

@@ -2,7 +2,6 @@ package com.example.byblosmobile;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -43,12 +42,15 @@ public class EmployeeDealRequest extends AppCompatActivity {
     DatabaseReference currBranch;
 
     List<Request> requestsList; //stores all the request name
+    List<String> request;
     List<String> key;
 
 
     TextView customerName;
     TextView serviceName;
     TextView requestStatus;
+
+
 
     Button acceptButton;
     Button rejectButton;
@@ -69,8 +71,10 @@ public class EmployeeDealRequest extends AppCompatActivity {
         databaseReference = FirebaseDatabase.getInstance().getReference("users").child("Employee");
         currBranch = databaseReference.child(username);//stores all the information about the branch
         requestsList = new ArrayList<>();
+        request = new ArrayList<>();
+        key = new ArrayList<>();
 
-        getListOfRequests();
+        //getListOfRequests();
         listViewRequests.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -83,7 +87,7 @@ public class EmployeeDealRequest extends AppCompatActivity {
     }
 
 
-  private void showDialog(Request request,String key) {
+    private void showDialog(Request request,String key) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.activity_employee_request, null);
@@ -118,7 +122,7 @@ public class EmployeeDealRequest extends AppCompatActivity {
                 // add this request to branch request section
 
 
-                DatabaseReference branchrequest = currBranch.child("branchRequest");
+                DatabaseReference branchrequest = currBranch.child("branchRequest").child(key);
                 branchrequest.setValue(request);
 
                 //update the request status to database
@@ -163,85 +167,50 @@ public class EmployeeDealRequest extends AppCompatActivity {
     }
 
     private void showRequest(DataSnapshot dataSnapshot) {
+        requestsList.clear();
+        request.clear();
         for (DataSnapshot ds : dataSnapshot.getChildren()) { // loop through children of requests which is customer name
-            String customerName = ds.getKey();
+            //String customer =  ds.getValue().toString();
+            String customer = ds.getKey();
+            //nested loop to loop requests that customer have
+            //Toast.makeText(getApplicationContext(), customer, Toast.LENGTH_LONG).show();
+            for (DataSnapshot postSnapshot : dataSnapshot.child(customer).getChildren()) {
 
-            DatabaseReference db = FirebaseDatabase.getInstance().getReference("requests").child(customerName);
-            db.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+                Request r = postSnapshot.getValue(Request.class);
 
-                        Request r = postSnapshot.getValue(Request.class);
-                        Log.d("request ", r.toString());
-                        if (r.getBranchName().equals(username) ) {
-                            requestsList.add(r);
-                            key.add(postSnapshot.getKey());
-                        }
+                if (r.getBranchName().equals(username)) {
 
-
-                    }
+                    request.add(r.toStringEmployeeSide());
+                    requestsList.add(r);
+                    key.add(postSnapshot.getKey());
                 }
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
 
-                }
-            });
 
-            ArrayAdapter displayView = new ArrayAdapter(this, android.R.layout.simple_list_item_1, requestsList);
+            }
+
+
+            ArrayAdapter displayView = new ArrayAdapter(this, android.R.layout.simple_list_item_1, request);
             listViewRequests.setAdapter(displayView);
         }
     }
-    private void getListOfRequests(){
+    /*private void getListOfRequests(){
         databaseRequests.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 //first loop customer name
                 for (DataSnapshot ds : snapshot.getChildren()) { // loop through children of requests which is customer name
-                    String customer =  ds.getKey();
-//
-                    DataSnapshot reqs = ds.child(customer);
-                    Log.d("customer Name ", customer);
-                    Log.d("dsCount: ", ""+ds.getChildrenCount());
-                    Log.d("reqs: ", ""+reqs.getKey());
-//                    for (DataSnapshot postSnapshot : reqs.getChildren()) {
-//                        Log.d("in second loop ", "onDataChange: ");
-//                        Request r = postSnapshot.getValue(Request.class);
-//                        Log.d("The request is ", r.toString());
-//                        if (r.getBranchName().equals(username)) {
-//                            requestsList.add(r);
-//                            key.add(postSnapshot.getKey());
-//                        }
-//
-//                    }
-
-                    DatabaseReference db = FirebaseDatabase.getInstance().getReference("requests").child(customer);
-                    String val = db.getKey();
-                    Log.d("Database children ", val);
-
+                    String customer =  ds.getValue().toString();
                     //nested loop to loop requests that customer have
-                    db.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            Log.d("Before ", " second loop");
-                            for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                                Log.d("in second loop ", "onDataChange: ");
+                    for (DataSnapshot postSnapshot : snapshot.child(customer).getChildren()) {
                                 Request r = postSnapshot.getValue(Request.class);
-                                Log.d("The request is ", r.toString());
                                 if (r.getBranchName().equals(username)) {
                                     requestsList.add(r);
                                     key.add(postSnapshot.getKey());
                                 }
 
-                            }
-                        }
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-                            Log.d("here: " , "at cancelled");
-                        }
-                    });
-                    Log.d("skipped:" , "the second for loop");
+                            }
+
                 }
 
             }
@@ -251,7 +220,7 @@ public class EmployeeDealRequest extends AppCompatActivity {
 
             }
         });
-    }
+    }*/
 
 
 

@@ -36,7 +36,12 @@ public class Request {
     }
 
     public String toString(){
-        String output = getServiceName() + "Requests for " +getBranchName() + " Status: " + getStatus();
+        String output = getServiceName() + " Requests for " +getBranchName() + " Status: " + getStatus();
+        return output;
+    }
+
+    public String toStringEmployeeSide(){
+        String output = getServiceName() + " Requests from " + getCustomerName() + " Status: " + getStatus();
         return output;
     }
 
