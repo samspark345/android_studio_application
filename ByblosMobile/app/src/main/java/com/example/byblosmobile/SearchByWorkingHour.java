@@ -11,6 +11,7 @@ import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.collection.ArraySet;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -28,6 +29,7 @@ public class SearchByWorkingHour extends AppCompatActivity {
 
     List<String> branches;
     List<String> timeslot;
+    List<String> services;
 
     ListView listTimeslot;
     SearchView searchTimeslot;
@@ -48,11 +50,10 @@ public class SearchByWorkingHour extends AppCompatActivity {
         searchTimeslot = (SearchView) findViewById(R.id.workinghourSearchView);
         branches = new ArrayList<String>();
         timeslot = new ArrayList<>();
+        services = new ArrayList<>();
         databaseServices = FirebaseDatabase.getInstance().getReference("users").child("Employee");
 
-        getListOfTimeslot();
-        //displayView = new ArrayAdapter(this, android.R.layout.simple_list_item_1,timeslot);
-        //listTimeslot.setAdapter(displayView);
+        branches = new ArrayList<>();
 
 
         searchTimeslot.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -60,6 +61,7 @@ public class SearchByWorkingHour extends AppCompatActivity {
             public boolean onQueryTextSubmit(String s) {
                 return false;
             }
+
             @Override
             public boolean onQueryTextChange(String s) {
 
@@ -74,22 +76,14 @@ public class SearchByWorkingHour extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String a = timeslot.get(i);//looping through
                 String b = branches.get(i);
-                pickedTimeSlot(b);
+                showForm(b);
             }
         });
     }
 
-    private void pickedTimeSlot(String branch) {
-        //show list  service offered by this branch
-        Intent switchToCheck = new Intent(this, CustomerCheckService.class);
-        switchToCheck.putExtra("username", username);
-        switchToCheck.putExtra("roleName", roleName);
-        switchToCheck.putExtra("branchName",branch);
-        startActivity(switchToCheck);
-    }
 
 
-    public void goBackToCustomerMenu(View view){
+    public void goBackToCustomerMenu(View view) {
         Intent backToWelcome = new Intent(this, CustomerWelcomePage.class);
         backToWelcome.putExtra("username", username);
         backToWelcome.putExtra("roleName", roleName);
@@ -99,143 +93,55 @@ public class SearchByWorkingHour extends AppCompatActivity {
     //@Override
     protected void onStart() {
         super.onStart();
-        branches = new ArrayList<>();
-        DatabaseReference db = FirebaseDatabase.getInstance().getReference("users").child("Employee");
-        db.addValueEventListener(new ValueEventListener() {
+        databaseServices.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                //showBranches(dataSnapshot);
-                showBranch(dataSnapshot);
+                showAddress(dataSnapshot);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) { }
         });
 
+
     }
-    public void showBranch(DataSnapshot dataSnapshot){
-        branches.clear();
+    private void showAddress(DataSnapshot dataSnapshot) {
         timeslot.clear();
 
-        // child("users").child("Employee").child(branchName)
-        for(DataSnapshot ds : dataSnapshot.getChildren()){ // curr is one of  branch name in the system
-            String branchname = ds.getKey();
-            //branches.add(branchname);
-            DatabaseReference times = FirebaseDatabase.getInstance().getReference("users/Employee/"+branchname+"/availability");
-            times.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    for(DataSnapshot time : dataSnapshot.getChildren()){
-                        //branches.add(time.getKey());
-                        String date = time.child("day").getValue().toString();
-                        String end= time.child("endHour").getValue().toString();
-                        String start =  time.child("startHour").getValue().toString();
-                        String display = branchname + " " + date + "/start Hour: "+ start + "/End Hour: " + end;
-
-                        if (Integer.valueOf(end) != 0 && Integer.valueOf(start) != 0) {
-                            timeslot.add(display);
-                            //timeslot.add("Branch name: " + branchname + "/ Date: " +time.getKey() + "/ Start hour: " + timeSlot.getStartHour() + "/ End hour : " + timeSlot.getEndHour());
-                            branches.add(branchname); //input the name of the Branch
-                        }
-                    }
+        for(DataSnapshot ds : dataSnapshot.getChildren()){ // loop through children of Employee
+            String s = ds.child("branchName").getValue().toString();
+            //String branchServices = ds.child("branchServices").getChildren();
+            for(DataSnapshot time: ds.child("availability").getChildren()) {
+                String end = time.child("endHour").getValue().toString();
+                String start = time.child("startHour").getValue().toString();
+                String date = time.child("day").getValue().toString();
+                if(Integer.valueOf(end)!=0&&Integer.valueOf(start)!=0){
+                    timeslot.add(date);
+                    branches.add(s);
                 }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                }
-            });
+            }
+            for(DataSnapshot service: ds.child("branchServices").getChildren()) {
+                String serviceName = service.getValue().toString();
+                services.add(serviceName);
+
+            }
+
         }
-
         displayView = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, timeslot);
         listTimeslot.setAdapter(displayView);
 
     }
 
-
-    private void getListOfTimeslot() {
-        databaseServices.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot ds : snapshot.getChildren()){ // curr is one of  branch name in the system
-                    String branchname = ds.getKey();
-                    //branches.add(branchname);
-                    DatabaseReference times = FirebaseDatabase.getInstance().getReference("users/Employee/"+branchname+"/availability");
-                    times.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            for(DataSnapshot time : dataSnapshot.getChildren()){
-                                //branches.add(time.getKey());
-                                String date = time.child("day").getValue().toString();
-                                String end= time.child("endHour").getValue().toString();
-                                String start =  time.child("startHour").getValue().toString();
-                                String display = branchname + " " + date + "/start Hour: "+ start + "/End Hour: " + end;
-
-                                if (Integer.valueOf(end) != 0 && Integer.valueOf(start) != 0) {
-                                    timeslot.add(display);
-                                    //timeslot.add("Branch name: " + branchname + "/ Date: " +time.getKey() + "/ Start hour: " + timeSlot.getStartHour() + "/ End hour : " + timeSlot.getEndHour());
-                                    branches.add(branchname); //input the name of the Branch
-                                }
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
+    private void showForm(String branchName) {
+        Intent switchToSumbit = new Intent(this, CustomerCheckService.class);
+        switchToSumbit.putExtra("username", username);
+        switchToSumbit.putExtra("branchName",branchName);
+        //switchToSumbit.putExtra("services",services);
+        startActivity(switchToSumbit);
 
     }
 
-
-
-   /* private void showBranches(DataSnapshot dataSnapshot) {
-        getListOfTimeslot(dataSnapshot);
-        displayView = new ArrayAdapter(this, android.R.layout.simple_list_item_1,timeslot);
-        listTimeslot.setAdapter(displayView);
-    }
-
-
-
-    private void getListOfTimeslot(DataSnapshot dataSnapshot) {
-        branches.clear();
-        timeslot.clear();
-
-        for(DataSnapshot ds : dataSnapshot.getChildren()){ // loop through children of Employee
-            String branchname = ds.toString();
-            DatabaseReference db = FirebaseDatabase.getInstance().getReference("users/Employee/" + branchname).child("availability");
-
-            //loop all the timeslot contain in this branch
-           db.addValueEventListener(new ValueEventListener() {
-               @Override
-               public void onDataChange(@NonNull DataSnapshot snapshot) {
-                   for(DataSnapshot postSnapshot:dataSnapshot.getChildren()) {
-
-                       TimeSlot timeSlot = postSnapshot.getValue(TimeSlot.class);
-
-                       if (timeSlot.getEndHour() != 0 && timeSlot.getStartHour() != 0) {
-                           timeslot.add(timeSlot);
-                           branches.add(branchname); //input the name of the Branch
-                       }
-                   }
-               }
-               @Override
-               public void onCancelled(@NonNull DatabaseError error) {
-
-               }
-           });
-        }
-
-    // }*/
 
 }
