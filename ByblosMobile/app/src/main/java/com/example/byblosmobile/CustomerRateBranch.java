@@ -70,6 +70,7 @@ public class CustomerRateBranch extends AppCompatActivity {
         }else {
            int currRate = Integer.valueOf(rating);
             currBranch.child("rating").setValue(currRate);
+            Toast.makeText(this,"Thank you for the feedback😃",Toast.LENGTH_LONG).show();
 
 
         }

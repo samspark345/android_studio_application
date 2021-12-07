@@ -16,7 +16,8 @@
             android:text="Fill Reuqests Fill"
             android:textAlignment="center"
             android:textColor="#151414"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/usernamehere"
@@ -144,26 +145,32 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Additon Info need For the service"
-                android:textSize="16sp" />
+                android:textAlignment="center"
+                android:textColor="#E81B4A"
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/textView39"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Please Provided: " />
+                android:text="Please Provided: "
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/extraRequirements"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="EXTRA INFO" />
+                android:text="EXTRA INFO"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/extraInfoInput"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:ems="10"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                android:textStyle="bold" />
 
         </LinearLayout>
 

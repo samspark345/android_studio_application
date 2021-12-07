@@ -68,14 +68,18 @@
             android:layout_width="match_parent"
             android:layout_height="350dp"
             android:layout_marginTop="100dp"
+            android:layout_gravity="center"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/textView7"
-                android:layout_width="match_parent"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:text="please enter the name only to delete Service"
-                android:textSize="22sp" />
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textSize="20sp" />
 
         </LinearLayout>
 

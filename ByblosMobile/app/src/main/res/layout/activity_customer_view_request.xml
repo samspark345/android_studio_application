@@ -42,7 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="⚠️Long Click To Rate the Branch"
+            android:text="⚠️Click To Rate the Branch"
             android:textSize="16sp"
             android:textStyle="bold" />
 

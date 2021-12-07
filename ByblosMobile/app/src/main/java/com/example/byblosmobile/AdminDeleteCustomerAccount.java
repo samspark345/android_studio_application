@@ -77,7 +77,7 @@ public class AdminDeleteCustomerAccount extends AppCompatActivity {
         for(DataSnapshot ds : dataSnapshot.getChildren()) {
             //we can get customer name here
             String customername = ds.getKey();
-            Toast.makeText(getApplicationContext(),customername,Toast.LENGTH_LONG).show();
+            //Toast.makeText(getApplicationContext(),customername,Toast.LENGTH_LONG).show();
             //Customer object = ds.getValue(Customer.class);
 
             //String username = String.valueOf(ds.child("username").getValue());
