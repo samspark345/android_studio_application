@@ -2,6 +2,7 @@ package com.example.byblosmobile;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -9,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -162,15 +164,17 @@ public class EmployeeDealRequest extends AppCompatActivity {
 
     private void showRequest(DataSnapshot dataSnapshot) {
         for (DataSnapshot ds : dataSnapshot.getChildren()) { // loop through children of requests which is customer name
-            String customerName = ds.getValue().toString();
+            String customerName = ds.getKey();
+
             DatabaseReference db = FirebaseDatabase.getInstance().getReference("requests").child(customerName);
             db.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    for (DataSnapshot postSnapshot : snapshot.getChildren()) {
 
                         Request r = postSnapshot.getValue(Request.class);
-                        if (r.getBranchName() == username) {
+                        Log.d("request ", r.toString());
+                        if (r.getBranchName().equals(username) ) {
                             requestsList.add(r);
                             key.add(postSnapshot.getKey());
                         }
@@ -194,29 +198,50 @@ public class EmployeeDealRequest extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 //first loop customer name
                 for (DataSnapshot ds : snapshot.getChildren()) { // loop through children of requests which is customer name
-                    String customer =  ds.getValue().toString();
+                    String customer =  ds.getKey();
+//
+                    DataSnapshot reqs = ds.child(customer);
+                    Log.d("customer Name ", customer);
+                    Log.d("dsCount: ", ""+ds.getChildrenCount());
+                    Log.d("reqs: ", ""+reqs.getKey());
+//                    for (DataSnapshot postSnapshot : reqs.getChildren()) {
+//                        Log.d("in second loop ", "onDataChange: ");
+//                        Request r = postSnapshot.getValue(Request.class);
+//                        Log.d("The request is ", r.toString());
+//                        if (r.getBranchName().equals(username)) {
+//                            requestsList.add(r);
+//                            key.add(postSnapshot.getKey());
+//                        }
+//
+//                    }
 
                     DatabaseReference db = FirebaseDatabase.getInstance().getReference("requests").child(customer);
+                    String val = db.getKey();
+                    Log.d("Database children ", val);
+
                     //nested loop to loop requests that customer have
                     db.addValueEventListener(new ValueEventListener() {
                         @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            Log.d("Before ", " second loop");
+                            for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                                Log.d("in second loop ", "onDataChange: ");
                                 Request r = postSnapshot.getValue(Request.class);
-                                if (r.getBranchName() == username) {
+                                Log.d("The request is ", r.toString());
+                                if (r.getBranchName().equals(username)) {
                                     requestsList.add(r);
                                     key.add(postSnapshot.getKey());
                                 }
-
 
                             }
                         }
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
-
+                            Log.d("here: " , "at cancelled");
                         }
                     });
+                    Log.d("skipped:" , "the second for loop");
                 }
 
             }
