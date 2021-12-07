@@ -23,6 +23,7 @@
                 android:layout_gravity="left"
                 android:layout_marginRight="10dp"
                 android:backgroundTint="#FFFFFF"
+                android:onClick="setLogout"
                 android:text="@string/logoutWelcomePage"
                 android:textColor="#1E1C1C" />
 

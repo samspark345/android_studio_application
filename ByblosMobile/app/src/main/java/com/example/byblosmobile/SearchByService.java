@@ -25,13 +25,10 @@ public class SearchByService extends AppCompatActivity {
     String roleName;
 
     List<String> services;
-    List<String> branchNames;
-    List<String> serviceNames;
 
     ListView listService;
     SearchView searchService;
     DatabaseReference databaseServices;
-    DatabaseReference databaseEmployee;
 
     ArrayAdapter<String> displayView;
 
@@ -47,11 +44,8 @@ public class SearchByService extends AppCompatActivity {
         listService = (ListView) findViewById(R.id.servicelistview);
         searchService = (SearchView) findViewById(R.id.serviceSearchView);
         services = new ArrayList<>();
-        branchNames = new ArrayList<>();
-        serviceNames = new ArrayList<>();
 
-        databaseServices = FirebaseDatabase.getInstance().getReference("users/Employee");
-        //databaseEmployee = FirebaseDatabase.getInstance().getReference("users/Employee");
+        databaseServices = FirebaseDatabase.getInstance().getReference("services");
         getListOfServices();
 
 
@@ -71,23 +65,20 @@ public class SearchByService extends AppCompatActivity {
         listService.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String s = branchNames.get(i);//looping through
-                String serviceName = serviceNames.get(i);
-                showForm(s, serviceName);
+                String s = services.get(i);//looping through
+                pickedService(s);//passing service name
             }
         });
     }
-    //display overall service in system
-    private void showForm(String branchName,String serviceName) {
-        Intent switchToSumbit = new Intent(this, CustomerMakeRequests.class);
-        switchToSumbit.putExtra("username", username);
-        switchToSumbit.putExtra("branchName",branchName);
-        switchToSumbit.putExtra("serviceName",serviceName);
-        startActivity(switchToSumbit);
 
+    private void pickedService(String service) {
+        //show list  service offered by this branch
+        Intent switchToCheck = new Intent(this, CustomerCheckBranches.class);
+        switchToCheck.putExtra("username", username);
+        switchToCheck.putExtra("roleName", roleName);
+        switchToCheck.putExtra("service",service);
+        startActivity(switchToCheck);
     }
-
-
 
     //display all the service offered by system
 
@@ -100,7 +91,6 @@ public class SearchByService extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 showAddress(dataSnapshot);
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) { }
         });
@@ -109,33 +99,9 @@ public class SearchByService extends AppCompatActivity {
 
     private void showAddress(DataSnapshot dataSnapshot) {
         services.clear();
-        branchNames.clear();
-
         for(DataSnapshot ds : dataSnapshot.getChildren()){ // loop through children of Employee
-
-            String s = ds.child("branchName").getValue().toString();
-            //String branchServices = ds.child("branchServices").getChildren();
-            for(DataSnapshot service: ds.child("branchServices").getChildren()){
-                services.add(s+ ": " + service.getValue().toString());
-                branchNames.add(s);
-                serviceNames.add(service.getValue().toString());
-            }
-            // DatabaseReference serviceDatabase = FirebaseDatabase.getInstance().getReference("users/Employee/"+branchServices);
-            // services.add(s+ " " + serviceDatabase.getKey());
-           /* serviceDatabase.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    for(DataSnapshot service : snapshot.getChildren()){
-                        services.add(s+ " " + service.getKey());
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });*/
-
+            String s = ds.child("name").getValue().toString();
+            services.add(s);
         }
 
         displayView = new ArrayAdapter(this, android.R.layout.simple_list_item_1,services);
@@ -150,7 +116,7 @@ public class SearchByService extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot ds : snapshot.getChildren()){ // loop through children of Employee
-                    String s = ds.child("branchName").getValue().toString();
+                    String s = ds.child("name").getValue().toString();
                     services.add(s);
                 }
             }

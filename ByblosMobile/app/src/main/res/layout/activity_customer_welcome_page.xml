@@ -16,16 +16,17 @@
             android:background="#84B4C3"
             android:orientation="vertical">
 
+
             <Button
                 android:id="@+id/button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
+                android:layout_gravity="left"
                 android:layout_marginRight="10dp"
                 android:backgroundTint="#FFFFFF"
+                android:onClick="setToLogout"
                 android:text="@string/logoutWelcomePage"
                 android:textColor="#1E1C1C" />
-
 
             <LinearLayout
                 android:layout_width="fill_parent"

@@ -13,8 +13,8 @@
             android:id="@+id/backToCustomerMain"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Back"
-            android:onClick="backToCustomerMenu"/>
+            android:onClick="backToCustomerMenu"
+            android:text="Back" />
 
         <TextView
             android:id="@+id/textView13"

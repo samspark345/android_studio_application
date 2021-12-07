@@ -76,7 +76,7 @@ public class SearchByWorkingHour extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String a = timeslot.get(i);//looping through
                 String b = branches.get(i);
-                showForm(b);
+                transfer(b);
             }
         });
     }
@@ -107,26 +107,32 @@ public class SearchByWorkingHour extends AppCompatActivity {
     }
     private void showAddress(DataSnapshot dataSnapshot) {
         timeslot.clear();
+        branches.clear();
+
 
         for(DataSnapshot ds : dataSnapshot.getChildren()){ // loop through children of Employee
-            String s = ds.child("branchName").getValue().toString();
+            String s = ds.child("branchUsername").getValue().toString();
             //String branchServices = ds.child("branchServices").getChildren();
             for(DataSnapshot time: ds.child("availability").getChildren()) {
                 String end = time.child("endHour").getValue().toString();
                 String start = time.child("startHour").getValue().toString();
                 String date = time.child("day").getValue().toString();
-                if(Integer.valueOf(end)!=0&&Integer.valueOf(start)!=0){
-                    timeslot.add(date);
+                String display = date + " Start Hour: " + start + " End hour: " + end;
+                if(Integer.valueOf(end)!=0 && Integer.valueOf(start)!=0){
+                    timeslot.add(display);
                     branches.add(s);
+
                 }
 
 
             }
-            for(DataSnapshot service: ds.child("branchServices").getChildren()) {
+
+
+            /*for(DataSnapshot service: ds.child("branchServices").getChildren()) {
                 String serviceName = service.getValue().toString();
                 services.add(serviceName);
 
-            }
+            }*/
 
         }
         displayView = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, timeslot);
@@ -134,7 +140,7 @@ public class SearchByWorkingHour extends AppCompatActivity {
 
     }
 
-    private void showForm(String branchName) {
+    private void transfer(String branchName) {
         Intent switchToSumbit = new Intent(this, CustomerCheckService.class);
         switchToSumbit.putExtra("username", username);
         switchToSumbit.putExtra("branchName",branchName);

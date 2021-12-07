@@ -58,7 +58,7 @@ public class CustomerCheckService extends AppCompatActivity {
 
         branch.setText(branchName);
         databaseRequests = FirebaseDatabase.getInstance().getReference("requests");
-        databaseService = FirebaseDatabase.getInstance().getReference("users/Employee/").child(branchName).child("branchServices");
+        databaseService = FirebaseDatabase.getInstance().getReference("users/Employee").child(branchName).child("branchServices");
         services = new ArrayList<>();
 
         getListOfServices();

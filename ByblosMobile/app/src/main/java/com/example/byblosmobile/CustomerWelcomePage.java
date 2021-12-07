@@ -52,5 +52,12 @@ public class CustomerWelcomePage extends AppCompatActivity{
         startActivity(switchPage);
     }
 
+    public void setToLogout(View view){
+        Intent switchPage = new Intent(this,MainActivity.class);
+        startActivity(switchPage);
+    }
+
+
+
 
 }

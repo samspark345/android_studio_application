@@ -33,9 +33,11 @@ public class CustomerCheckBranches extends AppCompatActivity {
     String service;
 
     DatabaseReference db;
+
     ListView listBranches;
     TextView servicen;
     List<String> branches;
+    List<String> branchesname;
 
 
     @Override
@@ -49,6 +51,7 @@ public class CustomerCheckBranches extends AppCompatActivity {
 
         db = FirebaseDatabase.getInstance().getReference("users").child("Employee");
         branches = new ArrayList<>();
+        branchesname = new ArrayList<>();
         listBranches = (ListView) findViewById(R.id.branches);
         servicen = (TextView)findViewById(R.id.servicena);
 
@@ -89,34 +92,25 @@ public class CustomerCheckBranches extends AppCompatActivity {
     }
     private void showBranches(DataSnapshot dataSnapshot) {
         branches.clear();
+        branchesname.clear();
 
         for(DataSnapshot postSnapshot:dataSnapshot.getChildren()) { // list of branch
 
-            String b = postSnapshot.child("branchName").getValue().toString();
+            String b = postSnapshot.child("branchUsername").getValue().toString();
+            String name = postSnapshot.child("branchName").getValue().toString();
+            for(DataSnapshot branchservice:dataSnapshot.child(b).child("branchServices").getChildren()){
+                String s = branchservice.getValue().toString();
+                if(s.equals(service)){
+                    branchesname.add(name);
 
-            //check whether the branch service has the service
-            DatabaseReference branchService = FirebaseDatabase.getInstance().getReference("users/Employee/" + b).child("branchServices");
-            branchService.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) { //loop the branchservice class
-                        String s = postSnapshot.getValue().toString();
-                        /*if (s == service) {
-                            branches.add(b);
-                            break;
-                        }*/
-                        branches.add(b);
-
-                    }
+                    branches.add(b);
                 }
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
 
-                }
-            });
+
+            }
         }
         //create adapter of branches
-        ArrayAdapter servicesAdapater = new ArrayAdapter(this,android.R.layout.simple_list_item_1, branches);
+        ArrayAdapter servicesAdapater = new ArrayAdapter(this,android.R.layout.simple_list_item_1, branchesname);
 
         listBranches.setAdapter(servicesAdapater);
 

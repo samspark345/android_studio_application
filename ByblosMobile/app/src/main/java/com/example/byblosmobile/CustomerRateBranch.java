@@ -53,6 +53,8 @@ public class CustomerRateBranch extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 sendRate();
+                backToCustomerMenu(view);
+
             }
         });
 
@@ -67,17 +69,9 @@ public class CustomerRateBranch extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "rating can only be 1 to 5!", Toast.LENGTH_LONG).show();
 
         }else {
-           String previousRate =  currBranch.child("rating").toString();
            int currRate = Integer.valueOf(rating);
-           int prevRate = Integer.valueOf(previousRate);
+            currBranch.child("rating").setValue(currRate);
 
-           if(prevRate != 0){
-                int avg =  (prevRate + currRate)/2;
-               currBranch.child("rating").setValue(avg);
-
-           }else{
-               currBranch.child("rating").setValue(currRate);
-           }
 
         }
     }

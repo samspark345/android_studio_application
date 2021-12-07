@@ -45,7 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="165dp"
             android:layout_gravity="center"
-            android:text="⚠️Long click To make requests"
+            android:text="⚠️click To make requests"
             android:textColor="#2E2727"
             android:textSize="16sp"
             android:textStyle="bold" />

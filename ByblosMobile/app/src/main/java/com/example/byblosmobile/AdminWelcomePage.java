@@ -32,6 +32,8 @@ public class AdminWelcomePage extends AppCompatActivity {
     Button addServiceButton;
     Button editServiceButton;
 
+    Button logout;
+
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_welcome_page);
@@ -41,6 +43,7 @@ public class AdminWelcomePage extends AppCompatActivity {
         editServiceButton = (Button)findViewById(R.id.editService);
         deleteBranchButton = (Button)findViewById(R.id.deleteBranch);
         deleteCustomerButton = (Button)findViewById(R.id.deleteCustomer);
+
 
 
         addServiceButton.setOnClickListener(new View.OnClickListener(){ // switch to another UI with Service class
@@ -78,6 +81,11 @@ public class AdminWelcomePage extends AppCompatActivity {
 
     public void switchToDeleteCustomer(View view){
         Intent s = new Intent(this, AdminDeleteCustomerAccount.class);
+        startActivity(s);
+    }
+
+    public void setLogout(View view){
+        Intent s = new Intent(this, MainActivity.class);
         startActivity(s);
     }
 
