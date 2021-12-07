@@ -9,6 +9,7 @@ import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.collection.ArraySet;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -32,8 +33,8 @@ public class CustomerViewRequest extends AppCompatActivity {
     ListView requests;
     DatabaseReference databaseRequests;
 
-    List<Request> customerRequestList;
-    List<String> requestStringFormat;
+    List<String> customerRequestList;
+    List<String> branch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,19 +46,18 @@ public class CustomerViewRequest extends AppCompatActivity {
         this.roleName = intent.getStringExtra("roleName");
 
         requests = (ListView) findViewById(R.id.customerRequestList);
-        databaseRequests = FirebaseDatabase.getInstance().getReference("requests/"+username);//go to the database find customer's name
+        databaseRequests = FirebaseDatabase.getInstance().getReference("requests").child(username);//go to the database find customer's name
         //next child should be the number of the request
 
         customerRequestList = new ArrayList<>();
-        requestStringFormat = new ArrayList<>();
-
+        branch = new ArrayList<>();
+        getListOfRequests();
         requests.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Request r = customerRequestList.get(i);//looping through
-                String rString = requestStringFormat.get(i);
-                String branch = r.getBranchName();
-                rate(branch);
+                String r = customerRequestList.get(i);//looping through
+                String branchn = branch.get(i);
+                rate(branchn);
             }
         });
     }
@@ -66,7 +66,7 @@ public class CustomerViewRequest extends AppCompatActivity {
         Intent switchPage = new Intent(this,CustomerRateBranch.class);
         switchPage.putExtra("username", username);
         switchPage.putExtra("roleName", roleName);
-        switchPage.putExtra("branch",branch);
+        switchPage.putExtra("branchName",branch);
         startActivity(switchPage);
     }
 
@@ -86,21 +86,43 @@ public class CustomerViewRequest extends AppCompatActivity {
     }
 
     private void showCustomerRequests(DataSnapshot dataSnapshot) {
-        getListOfRequests(dataSnapshot);
-        ArrayAdapter show =  new ArrayAdapter(this, android.R.layout.simple_list_item_1,requestStringFormat);
+        customerRequestList.clear();
+        branch.clear();
+
+        for(DataSnapshot ds : dataSnapshot.getChildren()){ // loop through children of customer
+            Request r = ds.getValue(Request.class);
+            String name = ds.child("branchName").getValue().toString();
+            customerRequestList.add(r.toString());
+            branch.add(name);
+        }
+
+
+        ArrayAdapter show =  new ArrayAdapter(this, android.R.layout.simple_list_item_1,customerRequestList);
         requests.setAdapter(show);
     }
 
 
-    private void getListOfRequests(DataSnapshot dataSnapshot) {
+    private void getListOfRequests() {
         customerRequestList.clear();
-        requestStringFormat.clear();
+        branch.clear();
+        databaseRequests.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot ds : snapshot.getChildren()){
+                    Request r = ds.getValue(Request.class);
+                    String name = ds.child("branchName").getValue().toString();
+                    customerRequestList.add(r.toString());
+                    branch.add(name);
+                }
 
-        for(DataSnapshot ds : dataSnapshot.getChildren()){ // loop through children of customer
-            Request r = ds.getValue(Request.class);
-            customerRequestList.add(r);
-            requestStringFormat.add(r.toString());
-        }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 
     public void backToCustomerMenu(View view){

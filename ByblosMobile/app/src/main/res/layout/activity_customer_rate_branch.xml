@@ -49,7 +49,8 @@
 
         <EditText
             android:id="@+id/rate"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Rate from 1 to 5"

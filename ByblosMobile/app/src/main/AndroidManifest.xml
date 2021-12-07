@@ -49,6 +49,7 @@
         <activity android:name=".CustomerMakeRequests"></activity>
         <activity android:name=".CustomerViewRequest"></activity>
         <activity android:name=".CustomerCheckBranches"></activity>
+        <activity android:name=".CustomerRateBranch"></activity>
 
         <activity android:name=".SearchByWorkingHour"></activity>
         <activity android:name=".SearchByAddress"></activity>

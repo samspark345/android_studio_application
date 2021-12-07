@@ -68,7 +68,7 @@ public class EmployeeDealRequest extends AppCompatActivity {
         currBranch = databaseReference.child(username);//stores all the information about the branch
         requestsList = new ArrayList<>();
 
-
+        getListOfRequests();
         listViewRequests.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -161,32 +161,21 @@ public class EmployeeDealRequest extends AppCompatActivity {
     }
 
     private void showRequest(DataSnapshot dataSnapshot) {
-        getListOfRequests(dataSnapshot);
-        ArrayAdapter displayView = new ArrayAdapter(this, android.R.layout.simple_list_item_1,requestsList);
-        listViewRequests.setAdapter(displayView);
-    }
-
-    private void getListOfRequests(DataSnapshot dataSnapshot) {
-        requestsList.clear();
-
-        for(DataSnapshot ds : dataSnapshot.getChildren()){ // loop through children of Employee
-            String customerName = ds.toString();
+        for (DataSnapshot ds : dataSnapshot.getChildren()) { // loop through children of requests which is customer name
+            String customerName = ds.getValue().toString();
             DatabaseReference db = FirebaseDatabase.getInstance().getReference("requests").child(customerName);
-
-            //loop all the timeslot contain in this branch
             db.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    for(DataSnapshot postSnapshot:dataSnapshot.getChildren()) { //loop through all the requests that made by this customer
+                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
 
                         Request r = postSnapshot.getValue(Request.class);
-
-
-                        if (r.getBranchName() == username) { //only the requests SIGN TO this branch
+                        if (r.getBranchName() == username) {
                             requestsList.add(r);
                             key.add(postSnapshot.getKey());
-
                         }
+
+
                     }
                 }
                 @Override
@@ -194,9 +183,51 @@ public class EmployeeDealRequest extends AppCompatActivity {
 
                 }
             });
-        }
 
+            ArrayAdapter displayView = new ArrayAdapter(this, android.R.layout.simple_list_item_1, requestsList);
+            listViewRequests.setAdapter(displayView);
+        }
     }
+    private void getListOfRequests(){
+        databaseRequests.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //first loop customer name
+                for (DataSnapshot ds : snapshot.getChildren()) { // loop through children of requests which is customer name
+                    String customer =  ds.getValue().toString();
+
+                    DatabaseReference db = FirebaseDatabase.getInstance().getReference("requests").child(customer);
+                    //nested loop to loop requests that customer have
+                    db.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+                                Request r = postSnapshot.getValue(Request.class);
+                                if (r.getBranchName() == username) {
+                                    requestsList.add(r);
+                                    key.add(postSnapshot.getKey());
+                                }
+
+
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
 
 
 
