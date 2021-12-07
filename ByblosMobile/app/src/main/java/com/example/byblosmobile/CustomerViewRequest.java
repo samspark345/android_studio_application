@@ -126,7 +126,7 @@ public class CustomerViewRequest extends AppCompatActivity {
     }
 
     public void backToCustomerMenu(View view){
-        Intent switchPage = new Intent(this,CustomerWelcomePage.class);
+        Intent switchPage = new Intent(this,WelcomePage.class);
         switchPage.putExtra("username", username);
         switchPage.putExtra("roleName", roleName);
         startActivity(switchPage);

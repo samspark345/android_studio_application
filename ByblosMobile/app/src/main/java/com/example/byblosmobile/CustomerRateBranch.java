@@ -52,14 +52,13 @@ public class CustomerRateBranch extends AppCompatActivity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sendRate();
-                backToCustomerMenu(view);
+                sendRate(view);
 
             }
         });
 
     }
-    private void sendRate(){
+    public void sendRate(View view){
         String rating = rate.getText().toString();
         //validation
         if (rating.equals("")) {
@@ -74,11 +73,12 @@ public class CustomerRateBranch extends AppCompatActivity {
 
 
         }
+        backToCustomerMenu(view);
     }
 
 
     public void backToCustomerMenu(View view){
-        Intent switchPage = new Intent(this,CustomerWelcomePage.class);
+        Intent switchPage = new Intent(this,CustomerViewRequest.class);
         switchPage.putExtra("username", username);
         switchPage.putExtra("roleName", roleName);
         startActivity(switchPage);
