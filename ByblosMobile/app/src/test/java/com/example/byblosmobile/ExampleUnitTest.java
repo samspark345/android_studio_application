@@ -19,6 +19,38 @@ import static org.hamcrest.CoreMatchers.*;
  */
 @RunWith(MockitoJUnitRunner.class)
 public class ExampleUnitTest {
+
+    @Mock
+    Context mMockContext;
+
+    @Test
+    public void validateLoginValues(){
+        //LoginActivity test = new LoginActivity();
+        boolean test1= LoginActivity.validateUsernameValue("E");
+        boolean test2= LoginActivity.validatePasswordValue("F");
+        assertThat(test1, is(true));
+        assertThat(test2, is(true));
+
+        boolean test3= LoginActivity.validateUsernameValue("");
+        boolean test4= LoginActivity.validatePasswordValue("");
+
+        assertThat(test3, is(false));
+        assertThat(test4, is(false));
+    }
+
+    @Test
+    public void validateRatingValues(){
+        //LoginActivity test = new LoginActivity();
+        String test0= CustomerRateBranch.ratingValueValidation("1");
+        String test1= CustomerRateBranch.ratingValueValidation("E");
+        String test2= CustomerRateBranch.ratingValueValidation("9");
+        String test3= CustomerRateBranch.ratingValueValidation("");
+        assertEquals("Thank you for the feedback😃", test0);
+        assertEquals("rating can only be 1 to 5!", test1);
+        assertEquals("rating can only be 1 to 5!", test2);
+        assertEquals("content require to fill!", test3);
+    }
+
     @Test
     public void serviceClassIsCorrect() {
         Service test = new Service("e","1","req","E");

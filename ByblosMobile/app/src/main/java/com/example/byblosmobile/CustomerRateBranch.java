@@ -77,6 +77,17 @@ public class CustomerRateBranch extends AppCompatActivity {
         backToCustomerMenu(view);
     }
 
+    static String ratingValueValidation(String rating){
+        if (rating.equals("")) {
+            return "content require to fill!";
+        }else if ( !rating.matches("[1-5]+")) {
+            return "rating can only be 1 to 5!";
+
+        }else {
+            return "Thank you for the feedback😃";
+        }
+    }
+
 
     public void backToCustomerMenu(View view){
         Intent switchPage = new Intent(this,CustomerViewRequest.class);

@@ -57,7 +57,19 @@ public class LoginActivity extends AppCompatActivity {
         }else{
             return true;
         }
+    }
 
+    static boolean validateUsernameValue(String username){
+        if(username.isEmpty()){
+            return false;
+        }
+        return true;
+    }
+    static boolean validatePasswordValue(String password){
+        if(password.isEmpty()){
+            return false;
+        }
+        return true;
     }
 
     //Intent switchToWelcome = new Intent(this,WelcomePage.class);
