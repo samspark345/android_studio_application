@@ -167,6 +167,15 @@ public class CustomerMakeRequests extends AppCompatActivity {
         }
 
     }
+    static String serviceRequestValueValidation(String firstName, String lastName, String email, String address, String birthday, String extra){
+        if (firstName.equals("") || lastName.equals("") ||email.equals("") ||address.equals("") || birthday.equals("") ||extra.equals("")) {
+            return "content require to fill!";
+        }else if (!birthday.matches("[0-9 ]+") || !email.matches("^[a-z0-9_.]+@[a-z0-9]+\\.[a-z0-9]+$")||!address.matches("[a-zA-Z0-9 ]+")) {
+            return "Invalid!";
+        }else{
+            return "Request added";
+        }
+    }
 
     public void backToCustomerMenu(View view){
         Intent switchPage = new Intent(this,WelcomePage.class);

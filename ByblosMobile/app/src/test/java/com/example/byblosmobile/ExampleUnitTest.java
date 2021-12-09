@@ -52,6 +52,42 @@ public class ExampleUnitTest {
     }
 
     @Test
+    public void validateServiceRequestValues(){
+        //LoginActivity test = new LoginActivity();
+
+        assertEquals("Request added",
+                CustomerMakeRequests.serviceRequestValueValidation(
+                        "T", "T", "t@t.com", "T", "99", "T"));
+        assertEquals("content require to fill!",
+                CustomerMakeRequests.serviceRequestValueValidation(
+                        "", "T", "t@t.com", "T", "99", "T"));
+        assertEquals("content require to fill!",
+                CustomerMakeRequests.serviceRequestValueValidation(
+                        "T", "", "t@t.com", "T", "99", "T"));
+        assertEquals("content require to fill!",
+                CustomerMakeRequests.serviceRequestValueValidation(
+                        "T", "T", "", "T", "99", "T"));
+        assertEquals("content require to fill!",
+                CustomerMakeRequests.serviceRequestValueValidation(
+                        "T", "T", "t@t.com", "", "99", "T"));
+        assertEquals("content require to fill!",
+                CustomerMakeRequests.serviceRequestValueValidation(
+                        "T", "T", "t@t.com", "T", "", "T"));
+        assertEquals("content require to fill!",
+                CustomerMakeRequests.serviceRequestValueValidation(
+                        "T", "T", "t@t.com", "T", "99", ""));
+        assertEquals("Invalid!",
+                CustomerMakeRequests.serviceRequestValueValidation(
+                        "T", "T", "T", "T", "99", "T"));
+        assertEquals("Invalid!",
+                CustomerMakeRequests.serviceRequestValueValidation(
+                        "T", "T", "t@t.com", "T", "a", "T"));
+        assertEquals("Invalid!",
+                CustomerMakeRequests.serviceRequestValueValidation(
+                        "T", "T", "t@t.com", "T@", "99", "T"));
+    }
+
+    @Test
     public void serviceClassIsCorrect() {
         Service test = new Service("e","1","req","E");
         assertEquals("e RATE: 1", test.toString());
