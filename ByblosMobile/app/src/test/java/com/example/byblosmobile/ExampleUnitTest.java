@@ -115,6 +115,33 @@ public class ExampleUnitTest {
     }
 
     @Test
+    public void validateAdminServiceValuesValues(){
+        //LoginActivity test = new LoginActivity();
+
+        assertEquals("valid",
+                ServiceActivityForAdmin.serviceValueValidation(
+                        "T", "99"));
+        assertEquals("Name cannot just be a number",
+                ServiceActivityForAdmin.serviceValueValidation(
+                        "31", "99"));
+        assertEquals("Name cannot just be a number",
+                ServiceActivityForAdmin.serviceValueValidation(
+                        "-31", "99"));
+        assertEquals("Rate has to be a positive number",
+                ServiceActivityForAdmin.serviceValueValidation(
+                        "T",  "ewafafe"));
+        assertEquals("Rate has to be a positive number",
+                ServiceActivityForAdmin.serviceValueValidation(
+                        "T", "99123fr"));
+        assertEquals("Rate has to be a positive number",
+                ServiceActivityForAdmin.serviceValueValidation(
+                        "T", "-111"));
+        assertEquals("Rate has to be a positive number",
+                ServiceActivityForAdmin.serviceValueValidation(
+                        "T", "23$32"));
+    }
+
+    @Test
     public void serviceClassIsCorrect() {
         Service test = new Service("e","1","req","E");
         assertEquals("e RATE: 1", test.toString());

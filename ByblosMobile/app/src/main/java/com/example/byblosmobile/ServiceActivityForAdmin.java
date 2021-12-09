@@ -232,4 +232,24 @@ public class ServiceActivityForAdmin extends AppCompatActivity {
 
         return true;
     }
+
+    static String serviceValueValidation(String serviceName, String rate){
+        //validation check
+        if(serviceName.trim().matches("-?\\d+")){  // If the name is just a number than error
+            return "Name cannot just be a number";
+        }else if(!rate.trim().matches("^\\d*\\.\\d+|\\d+\\.\\d*|\\d*$")){  // If the price is not a positive number than error
+            return "Rate has to be a positive number";
+        }//else if(info validation){}
+        return "valid";
+    }
+
+    static String addProductValueValidation(String serviceName, String rate, String requiredInfo){
+        //validation check
+        if(requiredInfo.isEmpty()||rate.isEmpty()||serviceName.isEmpty()){  // If the name is just a number than error
+            return "Please enter all required fields";
+        }else if(serviceName.trim().matches("-?\\d+") || !(rate.trim().matches("^\\d*\\.\\d+|\\d+\\.\\d*|\\d*$"))){  // If the price is not a positive number than error
+            return ServiceActivityForAdmin.serviceValueValidation(serviceName, rate);
+        }
+        return "Service added";
+    }
 }
