@@ -88,6 +88,33 @@ public class ExampleUnitTest {
     }
 
     @Test
+    public void validateEmployeeProfileEditValues(){
+        //LoginActivity test = new LoginActivity();
+
+        assertEquals("Success!",
+                EmployeeProfileEdit.employeeProfileValueValidate(
+                        "T", "T", "99"));
+        assertEquals("* content require to fill!",
+                EmployeeProfileEdit.employeeProfileValueValidate(
+                        "", "T", "99"));
+        assertEquals("* content require to fill!",
+                EmployeeProfileEdit.employeeProfileValueValidate(
+                        "T", "", "99"));
+        assertEquals("* content require to fill!",
+                EmployeeProfileEdit.employeeProfileValueValidate(
+                        "T", "T", ""));
+        assertEquals("Phone number can only be 0 to 9, and Address can not include any symbols!",
+                EmployeeProfileEdit.employeeProfileValueValidate(
+                        "T", "T", "99123fr"));
+        assertEquals("Phone number can only be 0 to 9, and Address can not include any symbols!",
+                EmployeeProfileEdit.employeeProfileValueValidate(
+                        "T", "r2332r", "e"));
+        assertEquals("Phone number can only be 0 to 9, and Address can not include any symbols!",
+                EmployeeProfileEdit.employeeProfileValueValidate(
+                        "T", "r23$32r", "9932131"));
+    }
+
+    @Test
     public void serviceClassIsCorrect() {
         Service test = new Service("e","1","req","E");
         assertEquals("e RATE: 1", test.toString());

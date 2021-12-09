@@ -122,7 +122,14 @@ public class EmployeeProfileEdit extends AppCompatActivity {
 
         }
     }
-
+    static String employeeProfileValueValidate(String name, String address, String phoneNumber){
+        if (name.equals("") || address.equals("") ||phoneNumber.equals("")) {
+            return "* content require to fill!";
+        }else if (!address.matches("[a-zA-Z0-9 ]+") || !phoneNumber.matches("[0-9]+")) {
+            return "Phone number can only be 0 to 9, and Address can not include any symbols!";
+        }
+        return "Success!";
+    }
 
 
 }
