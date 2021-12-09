@@ -115,7 +115,7 @@ public class ExampleUnitTest {
     }
 
     @Test
-    public void validateAdminServiceValuesValues(){
+    public void validateAdminServiceValues(){
         //LoginActivity test = new LoginActivity();
 
         assertEquals("valid",
@@ -139,6 +139,42 @@ public class ExampleUnitTest {
         assertEquals("Rate has to be a positive number",
                 ServiceActivityForAdmin.serviceValueValidation(
                         "T", "23$32"));
+    }
+
+    @Test
+    public void validateAdminAddProductValues(){
+        //LoginActivity test = new LoginActivity();
+
+        assertEquals("Service added",
+                ServiceActivityForAdmin.addProductValueValidation(
+                        "T", "99", "x"));
+        assertEquals("Please enter all required fields",
+                ServiceActivityForAdmin.addProductValueValidation(
+                        "", "99", "x"));
+        assertEquals("Please enter all required fields",
+                ServiceActivityForAdmin.addProductValueValidation(
+                        "T", "", "x"));
+        assertEquals("Please enter all required fields",
+                ServiceActivityForAdmin.addProductValueValidation(
+                        "T", "99", ""));
+        assertEquals("Name cannot just be a number",
+                ServiceActivityForAdmin.addProductValueValidation(
+                        "31", "99", "x"));
+        assertEquals("Name cannot just be a number",
+                ServiceActivityForAdmin.addProductValueValidation(
+                        "-31", "99", "x"));
+        assertEquals("Rate has to be a positive number",
+                ServiceActivityForAdmin.addProductValueValidation(
+                        "T",  "ewafafe", "x"));
+        assertEquals("Rate has to be a positive number",
+                ServiceActivityForAdmin.addProductValueValidation(
+                        "T", "99123fr", "x"));
+        assertEquals("Rate has to be a positive number",
+                ServiceActivityForAdmin.addProductValueValidation(
+                        "T", "-111", "x"));
+        assertEquals("Rate has to be a positive number",
+                ServiceActivityForAdmin.addProductValueValidation(
+                        "T", "23$32", "x"));
     }
 
     @Test
