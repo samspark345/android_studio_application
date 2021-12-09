@@ -7,7 +7,7 @@ Project_group 32 Repository Link: https://github.com/SEG2105-uottawa/seg2105f21-
 2. Service Extra info: we used String text to let Admin enter what extra requirements are needed for each service, and the customer will see this extra info, and, based on the text, fill the extra info section. For the basic info,(last name, first name, address, birthday, email) it is automatically required from the customer to provide when customers make service requests. 
 3. Customer side: The customer needs to fill in all the information (basic info and extra info) to submit the request. All the fields have validation. 
 4. From the Admin Account: if the admin wants to delete a service, please enter only the exact service to delete; if the admin wants to edit a service, please enter all the required fields. 
-
+5. All 10 unit tests are in ByblosMobile/app/src/test/java/com/example/byblosmobile/ExampleUnitTest.java/.
 
 # Test account 
 1. **Admin Account**(username: admin, password: admin)
