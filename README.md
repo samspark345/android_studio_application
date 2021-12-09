@@ -11,9 +11,9 @@ Project_group 32 Repository Link: https://github.com/SEG2105-uottawa/seg2105f21-
 
 
 # Test account 
-1. Admin Account(username: admin, password: admin)
-2. Customer Account(username: customer, password: customer)
-3. Employee Account(username: employee, password:employee) 
+1. **Admin Account**(username: admin, password: admin)
+2. **Customer Account**(username: customer, password: customer)
+3. **Employee Account**(username: employee, password:employee) 
 
 
 # Members
