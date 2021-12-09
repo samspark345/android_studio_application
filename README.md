@@ -3,11 +3,10 @@
 Project_group 32 Repository Link: https://github.com/SEG2105-uottawa/seg2105f21-project-project_gr32
 
 # Project Info 
-1. Service Required info: Since all the service required same basic info(last name,first name,address., brithday, email) for customer, we assume that is customer  basic info, and it won't change when they make different service request; so the basic info for service will be stored in customer attribute .The extra info is for the specific service that may have different requirements.
-2. Service Extra info: we used String text to let Admin to enter what extra requirement needed for each service, and customer will see these extra info, and base on the text to fill the extra info section. For the basic info,( last name,first name,address., brithday, email) it automatically required from customer to provide when customer make service requests. 
-3. Customer side: Customer need to fill all the infomation(basic info and extra info) in order to submit the request. All the fleid have validation. 
-4. From the Admin Account: if admin like to delete service, please only enter the exact service to delete; if admin want to edit service, please enter all the required fleid. 
-
+1. Service Required info: Since all the services required the same basic info(last name, first name, address, birthday, email) for a customer, we assume that it is customer basic info, and it won't change when they make different service request. So the basic info for a service will be stored in the customer attribute. The extra info is for the specific service that may have different requirements.
+2. Service Extra info: we used String text to let Admin enter what extra requirements are needed for each service, and the customer will see this extra info, and, based on the text, fill the extra info section. For the basic info,(last name, first name, address, birthday, email) it is automatically required from the customer to provide when customers make service requests. 
+3. Customer side: The customer needs to fill in all the information (basic info and extra info) to submit the request. All the fields have validation. 
+4. From the Admin Account: if the admin wants to delete a service, please enter only the exact service to delete; if the admin wants to edit a service, please enter all the required fields. 
 
 
 # Test account 
